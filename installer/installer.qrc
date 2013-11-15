@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>eb_back_small.png</file>
-        <file>favicon.ico</file>
         <file>background.jpg</file>
+        <file>favicon.ico</file>
     </qresource>
 </RCC>

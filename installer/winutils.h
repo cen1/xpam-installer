@@ -39,9 +39,9 @@ using std::string;
 class Winutils
 {
 public:
-    QString getProgramFiles();
-    QString getFileVersion(QString filename);
-    QString getFileLang(QString filename);
+    static QString getProgramFiles();
+    static QString getFileVersion(QString filename);
+    static QString getFileLang(QString filename);
     Winutils();
 };
 

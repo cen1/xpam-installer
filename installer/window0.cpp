@@ -31,10 +31,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "registry.h"
 #include "winutils.h"
 #include "install.h"
+#include "config.h"
+
+bool failedInstall=false;
 
 QThread *ithread = new QThread();
 Install *install = new Install();
-Winutils *wu = new Winutils();
+Config *config = new Config();
 
 Window0::Window0(QWidget *parent) :
     QMainWindow(parent),
@@ -48,13 +51,13 @@ Window0::~Window0()
     delete ui;
 }
 
-//First next button
+//First next button, welcome screen
 void Window0::on_nextButton_1_clicked()
 {
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
 }
 
-//Second next button
+//Second next button, system paths
 void Window0::on_nextButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
@@ -69,12 +72,12 @@ void Window0::on_nextButton_2_clicked()
         }
         else
         {
-            ui->lineEdit->setText(wu->getProgramFiles()+"\\Warcraft III");
+            ui->lineEdit->setText(Winutils::getProgramFiles()+"\\Warcraft III");
         }
     }
     //client path
     if (ui->lineEdit_2->text() == ""){
-        QString pf = wu->getProgramFiles();
+        QString pf = Winutils::getProgramFiles();
         if (pf != "")
         {
             ui->lineEdit_2->setText(pf+"\\Eurobattle");
@@ -134,11 +137,12 @@ void Window0::on_nextButton_3_clicked()
     }
     else
     {
+        config->W3PATH = ui->lineEdit->text();
+        config->EUROPATH = ui->lineEdit_2->text();
         ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
     }
 
-    install->setw3path(ui->lineEdit->text());
-    install->seteuropath(ui->lineEdit_2->text());
+    install->config = config;
 
     QObject::connect(this, SIGNAL(startInstall()), install, SLOT(startInstall()));
     QObject::connect(this, SIGNAL(abortInstall()), install, SLOT(abortInstall()));
@@ -148,21 +152,22 @@ void Window0::on_nextButton_3_clicked()
     install->moveToThread(ithread);
     ithread->start();
     emit startInstall();
-
-    QString war3exe = ui->lineEdit->text()+"\\Frozen Throne.exe";
-    ui->textBrowser_2->append(wu->getFileLang(war3exe));
 }
 
 //Next after installation
 void Window0::on_nextButton_4_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
+    if (failedInstall) ui->stackedWidget->setCurrentIndex(5);
+    else ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
 }
 
 //Cancel aka abort installation
 void Window0::on_pushButton_4_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
+    system("taskkill /im cmd.exe");
+    install->isAbort=true;
+    emit abortInstall();
+    failedInstall=true;
 }
 
 //When something goes wrong

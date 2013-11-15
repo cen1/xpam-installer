@@ -424,7 +424,7 @@ Happy gaming!</string>
        </rect>
       </property>
       <property name="text">
-       <string>Installation failed. Reason:</string>
+       <string>Installation failed.</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">

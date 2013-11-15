@@ -16,12 +16,19 @@ SOURCES += main.cpp\
         window0.cpp \
     registry.cpp \
     winutils.cpp \
-    install.cpp
+    bnftp.cpp \
+    install.cpp \
+    mpq.cpp \
+    config.cpp
+
 
 HEADERS  += window0.h \
     registry.h \
     winutils.h \
-    install.h
+    bnftp.h \
+    install.h \
+    config.h \
+    mpq.h
 
 FORMS    += window0.ui
 
@@ -31,3 +38,10 @@ RESOURCES += \
 DEFINES += _CRT_SECURE_NO_WARNINGS
 
 LIBS += version.lib
+
+win32: LIBS += -L$$PWD/ -lStormLib
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+
+win32: PRE_TARGETDEPS += $$PWD/StormLib.lib

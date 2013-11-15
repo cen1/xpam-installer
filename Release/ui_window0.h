@@ -260,7 +260,7 @@ public:
 "eurobattle.net<br /><br /><br />\n"
 "Happy gaming!", 0));
         pushButton_3->setText(QApplication::translate("Window0", "Finish", 0));
-        label_5->setText(QApplication::translate("Window0", "Installation failed. Reason:", 0));
+        label_5->setText(QApplication::translate("Window0", "Installation failed.", 0));
         label_6->setText(QString());
         pushButton_5->setText(QApplication::translate("Window0", "Finish", 0));
     } // retranslateUi

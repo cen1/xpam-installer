@@ -23,6 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#pragma warning(disable: 4995)
 #include "winutils.h"
 #ifndef WINDOWS_H
     #include <windows.h>
@@ -81,12 +82,28 @@ QString Winutils::getFileVersion(QString filename)
                         int build = verInfo->dwFileVersionLS;
                         TCHAR buffer[255];
                         wsprintf(buffer, _T("%d.%d.%d.%d"), major, minor, revision, build);
+                        delete[] verData;
                         return QString::fromWCharArray(buffer);
                     }
+                    else {
+                        return "-5";
+                    }
+                }
+                else {
+                    return "-4";
                 }
             }
+            else {
+                return "-3";
+            }
         }
-        delete[] verData;
+        else {
+            delete[] verData;
+            return "-2";
+        }
+    }
+    else {
+        return "-1";
     }
 }
 
@@ -95,7 +112,7 @@ QString Winutils::getFileLang(QString filename)
 {
     DWORD  verHandle = NULL;
     UINT   size      = 0;
-    LPBYTE lpBuffer  = NULL;
+    //LPBYTE lpBuffer  = NULL;
     TCHAR t[MAX_PATH];
     filename.toWCharArray(t);
 
@@ -118,11 +135,24 @@ QString Winutils::getFileLang(QString filename)
                 {
                     TCHAR c[255];
                     wsprintf(c, _T("%d"), lpTranslate[0].wLanguage);
+                    delete[] verData;
                     return QString::fromWCharArray(c);
                 }
+                else {
+                    return "";
+                }
+            }
+            else {
+                return "";
             }
         }
-        delete[] verData;
+        else {
+            delete[] verData;
+            return "";
+        }
+    }
+    else {
+        return "";
     }
 }
 

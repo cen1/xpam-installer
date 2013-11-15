@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define INSTALL_H
 
 #include <QObject>
+#include "config.h"
 
 class Install : public QObject
 {
@@ -35,11 +36,12 @@ signals:
     void sendInfo(QString info);
     void setValue(int val);
     void finished(bool a);
+    void startDl(QString cmd);
 public slots:
     void startInstall();
     void abortInstall();
 private:
-    void updateW3();
+    bool updateW3();
     void updateMPQ();
     void applyLoaders();
     void updateGateways();
@@ -51,13 +53,10 @@ private:
     void rupdateGateways();
     void rinstallEurobattle();
 
-    bool isAbort;
-    QString w3path;
-    QString europath;
 public:
+    Config * config;
     Install();
-    void setw3path(QString w3path);
-    void seteuropath(QString europath);
+    bool isAbort;
 };
 
 #endif // WORKERTHREAD_H

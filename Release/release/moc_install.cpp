@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Install_t {
-    QByteArrayData data[10];
-    char stringdata[74];
+    QByteArrayData data[12];
+    char stringdata[86];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,11 +37,14 @@ QT_MOC_LITERAL(4, 23, 8),
 QT_MOC_LITERAL(5, 32, 3),
 QT_MOC_LITERAL(6, 36, 8),
 QT_MOC_LITERAL(7, 45, 1),
-QT_MOC_LITERAL(8, 47, 12),
-QT_MOC_LITERAL(9, 60, 12)
+QT_MOC_LITERAL(8, 47, 7),
+QT_MOC_LITERAL(9, 55, 3),
+QT_MOC_LITERAL(10, 59, 12),
+QT_MOC_LITERAL(11, 72, 12)
     },
     "Install\0sendInfo\0\0info\0setValue\0val\0"
-    "finished\0a\0startInstall\0abortInstall\0"
+    "finished\0a\0startDl\0cmd\0startInstall\0"
+    "abortInstall\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,26 +54,28 @@ static const uint qt_meta_data_Install[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x05,
-       4,    1,   42,    2, 0x05,
-       6,    1,   45,    2, 0x05,
+       1,    1,   44,    2, 0x05,
+       4,    1,   47,    2, 0x05,
+       6,    1,   50,    2, 0x05,
+       8,    1,   53,    2, 0x05,
 
  // slots: name, argc, parameters, tag, flags
-       8,    0,   48,    2, 0x0a,
-       9,    0,   49,    2, 0x0a,
+      10,    0,   56,    2, 0x0a,
+      11,    0,   57,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void, QMetaType::Int,    5,
     QMetaType::Void, QMetaType::Bool,    7,
+    QMetaType::Void, QMetaType::QString,    9,
 
  // slots: parameters
     QMetaType::Void,
@@ -87,8 +92,9 @@ void Install::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 0: _t->sendInfo((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 1: _t->setValue((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->finished((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 3: _t->startInstall(); break;
-        case 4: _t->abortInstall(); break;
+        case 3: _t->startDl((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->startInstall(); break;
+        case 5: _t->abortInstall(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -110,6 +116,12 @@ void Install::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
             typedef void (Install::*_t)(bool );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Install::finished)) {
                 *result = 2;
+            }
+        }
+        {
+            typedef void (Install::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Install::startDl)) {
+                *result = 3;
             }
         }
     }
@@ -140,13 +152,13 @@ int Install::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }
@@ -170,5 +182,12 @@ void Install::finished(bool _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void Install::startDl(QString _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_END_MOC_NAMESPACE
