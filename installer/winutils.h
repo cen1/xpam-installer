@@ -26,23 +26,160 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef WINUTILS_H
 #define WINUTILS_H
 
-#ifndef STRING_H
-    #include <string>
-#endif
+#pragma warning(disable: 4995)
+
 #ifndef QSTRING_H
     #include <QString>
 #endif
+#ifndef WINDOWS_H
+    #include <windows.h>
+#endif
+#ifndef _SHLOBJ_H_
+    #include "Shlobj.h"
+#endif
+#ifndef __ATLBASE_H__
+    #include <atlbase.h>
+#endif
+#ifndef __ATLSTR_H__
+    #include <atlstr.h>
+#endif
+#ifndef _STRSAFE_H_INCLUDED_
+    #include <strsafe.h>
+#endif
+#ifndef UTIL_H
+    #include "util.h"
+#endif
 
-using std::wstring;
-using std::string;
 
-class Winutils
+namespace Winutils
 {
-public:
-    static QString getProgramFiles();
-    static QString getFileVersion(QString filename);
-    static QString getFileLang(QString filename);
-    Winutils();
-};
+    inline QString getProgramFiles()
+    {
+        TCHAR szPath[MAX_PATH];
+        if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILESX86, NULL, 0, szPath)))
+        {
+            return QString::fromWCharArray(szPath);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    inline QString getDesktop()
+    {
+        TCHAR szPath[MAX_PATH];
+        if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_DESKTOP, NULL, 0, szPath)))
+        {
+            return QString::fromWCharArray(szPath);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    inline QString getFileVersion(QString filename)
+    {
+        DWORD verHandle=NULL;
+        UINT size=0;
+        LPBYTE lpBuffer=NULL;
+        TCHAR t[MAX_PATH];
+        filename.toWCharArray(t);
+        DWORD verSize=GetFileVersionInfoSize(t, &verHandle);
+
+        if (verSize != NULL)
+        {
+            LPSTR verData = new char[verSize];
+
+            if (GetFileVersionInfo( t, verHandle, verSize, verData))
+            {
+                if (VerQueryValue(verData, _T("\\"), (VOID FAR* FAR*)&lpBuffer,&size))
+                {
+                    if (size)
+                    {
+                        VS_FIXEDFILEINFO *verInfo = (VS_FIXEDFILEINFO *)lpBuffer;
+                        if (verInfo->dwSignature == 0xfeef04bd)
+                        {
+                            int major = HIWORD(verInfo->dwFileVersionMS);
+                            int minor = LOWORD(verInfo->dwFileVersionMS);
+                            int revision = HIWORD(verInfo->dwProductVersionLS);
+                            int build = verInfo->dwFileVersionLS;
+                            TCHAR buffer[255];
+                            wsprintf(buffer, _T("%d.%d.%d.%d"), major, minor, revision, build);
+                            delete[] verData;
+                            return QString::fromWCharArray(buffer);
+                        }
+                        else {
+                            return "ERROR 5: "+Util::getLastErrorMsg()+" -- "+filename;
+                        }
+                    }
+                    else {
+                        return "ERROR 4: "+Util::getLastErrorMsg()+" -- "+filename;
+                    }
+                }
+                else {
+                    return "ERROR 3: "+Util::getLastErrorMsg()+" -- "+filename;
+                }
+            }
+            else {
+                delete[] verData;
+                return "ERROR 2: "+Util::getLastErrorMsg()+" -- "+filename;
+            }
+        }
+        else {
+            return "ERROR 1: "+Util::getLastErrorMsg()+" -- "+filename;
+        }
+    }
+
+
+    inline QString getFileLang(QString filename)
+    {
+        DWORD  verHandle = NULL;
+        UINT   size      = 0;
+        //LPBYTE lpBuffer  = NULL;
+        TCHAR t[MAX_PATH];
+        filename.toWCharArray(t);
+
+        DWORD  verSize   = GetFileVersionInfoSize( t, &verHandle);
+
+        struct LANGANDCODEPAGE {
+          WORD wLanguage;
+          WORD wCodePage;
+        } *lpTranslate;
+
+        if (verSize != NULL)
+        {
+            LPSTR verData = new char[verSize];
+
+            if (GetFileVersionInfo( t, verHandle, verSize, verData))
+            {
+                if (VerQueryValue(verData, _T("\\VarFileInfo\\Translation"), (LPVOID*)&lpTranslate, &size))
+                {
+                    if (size)
+                    {
+                        TCHAR c[255];
+                        wsprintf(c, _T("%d"), lpTranslate[0].wLanguage);
+                        delete[] verData;
+                        return QString::fromWCharArray(c);
+                    }
+                    else {
+                        return "";
+                    }
+                }
+                else {
+                    return "";
+                }
+            }
+            else {
+                delete[] verData;
+                return "";
+            }
+        }
+        else {
+            return "";
+        }
+    }
+}
 
 #endif // WINUTILS_H

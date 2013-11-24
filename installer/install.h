@@ -42,16 +42,18 @@ public slots:
     void abortInstall();
 private:
     bool updateW3();
-    void updateMPQ();
-    void applyLoaders();
-    void updateGateways();
-    void installEurobattle();
+    bool updateMPQ();
+    bool extractFiles();
+    bool updateGateways();
+    bool finish();
+    bool bnftp(QString langid);
+    bool bnupdate(QString langid);
 
-    void rupdateW3();
-    void rupdateMPQ();
-    void rapplyLoaders();
-    void rupdateGateways();
-    void rinstallEurobattle();
+    bool rupdateW3();
+    bool rupdateMPQ();
+    bool rextractFiles();
+    bool rupdateGateways();
+    bool rfinish();
 
 public:
     Config * config;

@@ -48,6 +48,7 @@ public:
     QPushButton *pushButton;
     QLineEdit *lineEdit_2;
     QPushButton *pushButton_2;
+    QLabel *errlabel_1;
     QWidget *page_4;
     QProgressBar *progressBar;
     QPushButton *nextButton_4;
@@ -148,6 +149,10 @@ public:
         pushButton_2 = new QPushButton(page_3);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
         pushButton_2->setGeometry(QRect(410, 210, 75, 23));
+        errlabel_1 = new QLabel(page_3);
+        errlabel_1->setObjectName(QStringLiteral("errlabel_1"));
+        errlabel_1->setGeometry(QRect(20, 280, 461, 16));
+        errlabel_1->setStyleSheet(QStringLiteral(""));
         stackedWidget->addWidget(page_3);
         page_4 = new QWidget();
         page_4->setObjectName(QStringLiteral("page_4"));
@@ -160,7 +165,7 @@ public:
         progressBar->setStyleSheet(QLatin1String("#progressBar {\n"
 "	color:white;\n"
 "}"));
-        progressBar->setValue(24);
+        progressBar->setValue(0);
         nextButton_4 = new QPushButton(page_4);
         nextButton_4->setObjectName(QStringLiteral("nextButton_4"));
         nextButton_4->setEnabled(false);
@@ -247,6 +252,7 @@ public:
         label_3->setText(QApplication::translate("Window0", "Where to install Eurobattle.net Client?", 0));
         pushButton->setText(QApplication::translate("Window0", "Open", 0));
         pushButton_2->setText(QApplication::translate("Window0", "Open", 0));
+        errlabel_1->setText(QString());
         nextButton_4->setText(QApplication::translate("Window0", "Next", 0));
         pushButton_4->setText(QApplication::translate("Window0", "Cancel", 0));
         label_4->setText(QApplication::translate("Window0", "Installation successfull.<br /><br />\n"
@@ -254,7 +260,7 @@ public:
 "eurobattle.net<br /><br /><br />\n"
 "Happy gaming!", 0));
         pushButton_3->setText(QApplication::translate("Window0", "Finish", 0));
-        label_5->setText(QApplication::translate("Window0", "Installation failed. Reason:", 0));
+        label_5->setText(QApplication::translate("Window0", "Installation failed.", 0));
         label_6->setText(QString());
         pushButton_5->setText(QApplication::translate("Window0", "Finish", 0));
     } // retranslateUi

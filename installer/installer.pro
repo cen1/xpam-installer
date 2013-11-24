@@ -15,7 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         window0.cpp \
     registry.cpp \
-    winutils.cpp \
     bnftp.cpp \
     install.cpp \
     mpq.cpp \
@@ -28,7 +27,10 @@ HEADERS  += window0.h \
     bnftp.h \
     install.h \
     config.h \
-    mpq.h
+    mpq.h \
+    util.h \
+    storm.h \
+    winutils.h
 
 FORMS    += window0.ui
 

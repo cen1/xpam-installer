@@ -25,30 +25,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "mpq.h"
 #include "StormLib.h"
-#include "QMessageBox"
-#include "iostream"
-#include "fstream"
-
-QString getLastErrorMsg() {
-    LPWSTR bufPtr = NULL;
-    DWORD err = GetLastError();
-    FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER |
-                   FORMAT_MESSAGE_FROM_SYSTEM |
-                   FORMAT_MESSAGE_IGNORE_INSERTS,
-                   NULL, err, 0, (LPWSTR)&bufPtr, 0, NULL);
-    const QString result =
-        (bufPtr) ? QString::fromUtf16((const ushort*)bufPtr).trimmed() :
-                   QString("Unknown Error %1").arg(err);
-    LocalFree(bufPtr);
-    return result;
-}
+#include "util.h"
 
 Mpq::Mpq(){
 
 }
 
-int Mpq::open(QString file){
-    QByteArray ba = file.toLocal8Bit();
+int Mpq::open(QString filename){
+    QByteArray ba = filename.toLocal8Bit();
     const char *c_str = ba.data();
     return SFileOpenArchive(c_str, 0, 0, &(this->hMpq));
 }
@@ -58,16 +42,12 @@ bool Mpq::flush(){
 }
 
 bool Mpq::close() {
-    //close file handles first
-    SFileCloseFile(this->hOpenFile);
-
     return SFileCloseArchive(this->hMpq);
 }
 
 bool Mpq::openFile(QString filename) {
     QByteArray ba = filename.toLocal8Bit();
     const char *c_str = ba.data();
-
     return SFileOpenFileEx(this->hMpq, c_str, 0, &(this->hOpenFile));
 }
 
@@ -92,18 +72,13 @@ QString Mpq::readFileToString() {
     char  szBuffer[1];
     DWORD dwBytes = 1;
     QString content = "";
-    std::ofstream out;
-    out.open("stderr.txt");
-    DWORD bread=0;
     while(dwBytes > 0)
     {
         SFileReadFile(this->hOpenFile, szBuffer, sizeof(szBuffer), &dwBytes, NULL);
         if(dwBytes > 0) {
-            bread+=dwBytes;
             content = content+QString::fromLocal8Bit(szBuffer, 1);
         }
     }
-    out << bread;
     return content;
 }
 
@@ -119,29 +94,25 @@ QString Mpq::getFileName() {
     else return "";
 }
 
-bool Mpq::createFileFromLocal(QString name, DWORD filesize) {
-    QByteArray ba = name.toLocal8Bit();
+bool Mpq::createFile(QString filename, DWORD filesize) {
+    QByteArray ba = filename.toLocal8Bit();
     const char *c_str = ba.data();
-
-    return SFileCreateFile(this->hMpq, c_str, 0, filesize, SFileGetLocale(), MPQ_FILE_COMPRESS, &(this->hOpenFile));
+    return SFileCreateFile(this->hMpq, c_str, 0, filesize, SFileGetLocale(), MPQ_FILE_REPLACEEXISTING, &(this->hOpenFile));
 }
 
-bool Mpq::createFileFromMpq(Mpq * mpq) {
-    QByteArray ba = mpq->getFileName().toLocal8Bit();
-    const char *c_str = ba.data();
-
-    return SFileCreateFile(this->hMpq, c_str, 0, mpq->getFileSize(), SFileGetLocale(), NULL, &(this->hOpenFile));
-}
-
-bool  Mpq::writeFile(void * data, DWORD size) {
-    return SFileWriteFile(this->hOpenFile, &data, size, MPQ_FILE_COMPRESS);
+bool  Mpq::writeFile(QByteArray ba) {
+    return SFileWriteFile(this->hOpenFile, ba.constData(), (DWORD)ba.size(), NULL);
 }
 
 bool Mpq::finishWriteFile() {
     return SFileFinishFile(this->hOpenFile);
 }
 
+bool Mpq::removeFile(QString filename) {
+    QByteArray ba = filename.toLocal8Bit();
+    const char *c_str = ba.data();
 
-
+    return SFileRemoveFile(this->hMpq, c_str, 0);
+}
 
 

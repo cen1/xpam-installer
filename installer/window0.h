@@ -27,6 +27,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define WINDOW0_H
 
 #include <QMainWindow>
+#ifndef REGISTRY_H
+    #include "registry.h"
+#endif
 
 namespace Ui {
 class Window0;

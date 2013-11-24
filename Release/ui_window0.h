@@ -220,7 +220,7 @@ public:
 "<body style=\" font-size:10pt;\">\n"
 "Welcome to eurobattle.net installer<br /><br />\n"
 "This program will install:<br />\n"
-"-Warcraft III 1.26a<br />\n"
+"-Warcraft III 1.26a patch update (if necessary)<br />\n"
 "-W3 loader<br />\n"
 "-Eurobattle.net Client<br />\n"
 "-Eurobattle.net custom GProxy<br />\n"

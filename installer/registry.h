@@ -26,25 +26,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef REGISTRY_H
 #define REGISTRY_H
 
-#ifndef STRING_H
-    #include <string>
-#endif
 #ifndef WINDOWS_H
     #include <windows.h>
 #endif
 #ifndef __ATLBASE_H__
     #include <atlbase.h>
 #endif
-
-using std::wstring;
+#ifndef QSTRING_H
+    #include <QString>
+#endif
 
 class Registry {
 public:
-    wstring getInstallPath();
-    wstring DWORD2STR(DWORD d);
-    wstring getRegString(CRegKey reg, wstring name);
-    DWORD getRegDWORD(CRegKey reg, wstring name);
-    bool setRegString(CRegKey reg, wstring name, wstring value);
+    QString getInstallPath();
+    QString getW3dir();
+    QString getEuroPath();
+    QString getRegString(CRegKey * reg, QString name);
+    DWORD getRegDWORD(CRegKey reg, QString name);
+    bool setRegString(CRegKey reg, QString name, QString value);
+    DWORD setGateways();
     Registry();
 };
 

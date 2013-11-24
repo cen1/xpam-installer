@@ -1,8 +1,0 @@
-Connected to the ftp server
-Sending ARCH/CTAG info
-Requesting info
-name: W3XP_IX86_1xx_126A_enUS.mpq
-changed: 2011 Mar 21 19:58:42
-length: 58550125
-Saving to W3XP_IX86_1xx_126A_enUS.mpq
-...

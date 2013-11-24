@@ -36,7 +36,7 @@ public:
     HANDLE hMpq;
     HANDLE hOpenFile;
 
-    int open(QString file);
+    int open(QString filename);
     bool flush();
     bool close();
     bool openFile(QString filename);
@@ -45,10 +45,10 @@ public:
     QString readFileToString();
     bool closeFile();
     QString getFileName();
-    bool createFileFromLocal(QString name, DWORD filesize);
-    bool createFileFromMpq(Mpq * mpq);
-    bool writeFile(void * data, DWORD size);
+    bool createFile(QString filename, DWORD filesize);
+    bool writeFile(QByteArray ba);
     bool finishWriteFile();
+    bool removeFile(QString filename);
 
     Mpq();
 };

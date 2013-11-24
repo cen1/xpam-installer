@@ -23,17 +23,14 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "winutils.h"
 #include <QFileDialog>
 #include <QThread>
 #include "window0.h"
 #include "ui_window0.h"
 
-#include "registry.h"
-#include "winutils.h"
 #include "install.h"
 #include "config.h"
-
-bool failedInstall=false;
 
 QThread *ithread = new QThread();
 Install *install = new Install();
@@ -65,7 +62,7 @@ void Window0::on_nextButton_2_clicked()
     if (ui->lineEdit->text() == "")
     {
         Registry reg;
-        QString w3dir = QString::fromStdWString(reg.getInstallPath());
+        QString w3dir = reg.getInstallPath();
         if (w3dir != "")
         {
             ui->lineEdit->setText(w3dir);
@@ -80,7 +77,7 @@ void Window0::on_nextButton_2_clicked()
         QString pf = Winutils::getProgramFiles();
         if (pf != "")
         {
-            ui->lineEdit_2->setText(pf+"\\Eurobattle");
+            ui->lineEdit_2->setText(pf+"\\Eurobattle.net");
         }
     }
 
@@ -125,7 +122,7 @@ void Window0::on_pushButton_3_clicked()
 //Install button
 void Window0::on_nextButton_3_clicked()
 {
-    QString basepath = ui->lineEdit_2->text().replace(QString("\\Eurobattle"), QString(""));
+    QString basepath = ui->lineEdit_2->text().replace(QString("\\Eurobattle.net"), QString(""));
     //1. Check if paths exist
     if (!QDir(ui->lineEdit->text()).exists())
     {
@@ -137,37 +134,51 @@ void Window0::on_nextButton_3_clicked()
     }
     else
     {
+
         config->W3PATH = ui->lineEdit->text();
         config->EUROPATH = ui->lineEdit_2->text();
-        ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
+        if (config->W3PATH.endsWith('\\') || config->W3PATH.endsWith('/')) config->W3PATH.remove(config->W3PATH.length()-1, 1);
+        if (config->EUROPATH.endsWith('\\') || config->EUROPATH.endsWith('/')) config->EUROPATH.remove(config->EUROPATH.length()-1, 1);
+
+        install->config = config;
+
+        //set registry keys
+        Registry reg;
+        CRegKey rkey;
+        if (rkey.Open(HKEY_CURRENT_USER, _T("Software\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
+            reg.setRegString(rkey, "europath", config->EUROPATH);
+            reg.setRegString(rkey, "w3dir", config->W3PATH);
+            rkey.Close();
+
+            QObject::connect(this, SIGNAL(startInstall()), install, SLOT(startInstall()));
+            QObject::connect(this, SIGNAL(abortInstall()), install, SLOT(abortInstall()));
+            QObject::connect(install, SIGNAL(sendInfo(QString)), ui->textBrowser_2, SLOT(append(QString)), Qt::QueuedConnection);
+            QObject::connect(install, SIGNAL(finished(bool)), ui->nextButton_4, SLOT(setEnabled(bool)), Qt::QueuedConnection);
+            QObject::connect(install, SIGNAL(setValue(int)), ui->progressBar, SLOT(setValue(int)), Qt::QueuedConnection);
+            install->moveToThread(ithread);
+            ithread->start();
+            emit startInstall();
+
+            ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
+        }
+        else {
+            ui->errlabel_1->setText("Error: Could not write to Eurobattle.net registry");
+        }
     }
-
-    install->config = config;
-
-    QObject::connect(this, SIGNAL(startInstall()), install, SLOT(startInstall()));
-    QObject::connect(this, SIGNAL(abortInstall()), install, SLOT(abortInstall()));
-    QObject::connect(install, SIGNAL(sendInfo(QString)), ui->textBrowser_2, SLOT(append(QString)), Qt::QueuedConnection);
-    QObject::connect(install, SIGNAL(finished(bool)), ui->nextButton_4, SLOT(setEnabled(bool)), Qt::QueuedConnection);
-    QObject::connect(install, SIGNAL(setValue(int)), ui->progressBar, SLOT(setValue(int)), Qt::QueuedConnection);
-    install->moveToThread(ithread);
-    ithread->start();
-    emit startInstall();
 }
 
 //Next after installation
 void Window0::on_nextButton_4_clicked()
 {
-    if (failedInstall) ui->stackedWidget->setCurrentIndex(5);
+    if (install->isAbort) ui->stackedWidget->setCurrentIndex(5);
     else ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
 }
 
 //Cancel aka abort installation
 void Window0::on_pushButton_4_clicked()
 {
-    system("taskkill /im cmd.exe");
     install->isAbort=true;
     emit abortInstall();
-    failedInstall=true;
 }
 
 //When something goes wrong

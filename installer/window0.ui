@@ -91,7 +91,7 @@ QLabel {
 &lt;body style=&quot; font-size:10pt;&quot;&gt;
 Welcome to eurobattle.net installer&lt;br /&gt;&lt;br /&gt;
 This program will install:&lt;br /&gt;
--Warcraft III 1.26a&lt;br /&gt;
+-Warcraft III 1.26a patch update (if necessary)&lt;br /&gt;
 -W3 loader&lt;br /&gt;
 -Eurobattle.net Client&lt;br /&gt;
 -Eurobattle.net custom GProxy&lt;br /&gt;

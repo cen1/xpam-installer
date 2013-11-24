@@ -1,0 +1,4 @@
+m w3l.exe W3DIR
+m w3lh.dll W3DIR
+m xpam.exe EURODIR
+m gproxy.exe EURODIR
