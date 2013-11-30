@@ -58,6 +58,7 @@ void Window0::on_nextButton_1_clicked()
 void Window0::on_nextButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
+
     //w3 path
     if (ui->lineEdit->text() == "")
     {
@@ -69,7 +70,12 @@ void Window0::on_nextButton_2_clicked()
         }
         else
         {
-            ui->lineEdit->setText(Winutils::getProgramFiles()+"\\Warcraft III");
+            ui->errlabel_2->setText("Info: "+Util::getLastErrorMsg());
+            w3dir=Winutils::getProgramFiles();
+            if (w3dir!="") {
+                ui->lineEdit->setText(w3dir+"\\Warcraft III");
+            }
+            else ui->errlabel_1->setText("Info: "+Util::getLastErrorMsg());
         }
     }
     //client path
@@ -79,6 +85,7 @@ void Window0::on_nextButton_2_clicked()
         {
             ui->lineEdit_2->setText(pf+"\\Eurobattle.net");
         }
+        else ui->errlabel_3->setText("Info: "+Util::getLastErrorMsg());
     }
 
 }
@@ -98,7 +105,7 @@ void Window0::on_pushButton_2_clicked()
     const QString path = QFileDialog::getExistingDirectory(this);
     QString p = path;
     p=p.replace(QChar('/'), QChar('\\'));
-    ui->lineEdit_2->setText(p+"\\Eurobattle");
+    ui->lineEdit_2->setText(p+"\\Eurobattle.net");
 }
 
 //First back button
@@ -144,12 +151,15 @@ void Window0::on_nextButton_3_clicked()
 
         //set registry keys
         Registry reg;
-        CRegKey rkey;
-        if (rkey.Open(HKEY_CURRENT_USER, _T("Software\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
-            reg.setRegString(rkey, "europath", config->EUROPATH);
-            reg.setRegString(rkey, "w3dir", config->W3PATH);
-            rkey.Close();
+        reg.createEuroKey(); //we don't really care if this fails
 
+        if (!reg.setEuropath(config->EUROPATH)) {
+            ui->errlabel_1->setText("Eurobattle path registry error: "+Util::getLastErrorMsg());
+        }
+        else if (!reg.setW3dir(config->W3PATH)) {
+            ui->errlabel_1->setText("W3dir registry error: "+Util::getLastErrorMsg());
+        }
+        else {
             QObject::connect(this, SIGNAL(startInstall()), install, SLOT(startInstall()));
             QObject::connect(this, SIGNAL(abortInstall()), install, SLOT(abortInstall()));
             QObject::connect(install, SIGNAL(sendInfo(QString)), ui->textBrowser_2, SLOT(append(QString)), Qt::QueuedConnection);
@@ -160,9 +170,6 @@ void Window0::on_nextButton_3_clicked()
             emit startInstall();
 
             ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
-        }
-        else {
-            ui->errlabel_1->setText("Error: Could not write to Eurobattle.net registry");
         }
     }
 }

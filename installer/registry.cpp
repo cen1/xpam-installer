@@ -34,14 +34,13 @@ QString Registry :: getEuroPath() {
 }
 
 QString Registry :: getRegString(CRegKey * reg, QString name) {
-    LPTSTR szBuffer = new TCHAR[1024];
-    ULONG bufsize=1024;
-    wchar_t w[MAX_PATH];
-    name.toWCharArray(w);
+    wchar_t * szBuffer = new wchar_t[MAX_PATH];
+    ULONG bufsize=MAX_PATH;
+    std::wstring w=name.toStdWString();
 
-    DWORD s = reg->QueryStringValue(w, szBuffer, &bufsize);
+    DWORD s = reg->QueryStringValue(w.c_str(), szBuffer, &bufsize);
     if (s == ERROR_SUCCESS) {
-        QString s=QString::fromWCharArray(w);
+        QString s=QString::fromWCharArray(szBuffer);
         delete[] szBuffer;
         return s;
     }
@@ -128,4 +127,36 @@ DWORD Registry :: setGateways() {
         return GetLastError();
     }
     return GetLastError();
+}
+
+bool Registry::createEuroKey() {
+    CRegKey reg;
+    if(reg.Create(HKEY_CURRENT_USER,  _T("Software\\Eurobattle.net"), REG_NONE, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, NULL)==ERROR_SUCCESS) {
+        reg.Close();
+        return true;
+    }
+    else {
+        reg.Close();
+        return false;
+    }
+}
+
+bool Registry::setEuropath(QString europath) {
+    CRegKey reg;
+    if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
+        bool r = this->setRegString(reg, "europath", europath);
+        reg.Close();
+        return r;
+    }
+    return false;
+}
+
+bool Registry::setW3dir(QString w3dir) {
+    CRegKey reg;
+    if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
+        bool r = this->setRegString(reg, "w3dir", w3dir);
+        reg.Close();
+        return r;
+    }
+    return false;
 }

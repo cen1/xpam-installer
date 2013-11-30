@@ -32,12 +32,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "QRegExp"
 #include "iostream"
 #include "fstream"
-#include "bnftp.h"
 #include <QThread>
 #include <QTextStream>
 #include "QStringList"
 #include "util.h"
 #include "registry.h"
+#include "QDir"
+#include "QProcess"
 
 Install::Install()
 {
@@ -57,28 +58,29 @@ void Install::startInstall()
     emit sendInfo(".........................................");
     emit sendInfo(".........................................");
     emit sendInfo(".........................................");
-    updateW3();
+
+    extractFiles();
     if (isAbort)
     {
-        rupdateW3();
+        rextractFiles();
         emit finished(true);
     }
     else {
         emit setValue(20);
-        updateMPQ();
+        updateW3();
         if (isAbort) {
-            rupdateMPQ();
             rupdateW3();
+            rextractFiles();
             emit finished(true);
         }
         else {
             emit setValue(40);
-            extractFiles();
+            updateMPQ();
             if (isAbort)
             {
-                rextractFiles();
                 rupdateMPQ();
                 rupdateW3();
+                rextractFiles();
                 emit finished(true);
             }
             else {
@@ -87,9 +89,9 @@ void Install::startInstall()
                 if (isAbort)
                 {
                     rupdateGateways();
-                    rextractFiles();
                     rupdateMPQ();
                     rupdateW3();
+                    rextractFiles();
                     emit finished(true);
                 }
                 else {
@@ -99,9 +101,9 @@ void Install::startInstall()
                     {
                         rfinish();
                         rupdateGateways();
-                        rextractFiles();
                         rupdateMPQ();
                         rupdateW3();
+                        rextractFiles();
                         emit finished(true);
                     }
                     else {
@@ -133,10 +135,10 @@ bool Install::updateW3()
     emit sendInfo("Detected W3 version: "+version);
 
     if (version.startsWith("ERROR")) {
-        emit sendInfo("Could not get w3 language, reason:");
+        emit sendInfo("Could not get w3 version, reason:");
         emit sendInfo(version);
-        isAbort=true;
-        return false;
+        emit sendInfo("Will assume that W3 is up to date.. skipping");
+        return true;
     }
     if (version != config->W3VERSION) {
         emit sendInfo("W3 needs to be updated... downloading the patch");
@@ -146,19 +148,19 @@ bool Install::updateW3()
         Mpq mpq;
         if (mpq.open(config->W3PATH+"\\war3.mpq")==false) {
             emit sendInfo("Could not open war3.mpq: "+Util::getLastErrorMsg());
-            isAbort=true;
-            return false;
+            emit sendInfo("Skipping W3 update");
+            return true;
         }
         if (mpq.openFile("config.txt")==false){
             emit sendInfo("Could not open file: config.txt");
-            isAbort=true;
-            return false;
+            emit sendInfo("Skipping W3 update");
+            return true;
         }
         QString content = mpq.readFileToString();
         if (content==""){
             emit sendInfo("Did not receive any content from config.txt");
-            isAbort=true;
-            return false;
+            emit sendInfo("Skipping W3 update");
+            return true;
         }
         //get LANGID from content
         int t = content.length()-content.lastIndexOf("LANGID");
@@ -168,18 +170,55 @@ bool Install::updateW3()
         QString langid = regex.cap(1);
         emit sendInfo("LANGID detected: "+langid);
 
+        //fire up bnftp.exe
+        QString bnftpdir=config->EUROPATH;
+        QString bnftpexe="\""+config->EUROPATH+"\\bnftp.exe\"";
+        QStringList list;
+        list << "--client=W3XP";
+        list << "--arch=IX86";
+        list << "--file=W3XP_IX86_1xx_126A_"+langid+".mpq";
+        list << config->BNET_EUROPE;
+        list << "6112";
+
+        emit sendInfo("Launching "+bnftpexe);
+
+        QProcess qp;
+        qp.setWorkingDirectory(bnftpdir);
+        qp.start(bnftpexe, list);
+        if (!qp.waitForStarted()) {
+            emit sendInfo("Could not start bnftp.exe: "+qp.errorString());
+            return false;
+        }
+
+        emit sendInfo("Bnftp started");
+        int counter=0;
+        while (true) {
+            qp.waitForReadyRead();
+            if (qp.canReadLine()) {
+                QByteArray ba = qp.readLine();
+                QString line(ba);
+                line=line.simplified();
+                if (line.length()<255) emit sendInfo(line);
+            }
+            else {
+                if ((counter%500)==0) emit sendInfo("Download in progress...");
+            }
+            counter++;
+            if (qp.state() != QProcess::Running) break;
+        }
+
         if (!this->bnftp(langid)) {
             emit sendInfo("Could not download the patch MPQ");
-            isAbort=true;
-            return false;
+            emit sendInfo("Skipping W3 update");
+            return true;
         }
 
         emit sendInfo("MPQ downloaded. Starting the update.");
 
         if (!this->bnupdate(langid)) {
             emit sendInfo("Could not patch the MPQ");
-            isAbort=true;
-            return false;
+            emit sendInfo("Skipping W3 update");
+            return true;
         }
 
         return true;
@@ -269,24 +308,89 @@ bool Install::extractFiles()
 {
     emit sendInfo("Extracting files");
 
-    QFile::copy(":\\data\\w3l.exe", config->W3PATH+"\\w3l.exe");
-    QFile::copy(":\\data\\w3lh.dll", config->W3PATH+"\\w3lh.dll");
-    QFile::copy(":\\data\\gproxy.exe", config->EUROPATH+"\\gproxy.cfg");
-    QFile::copy(":\\data\\gproxy.log", config->EUROPATH+"\\gproxy.log");
-    QFile::copy(":\\data\\xpam_pub.pem", config->EUROPATH+"\\xpam_pub.pem");
-    QFile::copy(":\\data\\xpam.exe", config->EUROPATH+"\\xpam.exe");
-    QFile::copy(":\\data\\xpam.exe", config->EUROPATH+"\\xpam.exe");
+    if (!QDir().mkpath(config->EUROPATH)) {
+        emit sendInfo("Could not create Eurobattle.net folder");
+        isAbort=true;
+        return false;
+    }
+    if (!QDir().mkpath(config->EUROPATH+"\\sounds")) {
+        emit sendInfo("Could not create Eurobattle.net sounds folder");
+        isAbort=true;
+        return false;
+    }
 
-    QFile::copy(":\\data\\sounds\\challenge-completed.wav", config->EUROPATH+"\\sounds\\challenge-completed.wav");
-    QFile::copy(":\\data\\sounds\\challenge-started.wav", config->EUROPATH+"\\sounds\\challenge-started.wav");
-    QFile::copy(":\\data\\sounds\\friend-join-game.wav", config->EUROPATH+"\\sounds\\friend-join-game.wav");
-    QFile::copy(":\\data\\sounds\\hosted.wav", config->EUROPATH+"\\sounds\\hosted.wav");
-    QFile::copy(":\\data\\sounds\\moderate.wav", config->EUROPATH+"\\sounds\\moderate.wav");
-    QFile::copy(":\\data\\sounds\\slap.wav", config->EUROPATH+"\\sounds\\slap.wav");
-    QFile::copy(":\\data\\sounds\\started.wav", config->EUROPATH+"\\sounds\\started.wav");
-    QFile::copy(":\\data\\sounds\\unmoderate.wav", config->EUROPATH+"\\sounds\\unmoderate.wav");
-    QFile::copy(":\\data\\sounds\\whisper.wav", config->EUROPATH+"\\sounds\\whisper.wav");
+    QFile inputFile(":\\data\\move.txt");
+    if (inputFile.open(QIODevice::ReadOnly)) {
+        QTextStream in(&inputFile);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList l = line.split(" ");
 
+            if (l[0]=="m") {
+
+                //REMOVE THE FUCKING READ-ONLY FROM FILES
+                //GOD FUCKING DAMN!!!!
+
+
+                if  (l[2]=="EUROPATH") {
+                    QFile p(config->EUROPATH+"\\"+l[1]);
+                    if (p.exists()) {
+                        p.setPermissions(QFile::ReadOther | QFile::WriteOther);
+
+                        emit sendInfo("Deleting "+config->EUROPATH+"\\"+l[1]);
+                        if (!p.remove()) {
+                            emit sendInfo("Could not delete file. "+p.errorString());
+                            isAbort=true;
+                            return false;
+                        }
+                    }
+
+                    QFile c(":\\data\\"+l[1]);
+                    emit sendInfo("Copying :\\data\\"+l[1]+" to "+config->EUROPATH+"\\"+l[1]);
+                    if (!c.copy(config->EUROPATH+"\\"+l[1])) {
+                        emit sendInfo("Could not copy file. "+c.errorString());
+                        isAbort=true;
+                        return false;
+                    }
+                    QFile f(config->EUROPATH+"\\"+l[1]);
+                    f.setPermissions(QFile::ReadOther | QFile::WriteOther);
+                }
+                else if(l[2]=="W3PATH") {
+                    QFile p(config->W3PATH+"\\"+l[1]);
+                    if (p.exists()) {
+                        if (!p.setPermissions(QFile::ReadOther | QFile::WriteOther)) emit sendInfo("HOLY FUCKING FAIL");
+
+                        emit sendInfo("Deleting "+config->EUROPATH+"\\"+l[1]);
+                        if (!p.remove()) {
+                            emit sendInfo("Could not delete file. "+p.errorString());
+                            isAbort=true;
+                            return false;
+                        }
+                    }
+
+                    QFile c(":\\data\\"+l[1]);
+                    emit sendInfo("Copying :\\data\\"+l[1]+" to "+config->W3PATH+"\\"+l[1]);
+                    if (!c.copy(config->W3PATH+"\\"+l[1])) {
+                        emit sendInfo("Could not copy file. "+c.errorString());
+                        isAbort=true;
+                        return false;
+                    }
+                    QFile f(config->W3PATH+"\\"+l[1]);
+                    f.setPermissions(QFile::ReadOther | QFile::WriteOther);
+                }
+            }
+            else if (l[0]=="r") {
+                if  (l[2]=="EUROPATH") QFile::remove(config->EUROPATH+"\\"+l[1]);
+                else if(l[2]=="W3PATH") QFile::remove(config->W3PATH+"\\"+l[1]);
+            }
+        }
+    }
+    else {
+        emit sendInfo("Could not open file data\\move.txt");
+        isAbort=true;
+        return false;
+    }
+    inputFile.close();
     emit sendInfo("Finished extracting files");
     return true;
 }

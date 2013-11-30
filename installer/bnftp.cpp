@@ -3,14 +3,14 @@ Copyright (c) 2013, cen (imbacen@gmail.com)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
-   
+   and/or other materials provided with the distribution.
+
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,13 +24,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "bnftp.h"
+#ifndef QTHREAD_H
+    #include "QThread"
+#endif
+#ifndef QBYTEARRAY_H
+    #include "QByteArray"
+#endif
 
-Bnftp::Bnftp()
+
+Bnftp::Bnftp(QProcess * p)
 {
-
+    proc=p;
+    abort=false;
 }
 
-void Bnftp::startDl(QString cmd) {
-    system(qPrintable(cmd));
-    emit finished();
+Bnftp::~Bnftp() {
+    emit sendLine("Destructing Bnftp object");
+}
+
+void Bnftp::readStdout() {
+    while(true) {
+        QThread::msleep(100);
+        if (proc->canReadLine()) {
+
+            QByteArray ba = proc->readLine();
+            QString line = QString::fromLocal8Bit(ba).simplified();
+
+            emit sendLine(line);
+        }
+        if (proc->state() != QProcess::Running) break;
+    }
 }

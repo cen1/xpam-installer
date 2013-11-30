@@ -26,15 +26,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "window0.h"
 #include <QApplication>
 
-
-
 int main(int argc, char *argv[])
 {
-    //Q_INIT_RESOURCE(installer);
     QApplication a(argc, argv);
     Window0 w;
     w.setWindowIcon(QIcon(":/favicon.ico"));
     w.show();
-    
+
     return a.exec();
 }

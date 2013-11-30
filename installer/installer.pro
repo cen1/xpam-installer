@@ -11,26 +11,27 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = installer
 TEMPLATE = app
 
+RC_FILE = installer.rc
 
 SOURCES += main.cpp\
         window0.cpp \
     registry.cpp \
-    bnftp.cpp \
     install.cpp \
     mpq.cpp \
-    config.cpp
+    config.cpp \
+    bnftp.cpp
 
 
 HEADERS  += window0.h \
     registry.h \
     winutils.h \
-    bnftp.h \
     install.h \
     config.h \
     mpq.h \
     util.h \
     storm.h \
-    winutils.h
+    winutils.h \
+    bnftp.h
 
 FORMS    += window0.ui
 
@@ -47,3 +48,5 @@ INCLUDEPATH += $$PWD/
 DEPENDPATH += $$PWD/
 
 win32: PRE_TARGETDEPS += $$PWD/StormLib.lib
+
+CONFIG -= embed_manifest_exe

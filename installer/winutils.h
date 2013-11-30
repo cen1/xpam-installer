@@ -50,19 +50,33 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     #include "util.h"
 #endif
 
-
 namespace Winutils
 {
+    inline bool IsWinXP32() {
+        DWORD version = GetVersion();
+        DWORD major = (DWORD) (LOBYTE(LOWORD(version)));
+        DWORD minor = (DWORD) (HIBYTE(LOWORD(version)));
+        return ((major == 5) && (minor == 1));
+    }
+
     inline QString getProgramFiles()
     {
         TCHAR szPath[MAX_PATH];
-        if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILESX86, NULL, 0, szPath)))
-        {
-            return QString::fromWCharArray(szPath);
+        if (Winutils::IsWinXP32()) {
+            if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_DEFAULT, szPath))) {
+                return QString::fromWCharArray(szPath);
+            }
+            else {
+                return "";
+            }
         }
-        else
-        {
-            return "";
+        else {
+            if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILESX86, NULL, SHGFP_TYPE_DEFAULT, szPath))) {
+                return QString::fromWCharArray(szPath);
+            }
+            else {
+                return "";
+            }
         }
     }
 
@@ -84,15 +98,14 @@ namespace Winutils
         DWORD verHandle=NULL;
         UINT size=0;
         LPBYTE lpBuffer=NULL;
-        TCHAR t[MAX_PATH];
-        filename.toWCharArray(t);
-        DWORD verSize=GetFileVersionInfoSize(t, &verHandle);
+        std::wstring t=filename.toStdWString();
+        DWORD verSize=GetFileVersionInfoSize(t.c_str(), &verHandle);
 
         if (verSize != NULL)
         {
             LPSTR verData = new char[verSize];
 
-            if (GetFileVersionInfo( t, verHandle, verSize, verData))
+            if (GetFileVersionInfo( t.c_str(), verHandle, verSize, verData))
             {
                 if (VerQueryValue(verData, _T("\\"), (VOID FAR* FAR*)&lpBuffer,&size))
                 {
@@ -129,55 +142,6 @@ namespace Winutils
         }
         else {
             return "ERROR 1: "+Util::getLastErrorMsg()+" -- "+filename;
-        }
-    }
-
-
-    inline QString getFileLang(QString filename)
-    {
-        DWORD  verHandle = NULL;
-        UINT   size      = 0;
-        //LPBYTE lpBuffer  = NULL;
-        TCHAR t[MAX_PATH];
-        filename.toWCharArray(t);
-
-        DWORD  verSize   = GetFileVersionInfoSize( t, &verHandle);
-
-        struct LANGANDCODEPAGE {
-          WORD wLanguage;
-          WORD wCodePage;
-        } *lpTranslate;
-
-        if (verSize != NULL)
-        {
-            LPSTR verData = new char[verSize];
-
-            if (GetFileVersionInfo( t, verHandle, verSize, verData))
-            {
-                if (VerQueryValue(verData, _T("\\VarFileInfo\\Translation"), (LPVOID*)&lpTranslate, &size))
-                {
-                    if (size)
-                    {
-                        TCHAR c[255];
-                        wsprintf(c, _T("%d"), lpTranslate[0].wLanguage);
-                        delete[] verData;
-                        return QString::fromWCharArray(c);
-                    }
-                    else {
-                        return "";
-                    }
-                }
-                else {
-                    return "";
-                }
-            }
-            else {
-                delete[] verData;
-                return "";
-            }
-        }
-        else {
-            return "";
         }
     }
 }

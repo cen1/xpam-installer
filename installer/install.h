@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <QObject>
 #include "config.h"
+#include "QProcess"
+#include "bnftp.h"
 
 class Install : public QObject
 {

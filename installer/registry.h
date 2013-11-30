@@ -45,6 +45,9 @@ public:
     DWORD getRegDWORD(CRegKey reg, QString name);
     bool setRegString(CRegKey reg, QString name, QString value);
     DWORD setGateways();
+    bool createEuroKey();
+    bool setEuropath(QString europath);
+    bool setW3dir(QString w3dir);
     Registry();
 };
 
