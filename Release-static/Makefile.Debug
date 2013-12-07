@@ -79,6 +79,26 @@ DESTDIR_TARGET = debug\installer.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
+{.}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{.}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{.}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{.}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
 {debug}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
@@ -115,26 +135,6 @@ DESTDIR_TARGET = debug\installer.exe
 <<
 
 {..\installer}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -180,166 +180,166 @@ compiler_rcc_make_all: debug\qrc_installer.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_installer.cpp
 debug\qrc_installer.cpp: ..\installer\installer.qrc \
-		..\installer\favicon.ico \
 		..\installer\eb_back_small.png \
 		..\installer\background.jpg \
-		..\installer\data\w3l.exe \
-		..\installer\data\gproxy.exe \
-		..\installer\data\eurobattle.txt \
+		..\installer\favicon.ico \
 		..\installer\data\gproxy.cfg \
-		..\installer\data\xpam_pub.pem \
-		..\installer\data\bnftp.exe \
+		..\installer\data\w3l.exe \
 		..\installer\data\gproxy.log \
 		..\installer\data\w3lh.dll \
 		..\installer\data\move.txt \
-		..\installer\data\xpam.exe \
 		..\installer\data\eurobattle.reg \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-lightning.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-lichking.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-light.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-gold.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-davion.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-void.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\bomb.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-siegegolem.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-venom.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-purple.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-red.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-water.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-wargolem.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\fist-red.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-leshrac.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-rikimaru.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-indigo.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-lycan.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-gold.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-lightning.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-sven.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-barathrum.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-nature.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-viper.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-fire.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-acid.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-quiz.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-stonegiant.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-moonglade.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\tier6x-human.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-arcane.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-mepo.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-balanar.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-fire.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-topladder.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-victory.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-dark.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-shadowfiend.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-fable.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-techies.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-kunkka.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-jade.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-panda.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-water.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-silver.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-king.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-blue.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\tier6x-human-off.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-batrider.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\fist-white.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\fist-blue.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-frog.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-yellow.blp \
+		..\installer\data\xpam_pub.pem \
+		..\installer\data\xpam.exe \
+		..\installer\data\bnftp.exe \
+		..\installer\data\eurobattle.txt \
+		..\installer\data\gproxy.exe \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-nature.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-gold.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-ice.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-green.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-phoenix.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-diamond.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-invoker_frost.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-lanaya.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-humanarcher.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-captain.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-health.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-purple.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-warlock.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-zeus.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\tier5x-nightelf.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-goldhand.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-mushroom.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-moonlight.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-rooftrellen.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-angel.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-venomancer.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-warsong.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-troll.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-panda.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-huntress.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-pugna.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-fire.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-boots.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-red.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\bnet-battlenet.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-morphling.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-blood.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-cup.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-ice.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-stormspirit.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-tidehunter.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-jakiro.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-moonie.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-ice.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-nature.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-magic.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-lightning.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\trophy-yellow.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-arcane.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-gyrocopter.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-arcane.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-green.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-ice.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-gold2.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-norris.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-phoenix.blp \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-fire.blp \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-dark.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-forest.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-enigma.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-mirana.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-pudge.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-gold.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-green.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-stonegiant.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-moonie.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-ice.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-lanaya.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-nature.blp \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-water.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-red.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-arcane.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-lycan.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-morphling.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-stormspirit.blp \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-bone.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-arcane.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-cryxalis.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-green.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-axe.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-spectre.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-tiny.blp \
-		..\installer\data\UI\Widgets\BattleNet\chaticons\special-quiz_master.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-invoker_frost.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-arcane.blp \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-water.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-tiny.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-red.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-silver.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-goldhand.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-mushroom.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-viper.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-leshrac.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\tier5x-nightelf.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-norris.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-axe.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-light.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\bomb.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-huntress.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-venom.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-purple.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-fable.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-fire.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-sven.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-water.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-void.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-batrider.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-quiz.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-indigo.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-venomancer.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-ice.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-cup.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-water.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-jakiro.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-blue.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-captain.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\fist-white.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\fist-red.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-mepo.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-angel.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-lightning.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-gold.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-fire.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-king.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\tier6x-human.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-health.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-green.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-troll.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-gold2.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-panda.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-tidehunter.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-frog.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-balanar.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-yellow.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-victory.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-enigma.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-techies.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-pugna.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-phoenix.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-lightning.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-barathrum.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-mirana.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-gyrocopter.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-arcane.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-boots.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-arcane.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-dark.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-ice.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-phoenix.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\fist-blue.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-warlock.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-topladder.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-nature.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-shadowfiend.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-arcane.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-fire.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-lichking.blp \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\tier5x-nightelf-off.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-davion.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-moonglade.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-lightning.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-purple.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\trophy-yellow.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-panda.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-wargolem.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\sword-red.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-blood.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-zeus.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-arcane.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\special-quiz_master.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\tier6x-human-off.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-red.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-forest.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-magic.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\potion-acid.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-cryxalis.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-rooftrellen.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-pudge.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-siegegolem.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-diamond.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-warsong.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\pg-humanarcher.blp \
 		..\installer\data\UI\Widgets\BattleNet\chaticons\orb-elemental.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Undead-BotRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Random-BotRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-TopLeft.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Human-TopRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-NightElf-TopRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Human-BotRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-NightElf-BotRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Orc-TopRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Undead-TopRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-BotLeft.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Orc-BotRight.blp \
-		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Random-TopRight.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-rikimaru.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-kunkka.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\helmet-jade.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\aura-ice.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\shield-green.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\dota-spectre.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\bnet-battlenet.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wand-moonlight.blp \
+		..\installer\data\UI\Widgets\BattleNet\chaticons\wings-gold.blp \
 		..\installer\data\UI\Glues\BattleNet\PlaceholderAd\bnet-logo-placeholder.blp \
-		..\installer\data\sounds\challenge-started.wav \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-NightElf-TopRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Random-BotRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-NightElf-BotRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-BotLeft.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Human-TopRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Orc-TopRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Human-BotRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-TopLeft.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Orc-BotRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Undead-TopRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Random-TopRight.blp \
+		..\installer\data\UI\Glues\Loading\Multiplayer\Loading-Undead-BotRight.blp \
 		..\installer\data\sounds\slap.wav \
 		..\installer\data\sounds\hosted.wav \
-		..\installer\data\sounds\moderate.wav \
-		..\installer\data\sounds\unmoderate.wav \
-		..\installer\data\sounds\started.wav \
+		..\installer\data\sounds\challenge-started.wav \
 		..\installer\data\sounds\friend-join-game.wav \
-		..\installer\data\sounds\whisper.wav \
-		..\installer\data\sounds\challenge-completed.wav
+		..\installer\data\sounds\challenge-completed.wav \
+		..\installer\data\sounds\moderate.wav \
+		..\installer\data\sounds\started.wav \
+		..\installer\data\sounds\unmoderate.wav \
+		..\installer\data\sounds\whisper.wav
 	C:\git\qt5\qt5\qtbase\bin\rcc.exe -name installer ..\installer\installer.qrc -o debug\qrc_installer.cpp
 
 compiler_moc_header_make_all: debug\moc_window0.cpp debug\moc_install.cpp debug\moc_config.cpp debug\moc_bnftp.cpp
@@ -2076,7 +2076,10 @@ debug\install.obj: ..\installer\install.cpp ..\installer\install.h \
 		..\..\qt5\qt5\qtbase\include\QtCore\qdir.h \
 		..\..\qt5\qt5\qtbase\src\corelib\io\qdir.h \
 		..\..\qt5\qt5\qtbase\include\QtCore\qfileinfo.h \
-		..\..\qt5\qt5\qtbase\src\corelib\io\qfileinfo.h
+		..\..\qt5\qt5\qtbase\src\corelib\io\qfileinfo.h \
+		..\..\qt5\qt5\qtbase\include\QtCore\QCryptographicHash \
+		..\..\qt5\qt5\qtbase\include\QtCore\qcryptographichash.h \
+		..\..\qt5\qt5\qtbase\src\corelib\tools\qcryptographichash.h
 
 debug\mpq.obj: ..\installer\mpq.cpp ..\installer\mpq.h \
 		..\..\qt5\qt5\qtbase\include\QtCore\QObject \

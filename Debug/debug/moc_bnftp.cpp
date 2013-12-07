@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Bnftp_t {
     QByteArrayData data[5];
-    char stringdata[29];
+    char stringdata[33];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,10 +32,10 @@ static const qt_meta_stringdata_Bnftp_t qt_meta_stringdata_Bnftp = {
 QT_MOC_LITERAL(0, 0, 5),
 QT_MOC_LITERAL(1, 6, 8),
 QT_MOC_LITERAL(2, 15, 0),
-QT_MOC_LITERAL(3, 16, 7),
-QT_MOC_LITERAL(4, 24, 3)
+QT_MOC_LITERAL(3, 16, 4),
+QT_MOC_LITERAL(4, 21, 10)
     },
-    "Bnftp\0finished\0\0startDl\0cmd\0"
+    "Bnftp\0sendLine\0\0line\0readStdout\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,16 +53,16 @@ static const uint qt_meta_data_Bnftp[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x05,
+       1,    1,   24,    2, 0x05,
 
  // slots: name, argc, parameters, tag, flags
-       3,    1,   25,    2, 0x0a,
+       4,    0,   27,    2, 0x0a,
 
  // signals: parameters
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    3,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,    4,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -72,16 +72,16 @@ void Bnftp::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
     if (_c == QMetaObject::InvokeMetaMethod) {
         Bnftp *_t = static_cast<Bnftp *>(_o);
         switch (_id) {
-        case 0: _t->finished(); break;
-        case 1: _t->startDl((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 0: _t->sendLine((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->readStdout(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (Bnftp::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Bnftp::finished)) {
+            typedef void (Bnftp::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Bnftp::sendLine)) {
                 *result = 0;
             }
         }
@@ -125,8 +125,9 @@ int Bnftp::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Bnftp::finished()
+void Bnftp::sendLine(QString _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, 0);
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

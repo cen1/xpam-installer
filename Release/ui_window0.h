@@ -49,6 +49,8 @@ public:
     QLineEdit *lineEdit_2;
     QPushButton *pushButton_2;
     QLabel *errlabel_1;
+    QLabel *errlabel_2;
+    QLabel *errlabel_3;
     QWidget *page_4;
     QProgressBar *progressBar;
     QPushButton *nextButton_4;
@@ -153,6 +155,12 @@ public:
         errlabel_1->setObjectName(QStringLiteral("errlabel_1"));
         errlabel_1->setGeometry(QRect(20, 280, 461, 16));
         errlabel_1->setStyleSheet(QStringLiteral(""));
+        errlabel_2 = new QLabel(page_3);
+        errlabel_2->setObjectName(QStringLiteral("errlabel_2"));
+        errlabel_2->setGeometry(QRect(20, 260, 461, 16));
+        errlabel_3 = new QLabel(page_3);
+        errlabel_3->setObjectName(QStringLiteral("errlabel_3"));
+        errlabel_3->setGeometry(QRect(20, 300, 461, 16));
         stackedWidget->addWidget(page_3);
         page_4 = new QWidget();
         page_4->setObjectName(QStringLiteral("page_4"));
@@ -253,6 +261,8 @@ public:
         pushButton->setText(QApplication::translate("Window0", "Open", 0));
         pushButton_2->setText(QApplication::translate("Window0", "Open", 0));
         errlabel_1->setText(QString());
+        errlabel_2->setText(QString());
+        errlabel_3->setText(QString());
         nextButton_4->setText(QApplication::translate("Window0", "Next", 0));
         pushButton_4->setText(QApplication::translate("Window0", "Cancel", 0));
         label_4->setText(QApplication::translate("Window0", "Installation successfull.<br /><br />\n"

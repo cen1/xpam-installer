@@ -147,11 +147,56 @@ void Window0::on_nextButton_3_clicked()
         if (config->W3PATH.endsWith('\\') || config->W3PATH.endsWith('/')) config->W3PATH.remove(config->W3PATH.length()-1, 1);
         if (config->EUROPATH.endsWith('\\') || config->EUROPATH.endsWith('/')) config->EUROPATH.remove(config->EUROPATH.length()-1, 1);
 
+        //one final check that W3 dir is real
+        QFile war3(config->W3PATH+"\\war3.exe");
+        if (!war3.exists()) {
+            ui->errlabel_1->setText("Warcraft III directory is invalid");
+            return;
+        }
+
         install->config = config;
 
         //set registry keys
         Registry reg;
         reg.createEuroKey(); //we don't really care if this fails
+
+        //create InstallPath and Battle.net Gateways if they do not yet exist
+        CRegKey rkey;
+        if (rkey.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_READ | KEY_WOW64_64KEY) != ERROR_SUCCESS){
+            //if we can't open it create it (copied W3)
+            if (!reg.createW3Key()) {
+                ui->errlabel_1->setText("W3 registry key could not be open nor created");
+                return;
+            }
+            else {
+                rkey.Close();
+                CRegKey rkey2;
+                if (rkey2.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_READ | KEY_WOW64_64KEY)==ERROR_SUCCESS){
+                    if (!reg.setRegString(rkey2, "InstallPath", config->W3PATH)){
+                        ui->errlabel_1->setText("Could not create installpath "+Util::getLastErrorMsg());
+                        return;
+                    }
+                    if (reg.setBnetGateways()!=ERROR_SUCCESS){
+                        ui->errlabel_1->setText("Could not create gateways "+Util::getLastErrorMsg());
+                        return;
+                    }
+                }
+                else {
+                    ui->errlabel_1->setText("W3 registry key was created but still can't be opened");
+                    return;
+                }
+            }
+        }
+        else {
+            if (reg.getInstallPath()=="") reg.setRegString(rkey, "InstallPath", config->W3PATH);
+
+            wchar_t * buffer=(wchar_t *)malloc(1024);
+            ULONG bufsize=1024;
+            if (!reg.getRegMultiString(&rkey, "Battle.net Gateways", buffer, &bufsize))
+                reg.setBnetGateways();
+            rkey.Close();
+            delete buffer;
+        }
 
         if (!reg.setEuropath(config->EUROPATH)) {
             ui->errlabel_1->setText("Eurobattle path registry error: "+Util::getLastErrorMsg());

@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define INSTALL_H
 
 #include <QObject>
+#include "Windows.h"
 #include "config.h"
 #include "QProcess"
 #include "bnftp.h"
@@ -48,8 +49,8 @@ private:
     bool extractFiles();
     bool updateGateways();
     bool finish();
-    bool bnftp(QString langid);
-    bool bnupdate(QString langid);
+    bool bnftp();
+    bool bnupdate();
 
     bool rupdateW3();
     bool rupdateMPQ();
@@ -57,9 +58,28 @@ private:
     bool rupdateGateways();
     bool rfinish();
 
+    bool bextractFiles();
+    bool bupdateMPQ();
+    wchar_t * gateBuffer;
+    ULONG gateSize;
+    bool gateBackupFailed;
+
+    QStringList backedEuroFilesFROM;
+    QStringList backedEuroFilesTO;
+    QStringList backedW3FilesFROM;
+    QStringList backedW3FilesTO;
+    QStringList newFiles;
+
+    bool w3wasupdated;
+
+    bool desktopShortcutExisted;
+    bool roamingExisted;
+    bool progFilesExisted;
+
 public:
     Config * config;
     Install();
+    ~Install();
     bool isAbort;
 };
 

@@ -42,10 +42,14 @@ public:
     QString getW3dir();
     QString getEuroPath();
     QString getRegString(CRegKey * reg, QString name);
+    bool getRegMultiString(CRegKey * reg, QString name, wchar_t * buffer, ULONG * bufsize);
     DWORD getRegDWORD(CRegKey reg, QString name);
     bool setRegString(CRegKey reg, QString name, QString value);
     DWORD setGateways();
+    DWORD setOriginalGateways(wchar_t * buffer, ULONG bufsize);
+    DWORD setBnetGateways();
     bool createEuroKey();
+    bool createW3Key();
     bool setEuropath(QString europath);
     bool setW3dir(QString w3dir);
     Registry();

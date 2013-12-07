@@ -41,7 +41,7 @@ public:
     bool close();
     bool openFile(QString filename);
     DWORD getFileSize();
-    bool readFile(char * buffer);
+    bool readFile(QByteArray * ba);
     QString readFileToString();
     bool closeFile();
     QString getFileName();
@@ -49,6 +49,7 @@ public:
     bool writeFile(QByteArray ba);
     bool finishWriteFile();
     bool removeFile(QString filename);
+    bool extractFile(QString mpqfile, QString localfile);
 
     Mpq();
 };

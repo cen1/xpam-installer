@@ -19,6 +19,11 @@ public:
     QString W3PATH;
     QString EUROPATH;
     QString LANGID;
+    QString ARCHIVE;
+    QString ARCHIVE_FULL;
+    QString APPDATA;
+
+    QMap<QString, QString> hashmap;
 
     Config();
 };

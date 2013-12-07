@@ -49,6 +49,18 @@ QString Registry :: getRegString(CRegKey * reg, QString name) {
     }
 }
 
+bool Registry :: getRegMultiString(CRegKey * reg, QString name, wchar_t * buffer, ULONG * bufsize) {
+    std::wstring w=name.toStdWString();
+
+    DWORD s = reg->QueryMultiStringValue(w.c_str(), buffer, bufsize);
+    if (s == ERROR_SUCCESS) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 DWORD Registry :: getRegDWORD(CRegKey reg, QString name) {
     DWORD buf;
     wchar_t w[MAX_PATH];
@@ -77,7 +89,7 @@ bool Registry :: setRegString(CRegKey reg, QString name, QString value) {
 DWORD Registry :: setGateways() {
     CRegKey reg;
     if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS){
-        wchar_t *lines[20]= {
+        wchar_t *lines[21]= {
             _T("1008"),
             _T("05"),
             _T("uswest.battle.net"),
@@ -93,30 +105,96 @@ DWORD Registry :: setGateways() {
             _T("-1"),
             _T("Northrend (Europe)"),
             _T("server.eurobattle.net"),
-            _T("8"),
+            _T("-1"),
             _T("Eurobattle.net"),
             _T("localhost"),
-            _T("8"),
-            _T("Eurobattle.net GProxy")
+            _T("-1"),
+            _T("Eurobattle.net GProxy"),
+            _T("")
         };
         size_t totalSize=0;
-        for (int i=0; i<20; i++) {
+        for (int i=0; i<21; i++) {
             totalSize+=(wcslen(lines[i])+1)*sizeof(wchar_t);
         }
-        totalSize+=1*sizeof(wchar_t);
 
         LPBYTE pString;
         pString = static_cast<LPBYTE>(malloc(totalSize));
 
         size_t offset=0;
-        for (int i=0; i<20; i++) {
+        for (int i=0; i<21; i++) {
             size_t len=(wcslen(lines[i])+1)*sizeof(wchar_t);
             memcpy(pString+offset, lines[i], len);
             offset+=len;
         }
-        pString[offset+1] = 0;
 
         DWORD r = RegSetValueEx(reg, _T("Battle.net Gateways"), 0, REG_MULTI_SZ, pString, totalSize);
+
+        reg.Close();
+        delete pString;
+
+        return r;
+    }
+    else {
+        return GetLastError();
+    }
+    return GetLastError();
+}
+
+DWORD Registry :: setBnetGateways() {
+    CRegKey reg;
+    if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS){
+        wchar_t *lines[15]= {
+            _T("1008"),
+            _T("05"),
+            _T("uswest.battle.net"),
+            _T("8"),
+            _T("Lordaeron (U.S. West)"),
+            _T("useast.battle.net"),
+            _T("6"),
+            _T("Azeroth (U.S. East)"),
+            _T("asia.battle.net"),
+            _T("-9"),
+            _T("Kalimdor (Asia)"),
+            _T("europe.battle.net"),
+            _T("-1"),
+            _T("Northrend (Europe)"),
+            _T("")
+        };
+        size_t totalSize=0;
+        for (int i=0; i<15; i++) {
+            totalSize+=(wcslen(lines[i])+1)*sizeof(wchar_t);
+        }
+
+        LPBYTE pString;
+        pString = static_cast<LPBYTE>(malloc(totalSize));
+
+        size_t offset=0;
+        for (int i=0; i<15; i++) {
+            size_t len=(wcslen(lines[i])+1)*sizeof(wchar_t);
+            memcpy(pString+offset, lines[i], len);
+            offset+=len;
+        }
+
+        DWORD r = RegSetValueEx(reg, _T("Battle.net Gateways"), 0, REG_MULTI_SZ, pString, totalSize);
+
+        reg.Close();
+        delete pString;
+
+        return r;
+    }
+    else {
+        return GetLastError();
+    }
+    return GetLastError();
+}
+
+DWORD Registry :: setOriginalGateways(wchar_t * buffer, ULONG bufsize) {
+    CRegKey reg;
+    if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS){
+        LPBYTE pString;
+        pString = reinterpret_cast<LPBYTE>(buffer);
+
+        DWORD r = RegSetValueEx(reg, _T("Battle.net Gateways"), 0, REG_MULTI_SZ, pString, bufsize);
 
         reg.Close();
         delete pString;
@@ -132,6 +210,18 @@ DWORD Registry :: setGateways() {
 bool Registry::createEuroKey() {
     CRegKey reg;
     if(reg.Create(HKEY_CURRENT_USER,  _T("Software\\Eurobattle.net"), REG_NONE, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, NULL)==ERROR_SUCCESS) {
+        reg.Close();
+        return true;
+    }
+    else {
+        reg.Close();
+        return false;
+    }
+}
+
+bool Registry::createW3Key() {
+    CRegKey reg;
+    if(reg.Create(HKEY_CURRENT_USER,  _T("Software\\Blizzard Entertainment\\Warcraft III"), REG_NONE, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, NULL)==ERROR_SUCCESS) {
         reg.Close();
         return true;
     }

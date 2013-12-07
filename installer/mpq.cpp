@@ -55,17 +55,25 @@ DWORD Mpq::getFileSize() {
     return SFileGetFileSize(this->hOpenFile, NULL);
 }
 
-bool Mpq::readFile(char * buffer) {
-    char  szBuffer[0x10000];
-    DWORD dwBytes = 1;
+bool Mpq::readFile(QByteArray * ba) {
+    char  szBuffer[0x1000];
+    DWORD dwTransferred;
+    int nError = ERROR_SUCCESS;
 
-    while(dwBytes > 0)
-    {
-        if (!SFileReadFile(this->hOpenFile, szBuffer, sizeof(szBuffer), &dwBytes, NULL)) return false;
-        if(dwBytes > 0)
-            strcat(buffer, szBuffer);
+    while(true) {
+       // dwTransferred is only set to nonzero if something has been read.
+       // nError can be ERROR_SUCCESS or ERROR_HANDLE_EOF
+       if(!SFileReadFile(this->hOpenFile, szBuffer, sizeof(szBuffer), &dwTransferred, NULL))
+           nError = GetLastError();
+       if(nError == ERROR_HANDLE_EOF)
+           nError = ERROR_SUCCESS;
+       if(dwTransferred == 0)
+           break;
+
+       // If something has been actually read, write it
+       ba->append(szBuffer);
     }
-    return true;
+    return (nError == ERROR_SUCCESS);
 }
 
 QString Mpq::readFileToString() {
@@ -115,4 +123,9 @@ bool Mpq::removeFile(QString filename) {
     return SFileRemoveFile(this->hMpq, c_str, 0);
 }
 
+bool Mpq::extractFile(QString mpqfile, QString localfile) {
+    std::string smpqfile=mpqfile.toStdString();
+    std::string slocalfile=localfile.toStdString();
+    return SFileExtractFile(this->hMpq, smpqfile.c_str(), slocalfile.c_str(), SFILE_OPEN_FROM_MPQ);
+}
 
