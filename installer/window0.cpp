@@ -212,6 +212,7 @@ void Window0::on_nextButton_3_clicked()
             QObject::connect(this, SIGNAL(abortInstall()), install, SLOT(abortInstall()));
             QObject::connect(install, SIGNAL(sendInfo(QString)), ui->textBrowser_2, SLOT(append(QString)), Qt::QueuedConnection);
             QObject::connect(install, SIGNAL(finished(bool)), ui->nextButton_4, SLOT(setEnabled(bool)), Qt::QueuedConnection);
+            QObject::connect(install, SIGNAL(finished(bool)), this, SLOT(disableAbort(bool)), Qt::QueuedConnection);
             QObject::connect(install, SIGNAL(setValue(int)), ui->progressBar, SLOT(setValue(int)), Qt::QueuedConnection);
             install->moveToThread(ithread);
             ithread->start();
@@ -247,4 +248,9 @@ void Window0::fail(QString msg)
 void Window0::on_pushButton_5_clicked()
 {
     qApp->exit();
+}
+
+void Window0::disableAbort(bool b)
+{
+    ui->pushButton_4->setEnabled(false);
 }

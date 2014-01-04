@@ -8,6 +8,7 @@ m gproxy.cfg EUROPATH
 m xpam_pub.pem EUROPATH
 m eurobattle.reg EUROPATH
 m update.bat EUROPATH
+m uninstaller.exe EUROPATH
 m sounds\challenge-completed.wav EUROPATH
 m sounds\challenge-started.wav EUROPATH
 m sounds\friend-join-game.wav EUROPATH

@@ -51,6 +51,7 @@ SOURCES       = main.cpp \
 		config.cpp \
 		bnftp.cpp \
 		installer_plugin_import.cpp debug\qrc_installer.cpp \
+		debug\qrc_installer2.cpp \
 		..\Debug\moc_window0.cpp \
 		..\Debug\moc_install.cpp \
 		..\Debug\moc_config.cpp \
@@ -64,6 +65,7 @@ OBJECTS       = ..\Debug\main.obj \
 		..\Debug\bnftp.obj \
 		..\Debug\installer_plugin_import.obj \
 		..\Debug\qrc_installer.obj \
+		..\Debug\qrc_installer2.obj \
 		..\Debug\moc_window0.obj \
 		..\Debug\moc_install.obj \
 		..\Debug\moc_config.obj \
@@ -78,26 +80,6 @@ DESTDIR_TARGET = ..\Debug\installer.exe
 ####### Implicit rules
 
 .SUFFIXES: .c .cpp .cc .cxx
-
-{.}.cpp{..\Debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo..\Debug\ @<<
-	$<
-<<
-
-{.}.cc{..\Debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo..\Debug\ @<<
-	$<
-<<
-
-{.}.cxx{..\Debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo..\Debug\ @<<
-	$<
-<<
-
-{.}.c{..\Debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fo..\Debug\ @<<
-	$<
-<<
 
 {..\Debug}.cpp{..\Debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo..\Debug\ @<<
@@ -115,6 +97,26 @@ DESTDIR_TARGET = ..\Debug\installer.exe
 <<
 
 {..\Debug}.c{..\Debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fo..\Debug\ @<<
+	$<
+<<
+
+{.}.cpp{..\Debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo..\Debug\ @<<
+	$<
+<<
+
+{.}.cc{..\Debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo..\Debug\ @<<
+	$<
+<<
+
+{.}.cxx{..\Debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo..\Debug\ @<<
+	$<
+<<
+
+{.}.c{..\Debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fo..\Debug\ @<<
 	$<
 <<
@@ -170,10 +172,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) installer.zip $(SOURCES) $(DIST) installer.pro ..\..\qt5\qt5\qtbase\mkspecs\features\spec_pre.prf ..\..\qt5\qt5\qtbase\mkspecs\common\shell-win32.conf ..\..\qt5\qt5\qtbase\mkspecs\qconfig.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bootstrap_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_clucene_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designercomponents_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_platformsupport_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmldevtools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quickparticles_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_dsengine.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qdeclarativeview.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qgenericbearer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qico.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qminimal.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_inspector.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_qtquick2.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp_qtdeclarative.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmng.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qnativewifibearer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qoffscreen.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvg.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvgicon.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblequick.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblewidgets.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtga.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtiff.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmedia_audioengine.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmultimedia_m3u.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtposition_positionpoll.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_plugin.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_shakeplugin.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_dummy.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_generic.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwbmp.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwindows.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_windowsprintersupport.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_wmfengine.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpcpp.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpdoc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_idc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lconvert.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lrelease.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lupdate.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qcollectiongenerator.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qdoc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qhelpgenerator.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml1plugindump.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlbundle.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlimportscanner.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlmin.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlplugindump.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlprofiler.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlscene.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmltestrunner.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_syncqt.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_uic.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatterns.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatternsvalidator.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_clucene_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_dsengine.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qdeclarativeview.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qgenericbearer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qico.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qminimal.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_inspector.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_qtquick2.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp_qtdeclarative.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmng.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qnativewifibearer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qoffscreen.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvg.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvgicon.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblequick.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblewidgets.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtga.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtiff.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmedia_audioengine.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmultimedia_m3u.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtposition_positionpoll.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_plugin.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_shakeplugin.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_dummy.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_generic.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwbmp.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwindows.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_windowsprintersupport.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_wmfengine.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpcpp.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpdoc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_idc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lconvert.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lrelease.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lupdate.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qcollectiongenerator.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qdoc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qhelpgenerator.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml1plugindump.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlbundle.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlimportscanner.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlmin.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlplugindump.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlprofiler.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlscene.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmltestrunner.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_syncqt.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_uic.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatterns.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatternsvalidator.pri ..\..\qt5\qt5\qtbase\mkspecs\features\qt_functions.prf ..\..\qt5\qt5\qtbase\mkspecs\features\qt_config.prf ..\..\qt5\qt5\qtbase\mkspecs\win32-msvc2010\qmake.conf ..\..\qt5\qt5\qtbase\mkspecs\features\spec_post.prf ..\..\qt5\qt5\qtbase\mkspecs\features\exclusive_builds.prf ..\..\qt5\qt5\qtbase\mkspecs\features\default_pre.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\default_pre.prf ..\..\qt5\qt5\qtbase\mkspecs\features\resolve_config.prf ..\..\qt5\qt5\qtbase\mkspecs\features\exclusive_builds_post.prf ..\..\qt5\qt5\qtbase\mkspecs\features\default_post.prf ..\..\qt5\qt5\qtbase\mkspecs\features\build_pass.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\rtti.prf ..\..\qt5\qt5\qtbase\mkspecs\features\warn_on.prf ..\..\qt5\qt5\qtbase\mkspecs\features\qt.prf ..\..\qt5\qt5\qtbase\mkspecs\features\resources.prf ..\..\qt5\qt5\qtbase\mkspecs\features\moc.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\opengl.prf ..\..\qt5\qt5\qtbase\mkspecs\features\uic.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\windows.prf ..\..\qt5\qt5\qtbase\mkspecs\features\testcase_targets.prf ..\..\qt5\qt5\qtbase\mkspecs\features\exceptions.prf ..\..\qt5\qt5\qtbase\mkspecs\features\yacc.prf ..\..\qt5\qt5\qtbase\mkspecs\features\lex.prf installer.pro installer.qrc C:/git/qt5/qt5/qtbase/lib/Qt5Widgetsd.prl C:/git/qt5/qt5/qtbase/lib/Qt5Guid.prl C:/git/qt5/qt5/qtbase/lib/Qt5Cored.prl C:/git/qt5/qt5/qtbase/plugins/platforms/qwindowsd.prl C:/git/qt5/qt5/qtbase/lib/Qt5PlatformSupportd.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) installer.zip $(SOURCES) $(DIST) installer.pro ..\..\qt5\qt5\qtbase\mkspecs\features\spec_pre.prf ..\..\qt5\qt5\qtbase\mkspecs\common\shell-win32.conf ..\..\qt5\qt5\qtbase\mkspecs\qconfig.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bootstrap_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_clucene_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designercomponents_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_platformsupport_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmldevtools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quickparticles_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns_private.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_dsengine.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qdeclarativeview.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qgenericbearer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qico.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qminimal.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_inspector.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_qtquick2.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp_qtdeclarative.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmng.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qnativewifibearer.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qoffscreen.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvg.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvgicon.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblequick.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblewidgets.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtga.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtiff.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmedia_audioengine.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmultimedia_m3u.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtposition_positionpoll.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_plugin.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_shakeplugin.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_dummy.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_generic.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwbmp.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwindows.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_windowsprintersupport.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_wmfengine.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpcpp.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpdoc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_idc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lconvert.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lrelease.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lupdate.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qcollectiongenerator.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qdoc.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qhelpgenerator.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml1plugindump.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlbundle.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlimportscanner.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlmin.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlplugindump.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlprofiler.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlscene.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmltestrunner.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_syncqt.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_uic.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatterns.pri c:\git\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatternsvalidator.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axbase_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_axserver_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_clucene_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_core_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_declarative_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designer_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_gui_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_help_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_network_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_nfc_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_opengl_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_positioning_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qml_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quick_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_script_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sensors_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_serialport_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_sql_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_svg_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_testlib_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_uitools_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_widgets_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_winextras_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xml_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_dsengine.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qdeclarativeview.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qgenericbearer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qico.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qminimal.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_inspector.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_qtquick2.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmldbg_tcp_qtdeclarative.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qmng.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qnativewifibearer.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qoffscreen.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvg.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qsvgicon.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblequick.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtaccessiblewidgets.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtga.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtiff.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmedia_audioengine.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtmultimedia_m3u.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtposition_positionpoll.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_plugin.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensorgestures_shakeplugin.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_dummy.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qtsensors_generic.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwbmp.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_qwindows.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_windowsprintersupport.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_plugin_wmfengine.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpcpp.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_dumpdoc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_idc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lconvert.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lrelease.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_lupdate.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qcollectiongenerator.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qdoc.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qhelpgenerator.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qml1plugindump.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlbundle.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlimportscanner.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlmin.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlplugindump.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlprofiler.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmlscene.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_qmltestrunner.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_syncqt.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_uic.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatterns.pri ..\..\qt5\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatternsvalidator.pri ..\..\qt5\qt5\qtbase\mkspecs\features\qt_functions.prf ..\..\qt5\qt5\qtbase\mkspecs\features\qt_config.prf ..\..\qt5\qt5\qtbase\mkspecs\win32-msvc2010\qmake.conf ..\..\qt5\qt5\qtbase\mkspecs\features\spec_post.prf ..\..\qt5\qt5\qtbase\mkspecs\features\exclusive_builds.prf ..\..\qt5\qt5\qtbase\mkspecs\features\default_pre.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\default_pre.prf ..\..\qt5\qt5\qtbase\mkspecs\features\resolve_config.prf ..\..\qt5\qt5\qtbase\mkspecs\features\exclusive_builds_post.prf ..\..\qt5\qt5\qtbase\mkspecs\features\default_post.prf ..\..\qt5\qt5\qtbase\mkspecs\features\build_pass.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\rtti.prf ..\..\qt5\qt5\qtbase\mkspecs\features\warn_on.prf ..\..\qt5\qt5\qtbase\mkspecs\features\qt.prf ..\..\qt5\qt5\qtbase\mkspecs\features\resources.prf ..\..\qt5\qt5\qtbase\mkspecs\features\moc.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\opengl.prf ..\..\qt5\qt5\qtbase\mkspecs\features\uic.prf ..\..\qt5\qt5\qtbase\mkspecs\features\win32\windows.prf ..\..\qt5\qt5\qtbase\mkspecs\features\testcase_targets.prf ..\..\qt5\qt5\qtbase\mkspecs\features\exceptions.prf ..\..\qt5\qt5\qtbase\mkspecs\features\yacc.prf ..\..\qt5\qt5\qtbase\mkspecs\features\lex.prf installer.pro installer.qrc installer2.qrc C:/git/qt5/qt5/qtbase/lib/Qt5Widgetsd.prl C:/git/qt5/qt5/qtbase/lib/Qt5Guid.prl C:/git/qt5/qt5/qtbase/lib/Qt5Cored.prl C:/git/qt5/qt5/qtbase/plugins/platforms/qwindowsd.prl C:/git/qt5/qt5/qtbase/lib/Qt5PlatformSupportd.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) ..\Debug\main.obj ..\Debug\window0.obj ..\Debug\registry.obj ..\Debug\install.obj ..\Debug\mpq.obj ..\Debug\config.obj ..\Debug\bnftp.obj ..\Debug\installer_plugin_import.obj ..\Debug\qrc_installer.obj ..\Debug\moc_window0.obj ..\Debug\moc_install.obj ..\Debug\moc_config.obj ..\Debug\moc_bnftp.obj
+	-$(DEL_FILE) ..\Debug\main.obj ..\Debug\window0.obj ..\Debug\registry.obj ..\Debug\install.obj ..\Debug\mpq.obj ..\Debug\config.obj ..\Debug\bnftp.obj ..\Debug\installer_plugin_import.obj ..\Debug\qrc_installer.obj ..\Debug\qrc_installer2.obj ..\Debug\moc_window0.obj ..\Debug\moc_install.obj ..\Debug\moc_config.obj ..\Debug\moc_bnftp.obj
 	-$(DEL_FILE) ..\Debug\installer.ilk vc*.pdb vc*.idb ..\Debug\installer.exe.embed.manifest ..\Debug\installer.exe_manifest.rc ..\Debug\installer.exe_manifest.res
 	-$(DEL_FILE) C:\git\installer\installer\..\Debug\installer.res
 
@@ -188,172 +190,176 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all: debug\qrc_installer.cpp
+compiler_rcc_make_all: debug\qrc_installer.cpp debug\qrc_installer2.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) debug\qrc_installer.cpp
+	-$(DEL_FILE) debug\qrc_installer.cpp debug\qrc_installer2.cpp
 debug\qrc_installer.cpp: installer.qrc \
-		favicon.ico \
 		eb_back_small.png \
+		favicon.ico \
 		background.jpg \
+		data\eurobattle.reg \
 		data\gproxy.log \
 		data\eurobattle.txt \
+		data\gproxy.exe \
+		data\xpam_pub.pem \
 		data\w3l.exe \
 		data\w3lh.dll \
-		data\gproxy.exe \
-		data\move.txt \
-		data\xpam.exe \
-		data\gproxy.cfg \
-		data\update.bat \
-		data\xpam_pub.pem \
-		data\eurobattle.reg \
 		data\bnftp.exe \
-		data\sounds\whisper.wav \
-		data\sounds\challenge-started.wav \
-		data\sounds\slap.wav \
+		data\gproxy.cfg \
+		data\move.txt \
+		data\update.bat \
+		data\xpam.exe \
 		data\sounds\friend-join-game.wav \
-		data\sounds\unmoderate.wav \
-		data\sounds\challenge-completed.wav \
-		data\sounds\hosted.wav \
+		data\sounds\challenge-started.wav \
 		data\sounds\started.wav \
+		data\sounds\challenge-completed.wav \
+		data\sounds\whisper.wav \
+		data\sounds\slap.wav \
+		data\sounds\unmoderate.wav \
 		data\sounds\moderate.wav \
-		data\UI\Widgets\BattleNet\chaticons\wand-moonlight.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-fable.blp \
-		data\UI\Widgets\BattleNet\chaticons\shield-warsong.blp \
-		data\UI\Widgets\BattleNet\chaticons\helmet-silver.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-quiz_master.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-moonie.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-batrider.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-goldhand.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-mushroom.blp \
-		data\UI\Widgets\BattleNet\chaticons\tier5x-nightelf-off.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-lanaya.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-lycan.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-mepo.blp \
-		data\UI\Widgets\BattleNet\chaticons\bnet-battlenet.blp \
-		data\UI\Widgets\BattleNet\chaticons\aura-ice.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-morphling.blp \
-		data\UI\Widgets\BattleNet\chaticons\aura-fire.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-viper.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-norris.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-health.blp \
-		data\UI\Widgets\BattleNet\chaticons\shield-green.blp \
-		data\UI\Widgets\BattleNet\chaticons\wand-ice.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-spectre.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-arcane.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-jakiro.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-invoker_frost.blp \
-		data\UI\Widgets\BattleNet\chaticons\shield-fire.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-angel.blp \
+		data\sounds\hosted.wav \
+		data\UI\Widgets\BattleNet\chaticons\dota-cryxalis.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-fire.blp \
 		data\UI\Widgets\BattleNet\chaticons\potion-moonglade.blp \
+		data\UI\Widgets\BattleNet\chaticons\sword-purple.blp \
+		data\UI\Widgets\BattleNet\chaticons\helmet-red.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-mepo.blp \
+		data\UI\Widgets\BattleNet\chaticons\aura-arcane.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-panda.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-blood.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-topladder.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-elemental.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-wargolem.blp \
+		data\UI\Widgets\BattleNet\chaticons\tier6x-human-off.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-siegegolem.blp \
+		data\UI\Widgets\BattleNet\chaticons\wings-gold.blp \
+		data\UI\Widgets\BattleNet\chaticons\fist-blue.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-lichking.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-davion.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-rikimaru.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-rooftrellen.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-acid.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-lycan.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-nature.blp \
+		data\UI\Widgets\BattleNet\chaticons\helmet-diamond.blp \
+		data\UI\Widgets\BattleNet\chaticons\shield-warsong.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-humanarcher.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-viper.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-zeus.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-stonegiant.blp \
+		data\UI\Widgets\BattleNet\chaticons\shield-green.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-spectre.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-kunkka.blp \
+		data\UI\Widgets\BattleNet\chaticons\aura-ice.blp \
+		data\UI\Widgets\BattleNet\chaticons\bnet-battlenet.blp \
+		data\UI\Widgets\BattleNet\chaticons\wand-moonlight.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-arcane.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-fable.blp \
+		data\UI\Widgets\BattleNet\chaticons\sword-red.blp \
+		data\UI\Widgets\BattleNet\chaticons\tier5x-nightelf.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-moonie.blp \
+		data\UI\Widgets\BattleNet\chaticons\helmet-silver.blp \
+		data\UI\Widgets\BattleNet\chaticons\wand-ice.blp \
+		data\UI\Widgets\BattleNet\chaticons\helmet-jade.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-batrider.blp \
+		data\UI\Widgets\BattleNet\chaticons\helmet-gold.blp \
+		data\UI\Widgets\BattleNet\chaticons\helmet-huntress.blp \
 		data\UI\Widgets\BattleNet\chaticons\aura-water.blp \
 		data\UI\Widgets\BattleNet\chaticons\sword-blue.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-cup.blp \
-		data\UI\Widgets\BattleNet\chaticons\fist-blue.blp \
-		data\UI\Widgets\BattleNet\chaticons\fist-white.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-boots.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-shadowfiend.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-axe.blp \
-		data\UI\Widgets\BattleNet\chaticons\wings-gold2.blp \
 		data\UI\Widgets\BattleNet\chaticons\potion-water.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-morphling.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-stormspirit.blp \
+		data\UI\Widgets\BattleNet\chaticons\fist-white.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-leshrac.blp \
-		data\UI\Widgets\BattleNet\chaticons\shield-ice.blp \
-		data\UI\Widgets\BattleNet\chaticons\tier6x-human-off.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-light.blp \
-		data\UI\Widgets\BattleNet\chaticons\bomb.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-captain.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-venom.blp \
-		data\UI\Widgets\BattleNet\chaticons\wings-green.blp \
-		data\UI\Widgets\BattleNet\chaticons\wings-purple.blp \
-		data\UI\Widgets\BattleNet\chaticons\sword-red.blp \
-		data\UI\Widgets\BattleNet\chaticons\wand-arcane.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-lightning.blp \
-		data\UI\Widgets\BattleNet\chaticons\shield-water.blp \
-		data\UI\Widgets\BattleNet\chaticons\tier5x-nightelf.blp \
-		data\UI\Widgets\BattleNet\chaticons\trophy-yellow.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-zeus.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-magic.blp \
+		data\UI\Widgets\BattleNet\chaticons\aura-nature.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-venomancer.blp \
-		data\UI\Widgets\BattleNet\chaticons\aura-lightning.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-enigma.blp \
-		data\UI\Widgets\BattleNet\chaticons\fist-red.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-arcane.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-quiz.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-topladder.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-barathrum.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-light.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-norris.blp \
+		data\UI\Widgets\BattleNet\chaticons\shield-ice.blp \
+		data\UI\Widgets\BattleNet\chaticons\sword-green.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-axe.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-mushroom.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-venom.blp \
+		data\UI\Widgets\BattleNet\chaticons\wings-purple.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-lanaya.blp \
+		data\UI\Widgets\BattleNet\chaticons\shield-water.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-captain.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-health.blp \
+		data\UI\Widgets\BattleNet\chaticons\wand-dark.blp \
 		data\UI\Widgets\BattleNet\chaticons\wings-indigo.blp \
-		data\UI\Widgets\BattleNet\chaticons\helmet-huntress.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-mirana.blp \
-		data\UI\Widgets\BattleNet\chaticons\shield-arcane.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-angel.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-invoker_frost.blp \
+		data\UI\Widgets\BattleNet\chaticons\pg-goldhand.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-water.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-tidehunter.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-troll.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-panda.blp \
-		data\UI\Widgets\BattleNet\chaticons\tier6x-human.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-gold.blp \
-		data\UI\Widgets\BattleNet\chaticons\aura-arcane.blp \
-		data\UI\Widgets\BattleNet\chaticons\shield-forest.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-magic.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-bone.blp \
+		data\UI\Widgets\BattleNet\chaticons\wand-fire.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-jakiro.blp \
+		data\UI\Widgets\BattleNet\chaticons\fist-red.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-quiz.blp \
+		data\UI\Widgets\BattleNet\chaticons\aura-lightning.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-pugna.blp \
 		data\UI\Widgets\BattleNet\chaticons\orb-nature.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-rooftrellen.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-wargolem.blp \
-		data\UI\Widgets\BattleNet\chaticons\wand-lightning.blp \
-		data\UI\Widgets\BattleNet\chaticons\special-king.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-cryxalis.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-ice.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-lichking.blp \
+		data\UI\Widgets\BattleNet\chaticons\shield-fire.blp \
+		data\UI\Widgets\BattleNet\chaticons\tier6x-human.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-gold.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-gyrocopter.blp \
 		data\UI\Widgets\BattleNet\chaticons\special-frog.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-balanar.blp \
 		data\UI\Widgets\BattleNet\chaticons\sword-yellow.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-davion.blp \
 		data\UI\Widgets\BattleNet\chaticons\aura-victory.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-dark.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-elemental.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-techies.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-phoenix.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-panda.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-tidehunter.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-stormspirit.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-acid.blp \
-		data\UI\Widgets\BattleNet\chaticons\helmet-red.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-siegegolem.blp \
-		data\UI\Widgets\BattleNet\chaticons\wand-fire.blp \
-		data\UI\Widgets\BattleNet\chaticons\wand-dark.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-fire.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-warlock.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-rikimaru.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-gyrocopter.blp \
-		data\UI\Widgets\BattleNet\chaticons\orb-water.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-pudge.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-kunkka.blp \
-		data\UI\Widgets\BattleNet\chaticons\helmet-jade.blp \
-		data\UI\Widgets\BattleNet\chaticons\dota-bone.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-nature.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-cup.blp \
 		data\UI\Widgets\BattleNet\chaticons\special-phoenix.blp \
+		data\UI\Widgets\BattleNet\chaticons\bomb.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-ice.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-boots.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-tiny.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-techies.blp \
 		data\UI\Widgets\BattleNet\chaticons\wings-red.blp \
-		data\UI\Widgets\BattleNet\chaticons\helmet-diamond.blp \
-		data\UI\Widgets\BattleNet\chaticons\sword-purple.blp \
-		data\UI\Widgets\BattleNet\chaticons\aura-nature.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-humanarcher.blp \
-		data\UI\Widgets\BattleNet\chaticons\potion-blood.blp \
-		data\UI\Widgets\BattleNet\chaticons\pg-stonegiant.blp \
-		data\UI\Widgets\BattleNet\chaticons\helmet-gold.blp \
-		data\UI\Widgets\BattleNet\chaticons\sword-green.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-phoenix.blp \
+		data\UI\Widgets\BattleNet\chaticons\wings-gold2.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-lightning.blp \
+		data\UI\Widgets\BattleNet\chaticons\trophy-yellow.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-king.blp \
+		data\UI\Widgets\BattleNet\chaticons\tier5x-nightelf-off.blp \
+		data\UI\Widgets\BattleNet\chaticons\wand-lightning.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-barathrum.blp \
+		data\UI\Widgets\BattleNet\chaticons\potion-arcane.blp \
+		data\UI\Widgets\BattleNet\chaticons\shield-arcane.blp \
+		data\UI\Widgets\BattleNet\chaticons\orb-dark.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-warlock.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-sven.blp \
 		data\UI\Widgets\BattleNet\chaticons\dota-void.blp \
-		data\UI\Widgets\BattleNet\chaticons\wings-gold.blp \
+		data\UI\Widgets\BattleNet\chaticons\special-quiz_master.blp \
+		data\UI\Widgets\BattleNet\chaticons\wings-green.blp \
+		data\UI\Widgets\BattleNet\chaticons\shield-forest.blp \
+		data\UI\Widgets\BattleNet\chaticons\wand-arcane.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-shadowfiend.blp \
+		data\UI\Widgets\BattleNet\chaticons\aura-fire.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-enigma.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-pudge.blp \
+		data\UI\Widgets\BattleNet\chaticons\dota-mirana.blp \
 		data\UI\Glues\BattleNet\PlaceholderAd\bnet-logo-placeholder.blp \
-		data\UI\Glues\Loading\Multiplayer\Loading-BotLeft.blp \
-		data\UI\Glues\Loading\Multiplayer\Loading-Random-TopRight.blp \
-		data\UI\Glues\Loading\Multiplayer\Loading-Undead-BotRight.blp \
-		data\UI\Glues\Loading\Multiplayer\Loading-Random-BotRight.blp \
 		data\UI\Glues\Loading\Multiplayer\Loading-Human-TopRight.blp \
-		data\UI\Glues\Loading\Multiplayer\Loading-TopLeft.blp \
+		data\UI\Glues\Loading\Multiplayer\Loading-BotLeft.blp \
 		data\UI\Glues\Loading\Multiplayer\Loading-Human-BotRight.blp \
 		data\UI\Glues\Loading\Multiplayer\Loading-Orc-TopRight.blp \
+		data\UI\Glues\Loading\Multiplayer\Loading-TopLeft.blp \
 		data\UI\Glues\Loading\Multiplayer\Loading-NightElf-TopRight.blp \
 		data\UI\Glues\Loading\Multiplayer\Loading-Orc-BotRight.blp \
+		data\UI\Glues\Loading\Multiplayer\Loading-Undead-TopRight.blp \
 		data\UI\Glues\Loading\Multiplayer\Loading-NightElf-BotRight.blp \
-		data\UI\Glues\Loading\Multiplayer\Loading-Undead-TopRight.blp
+		data\UI\Glues\Loading\Multiplayer\Loading-Random-TopRight.blp \
+		data\UI\Glues\Loading\Multiplayer\Loading-Undead-BotRight.blp \
+		data\UI\Glues\Loading\Multiplayer\Loading-Random-BotRight.blp
 	C:\git\qt5\qt5\qtbase\bin\rcc.exe -name installer installer.qrc -o debug\qrc_installer.cpp
+
+debug\qrc_installer2.cpp: installer2.qrc \
+		data\uninstaller.exe
+	C:\git\qt5\qt5\qtbase\bin\rcc.exe -name installer2 installer2.qrc -o debug\qrc_installer2.cpp
 
 compiler_moc_header_make_all: ..\Debug\moc_window0.cpp ..\Debug\moc_install.cpp ..\Debug\moc_config.cpp ..\Debug\moc_bnftp.cpp
 compiler_moc_header_clean:
@@ -2746,6 +2752,8 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 		..\..\qt5\qt5\qtbase\src\corelib\json\qjsonvalue.h
 
 ..\Debug\qrc_installer.obj: debug\qrc_installer.cpp 
+
+..\Debug\qrc_installer2.obj: debug\qrc_installer2.cpp 
 
 ..\Debug\moc_window0.obj: ..\Debug\moc_window0.cpp 
 

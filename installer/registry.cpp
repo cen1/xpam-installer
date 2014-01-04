@@ -1,6 +1,6 @@
 #include "registry.h"
 #include "util.h"
-
+#include "winutils.h"
 
 Registry::Registry() {}
 
@@ -277,57 +277,113 @@ DWORD Registry::addInstallationEntries(Config * config) {
     CRegKey reg;
     DWORD ret;
 
-    ret = reg.Create(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), REG_NONE, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, NULL);
-    if (ret!=ERROR_SUCCESS) return 1;
-    reg.Close();
+    if (Winutils::IsWow64()) {
+        ret = reg.Create(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), REG_NONE, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, NULL);
+        if (ret!=ERROR_SUCCESS) return 1;
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegString(reg, "DisplayName", "Eurobattle.net");
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "DisplayName", "Eurobattle.net");
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegString(reg, "UninstallString", "\""+config->EUROPATH+"\\uninstall.exe\"");
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "UninstallString", "\""+config->EUROPATH+"\\uninstaller.exe\"");
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegString(reg, "InstallLocation", config->EUROPATH);
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "InstallLocation", config->EUROPATH);
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegString(reg, "DisplayIcon ", config->EUROPATH+"\\xpam.exe");
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "DisplayIcon ", config->EUROPATH+"\\xpam.exe");
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegString(reg, "Publisher", "Eurobattle.net");
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "Publisher", "Eurobattle.net");
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegString(reg, "HelpLink", "http://eurobattle.net");
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "HelpLink", "http://eurobattle.net");
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegDWORD(reg, "NoModify", 1);
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegDWORD(reg, "NoModify", 1);
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegDWORD(reg, "NoRepair", 1);
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegDWORD(reg, "NoRepair", 1);
+        reg.Close();
 
-    reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
-    this->setRegDWORD(reg, "EstimatedSize", 15360);
-    reg.Close();
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegDWORD(reg, "EstimatedSize", 15360);
+        reg.Close();
+    }
+    else {
+        ret = reg.Create(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), REG_NONE, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS | KEY_WOW64_64KEY, NULL, NULL);
+        if (ret!=ERROR_SUCCESS) return 1;
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "DisplayName", "Eurobattle.net");
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "UninstallString", "\""+config->EUROPATH+"\\uninstaller.exe\"");
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "InstallLocation", config->EUROPATH);
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "DisplayIcon ", config->EUROPATH+"\\xpam.exe");
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "Publisher", "Eurobattle.net");
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegString(reg, "HelpLink", "http://eurobattle.net");
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegDWORD(reg, "NoModify", 1);
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegDWORD(reg, "NoRepair", 1);
+        reg.Close();
+
+        reg.Open(HKEY_LOCAL_MACHINE,  _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY);
+        this->setRegDWORD(reg, "EstimatedSize", 15360);
+        reg.Close();
+    }
 
     return 0;
 }
 
 bool Registry::removeInstallationEntries() {
     CRegKey reg;
-    if (reg.Open(HKEY_LOCAL_MACHINE, _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"), KEY_ALL_ACCESS | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
-        DWORD ret = reg.RecurseDeleteKey(_T("Eurobattle.net"));
-        reg.Close();
-        if (ret==ERROR_SUCCESS) return true;
-        else return false;
 
+    if (Winutils::IsWow64()) {
+        if (reg.Open(HKEY_LOCAL_MACHINE, _T("Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"), KEY_ALL_ACCESS | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
+            DWORD ret = reg.RecurseDeleteKey(_T("Eurobattle.net"));
+            reg.Close();
+            if (ret==ERROR_SUCCESS) return true;
+            else return false;
+
+        }
+        return false;
     }
-    return false;
+    else {
+        if (reg.Open(HKEY_LOCAL_MACHINE, _T("Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"), KEY_ALL_ACCESS | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
+            DWORD ret = reg.RecurseDeleteKey(_T("Eurobattle.net"));
+            reg.Close();
+            if (ret==ERROR_SUCCESS) return true;
+            else return false;
+
+        }
+        return false;
+    }
 }

@@ -67,6 +67,9 @@ private slots:
 
     void on_pushButton_5_clicked();
 
+public slots:
+    void disableAbort(bool b);
+
 private:
     Ui::Window0 *ui;
     void fail(QString msg);

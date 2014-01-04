@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/uninstaller.exe</file>
+    </qresource>
+</RCC>

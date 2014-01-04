@@ -36,10 +36,11 @@ HEADERS  += window0.h \
 FORMS    += window0.ui
 
 RESOURCES += \
-    installer.qrc
-
+    installer.qrc \
+    installer2.qrc
 
 CONFIG += static
+
 CONFIG(debug, debug|release){
     DESTDIR = $$PWD/../Debug
     OBJECTS_DIR = $$PWD/../Debug
