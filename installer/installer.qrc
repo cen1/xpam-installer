@@ -160,5 +160,6 @@
         <file>data/UI/Widgets/BattleNet/chaticons/wings-purple.blp</file>
         <file>data/UI/Widgets/BattleNet/chaticons/wings-red.blp</file>
         <file>data/bnftp.exe</file>
+        <file>data/update.bat</file>
     </qresource>
 </RCC>

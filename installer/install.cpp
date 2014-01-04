@@ -200,6 +200,11 @@ bool Install::extractFiles()
         isAbort=true;
         return false;
     }
+    if (!QDir().mkpath(config->EUROPATH+"\\uninstall")) {
+        emit sendInfo("Could not create Eurobattle.net uninstall folder");
+        isAbort=true;
+        return false;
+    }
 
     QFile inputFile(":\\data\\move.txt");
     if (inputFile.open(QIODevice::ReadOnly)) {
@@ -431,6 +436,9 @@ bool Install::updateMPQ()
             QStringList l = line.split(" ");
 
             if (l[0]=="O") {
+                //copy war3patch.mpq to uninstall/
+                QFile::copy(config->W3PATH+"\\"+l[1], config->EUROPATH+"\\uninstall\\"+l[1]);
+
                 if (mpq.open(config->W3PATH+"\\"+l[1])==false) {
                     emit sendInfo(Util::getLastErrorMsg()+config->W3PATH+"\\"+l[1]);
                     isAbort=true;
@@ -555,6 +563,13 @@ bool Install::finish()
     //create xpam.exe shortcut
     if(!QFile::link(this->config->EUROPATH+"\\xpam.exe", Winutils::getDesktop()+"\\Eurobattle.net Client.lnk")) {
         emit sendInfo("Could not create desktop shortcut. It already exists?");
+    }
+
+    //create registry entries for Add/Remove programs and other info
+    Registry reg;
+    if (reg.addInstallationEntries(config) == 1) {
+        emit sendInfo("Unable to add registry entry for Add/Remove programs");
+        isAbort=true;
     }
 
     //isAbort=true; //uncomment to test full reversal of installation
@@ -712,6 +727,10 @@ bool Install::rfinish()
     emit sendInfo("Rolling back Eurobattle.net finish step");
 
     if (!desktopShortcutExisted) QFile::remove(Winutils::getDesktop()+"\\Eurobattle.net Client.lnk");
+
+    Registry reg;
+    reg.removeInstallationEntries();
+
     return false;
 }
 

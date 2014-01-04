@@ -35,6 +35,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef QSTRING_H
     #include <QString>
 #endif
+#ifndef CONFIG_H
+    #include "config.h"
+#endif
 
 class Registry {
 public:
@@ -45,6 +48,7 @@ public:
     bool getRegMultiString(CRegKey * reg, QString name, wchar_t * buffer, ULONG * bufsize);
     DWORD getRegDWORD(CRegKey reg, QString name);
     bool setRegString(CRegKey reg, QString name, QString value);
+    bool setRegDWORD(CRegKey reg, QString name, DWORD value);
     DWORD setGateways();
     DWORD setOriginalGateways(wchar_t * buffer, ULONG bufsize);
     DWORD setBnetGateways();
@@ -52,6 +56,9 @@ public:
     bool createW3Key();
     bool setEuropath(QString europath);
     bool setW3dir(QString w3dir);
+    bool setPatchVersion(int version);
+    DWORD addInstallationEntries(Config * config);
+    bool removeInstallationEntries();
     Registry();
 };
 

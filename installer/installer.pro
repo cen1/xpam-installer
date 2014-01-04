@@ -38,6 +38,20 @@ FORMS    += window0.ui
 RESOURCES += \
     installer.qrc
 
+
+CONFIG += static
+CONFIG(debug, debug|release){
+    DESTDIR = $$PWD/../Debug
+    OBJECTS_DIR = $$PWD/../Debug
+    MOC_DIR = $$PWD/../Debug
+}
+
+CONFIG(release, debug|release){
+    DESTDIR = $$PWD/../Release
+    OBJECTS_DIR = $$PWD/../Release
+    MOC_DIR = $$PWD/../Release
+}
+
 DEFINES += _CRT_SECURE_NO_WARNINGS
 
 LIBS += version.lib
@@ -49,4 +63,6 @@ DEPENDPATH += $$PWD/
 
 win32: PRE_TARGETDEPS += $$PWD/StormLib.lib
 
-CONFIG -= embed_manifest_exe
+#CONFIG -= embed_manifest_exe
+
+#QMAKE_POST_LINK += upx.exe ../Release-static/release/installer.exe

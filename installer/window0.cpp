@@ -158,7 +158,7 @@ void Window0::on_nextButton_3_clicked()
 
         //set registry keys
         Registry reg;
-        reg.createEuroKey(); //we don't really care if this fails
+        reg.createEuroKey();
 
         //create InstallPath and Battle.net Gateways if they do not yet exist
         CRegKey rkey;
@@ -203,6 +203,9 @@ void Window0::on_nextButton_3_clicked()
         }
         else if (!reg.setW3dir(config->W3PATH)) {
             ui->errlabel_1->setText("W3dir registry error: "+Util::getLastErrorMsg());
+        }
+        else if (!reg.setPatchVersion(0)) {
+            ui->errlabel_1->setText("Patch version registry error: "+Util::getLastErrorMsg());
         }
         else {
             QObject::connect(this, SIGNAL(startInstall()), install, SLOT(startInstall()));

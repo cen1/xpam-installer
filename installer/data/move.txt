@@ -4,8 +4,10 @@ m bnftp.exe EUROPATH
 m xpam.exe EUROPATH
 m gproxy.exe EUROPATH
 m gproxy.log EUROPATH
+m gproxy.cfg EUROPATH
 m xpam_pub.pem EUROPATH
 m eurobattle.reg EUROPATH
+m update.bat EUROPATH
 m sounds\challenge-completed.wav EUROPATH
 m sounds\challenge-started.wav EUROPATH
 m sounds\friend-join-game.wav EUROPATH
