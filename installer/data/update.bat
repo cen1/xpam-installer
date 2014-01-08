@@ -1,6 +1,6 @@
 @echo Off
 
-taskkill /f /im "xpam.exe"
+tskill xpam
 IF EXIST newxpam.exe (
 	del xpam.exe
 	RENAME newxpam.exe xpam.exe
