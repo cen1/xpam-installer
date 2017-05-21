@@ -1,20 +1,34 @@
-m w3l.exe W3PATH
-m w3lh.dll W3PATH
-m bnftp.exe EUROPATH
-m xpam.exe EUROPATH
-m gproxy.exe EUROPATH
-m gproxy.log EUROPATH
-m gproxy.cfg EUROPATH
-m xpam_pub.pem EUROPATH
-m eurobattle.reg EUROPATH
-m update.bat EUROPATH
-m uninstaller.exe EUROPATH
-m sounds\challenge-completed.wav EUROPATH
-m sounds\challenge-started.wav EUROPATH
-m sounds\friend-join-game.wav EUROPATH
-m sounds\hosted.wav EUROPATH
-m sounds\moderate.wav EUROPATH
-m sounds\slap.wav EUROPATH
-m sounds\started.wav EUROPATH
-m sounds\unmoderate.wav EUROPATH
-m sounds\whisper.wav EUROPATH
+m w3l.exe W3PATH replace
+m w3lh.dll W3PATH replace
+m wl27.dll W3PATH replace
+m bnftp.exe EUROPATH replace
+m xpam.exe EUROPATH replace
+m xpam.cfg EUROPATH replace
+m gproxy.exe EUROPATH replace
+m gproxy.log EUROPATH replace
+m gproxy.cfg EUROPATH replace
+m xpam_pub.pem EUROPATH replace
+m eurobattle.reg EUROPATH replace
+m update.bat EUROPATH replace
+m uninstaller.exe EUROPATH replace
+m zlib.dll EUROPATH replace
+m quazip.dll EUROPATH replace
+m Qt5Core.dll EUROPATH replace
+m Qt5Gui.dll EUROPATH replace
+m Qt5Network.dll EUROPATH replace
+m Qt5Widgets.dll EUROPATH replace
+m libeay32.dll EUROPATH replace
+m ssleay32.dll EUROPATH replace
+m sounds\challenge-completed.wav EUROPATH replace
+m sounds\challenge-started.wav EUROPATH replace
+m sounds\friend-join-game.wav EUROPATH replace
+m sounds\hosted.wav EUROPATH replace
+m sounds\moderate.wav EUROPATH replace
+m sounds\slap.wav EUROPATH replace
+m sounds\started.wav EUROPATH replace
+m sounds\unmoderate.wav EUROPATH replace
+m sounds\whisper.wav EUROPATH replace
+m sounds\kicked.wav EUROPATH replace
+m platforms\qwindows.dll EUROPATH replace
+m tft.w3k W3PATH ignore
+m roc.w3k W3PATH ignore

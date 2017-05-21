@@ -61,6 +61,7 @@ private:
     bool bextractFiles();
     bool bupdateMPQ();
     wchar_t * gateBuffer;
+    QString old_installpath;
     ULONG gateSize;
     bool gateBackupFailed;
 

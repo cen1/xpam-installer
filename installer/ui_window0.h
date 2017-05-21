@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'window0.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.0
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -98,7 +98,7 @@ public:
 "}"));
         label_1 = new QLabel(page_1);
         label_1->setObjectName(QStringLiteral("label_1"));
-        label_1->setGeometry(QRect(20, 90, 461, 131));
+        label_1->setGeometry(QRect(20, 90, 461, 231));
         nextButton_1 = new QPushButton(page_1);
         nextButton_1->setObjectName(QStringLiteral("nextButton_1"));
         nextButton_1->setGeometry(QRect(410, 320, 75, 23));
@@ -222,19 +222,7 @@ public:
     void retranslateUi(QMainWindow *Window0)
     {
         Window0->setWindowTitle(QApplication::translate("Window0", "Eurobattle.net setup", 0));
-        label_1->setText(QApplication::translate("Window0", "<html>\n"
-"<head>\n"
-"<head/>\n"
-"<body style=\" font-size:10pt;\">\n"
-"Welcome to eurobattle.net installer<br /><br />\n"
-"This program will install:<br />\n"
-"-Warcraft III 1.26a patch update (if necessary)<br />\n"
-"-W3 loader<br />\n"
-"-Eurobattle.net Client<br />\n"
-"-Eurobattle.net custom GProxy<br />\n"
-"-Custom channel icons<br />\n"
-"</body>\n"
-"</html>", 0));
+        label_1->setText(QApplication::translate("Window0", "<html><head/><body><p><span style=\" font-size:10pt;\">Welcome to eurobattle.net installer<br/></span></p><p><span style=\" font-size:10pt; color:#ffaa00;\">Before install please make sure you have</span><span style=\" font-size:10pt;\">:<br/>-Warcraft III 1.28.2<br/>-Visual C++ Redistributable 2015 x86</span></p><p><span style=\" font-size:10pt;\"><br/></span><span style=\" font-size:10pt; color:#ffaa00;\">This program will install</span><span style=\" font-size:10pt;\">:<br/>-W3 loader<br/>-Eurobattle.net Client<br/>-Eurobattle.net GProxy<br/>-Custom channel icons<br/></span></p></body></html>", 0));
         nextButton_1->setText(QApplication::translate("Window0", "Next", 0));
         label_2->setText(QApplication::translate("Window0", "<html>\n"
 "<head>\n"

@@ -136,6 +136,145 @@ d UI\Widgets\BattleNet\chaticons\wand-fire.blp
 d UI\Widgets\BattleNet\chaticons\wand-ice.blp
 d UI\Widgets\BattleNet\chaticons\wand-lightning.blp
 d UI\Widgets\BattleNet\chaticons\wand-moonlight.blp
+d UI\Widgets\BattleNet\chaticons\anime-akatsuki.blp
+d UI\Widgets\BattleNet\chaticons\anime-anbu.blp
+d UI\Widgets\BattleNet\chaticons\anime-anbuyamato.blp
+d UI\Widgets\BattleNet\chaticons\anime-bee.blp
+d UI\Widgets\BattleNet\chaticons\anime-beerus.blp
+d UI\Widgets\BattleNet\chaticons\anime-boo1.blp
+d UI\Widgets\BattleNet\chaticons\anime-boo2.blp
+d UI\Widgets\BattleNet\chaticons\anime-cell.blp
+d UI\Widgets\BattleNet\chaticons\anime-deidara.blp
+d UI\Widgets\BattleNet\chaticons\anime-evilmadara.blp
+d UI\Widgets\BattleNet\chaticons\anime-gaara.blp
+d UI\Widgets\BattleNet\chaticons\anime-goku1.blp
+d UI\Widgets\BattleNet\chaticons\anime-goku2.blp
+d UI\Widgets\BattleNet\chaticons\anime-gokuss3.blp
+d UI\Widgets\BattleNet\chaticons\anime-gokuss4.blp
+d UI\Widgets\BattleNet\chaticons\anime-itachi.blp
+d UI\Widgets\BattleNet\chaticons\anime-jiraya.blp
+d UI\Widgets\BattleNet\chaticons\anime-kakashi1.blp
+d UI\Widgets\BattleNet\chaticons\anime-kakashi2.blp
+d UI\Widgets\BattleNet\chaticons\anime-kakashi3.blp
+d UI\Widgets\BattleNet\chaticons\anime-kakashianbu.blp
+d UI\Widgets\BattleNet\chaticons\anime-kankuro.blp
+d UI\Widgets\BattleNet\chaticons\anime-kisame.blp
+d UI\Widgets\BattleNet\chaticons\anime-konan.blp
+d UI\Widgets\BattleNet\chaticons\anime-kyuubi.blp
+d UI\Widgets\BattleNet\chaticons\anime-lee.blp
+d UI\Widgets\BattleNet\chaticons\anime-madara.blp
+d UI\Widgets\BattleNet\chaticons\anime-mizukage.blp
+d UI\Widgets\BattleNet\chaticons\anime-naruto.blp
+d UI\Widgets\BattleNet\chaticons\anime-narutosennin.blp
+d UI\Widgets\BattleNet\chaticons\anime-nidaime.blp
+d UI\Widgets\BattleNet\chaticons\anime-onoki.blp
+d UI\Widgets\BattleNet\chaticons\anime-orochimaru2.blp
+d UI\Widgets\BattleNet\chaticons\anime-pain.blp
+d UI\Widgets\BattleNet\chaticons\anime-piccolo.blp
+d UI\Widgets\BattleNet\chaticons\anime-raikage.blp
+d UI\Widgets\BattleNet\chaticons\anime-rikudousennin.blp
+d UI\Widgets\BattleNet\chaticons\anime-sasori.blp
+d UI\Widgets\BattleNet\chaticons\anime-sasuke.blp
+d UI\Widgets\BattleNet\chaticons\anime-shikamaru.blp
+d UI\Widgets\BattleNet\chaticons\anime-tobi.blp
+d UI\Widgets\BattleNet\chaticons\anime-zetsu.blp
+d UI\Widgets\BattleNet\chaticons\marvel-abomination.blp
+d UI\Widgets\BattleNet\chaticons\marvel-apocalypse.blp
+d UI\Widgets\BattleNet\chaticons\marvel-blackknight.blp
+d UI\Widgets\BattleNet\chaticons\marvel-blackpanther.blp
+d UI\Widgets\BattleNet\chaticons\marvel-blackwidow.blp
+d UI\Widgets\BattleNet\chaticons\marvel-capamerica.blp
+d UI\Widgets\BattleNet\chaticons\marvel-captainmarvel.blp
+d UI\Widgets\BattleNet\chaticons\marvel-ciclops.blp
+d UI\Widgets\BattleNet\chaticons\marvel-colossus.blp
+d UI\Widgets\BattleNet\chaticons\marvel-corvus.blp
+d UI\Widgets\BattleNet\chaticons\marvel-daredevil2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-deadpool1.blp
+d UI\Widgets\BattleNet\chaticons\marvel-deadpool2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-deadpool3.blp
+d UI\Widgets\BattleNet\chaticons\marvel-dormamu.blp
+d UI\Widgets\BattleNet\chaticons\marvel-drax.blp
+d UI\Widgets\BattleNet\chaticons\marvel-drdoom.blp
+d UI\Widgets\BattleNet\chaticons\marvel-drdoom2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-drstrange.blp
+d UI\Widgets\BattleNet\chaticons\marvel-electra.blp
+d UI\Widgets\BattleNet\chaticons\marvel-galactus.blp
+d UI\Widgets\BattleNet\chaticons\marvel-gambit.blp
+d UI\Widgets\BattleNet\chaticons\marvel-gamora1.blp
+d UI\Widgets\BattleNet\chaticons\marvel-gamora2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-ghostrider.blp
+d UI\Widgets\BattleNet\chaticons\marvel-greengoblin.blp
+d UI\Widgets\BattleNet\chaticons\marvel-groot.blp
+d UI\Widgets\BattleNet\chaticons\marvel-hawkeye.blp
+d UI\Widgets\BattleNet\chaticons\marvel-hawkeye2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-heimdall.blp
+d UI\Widgets\BattleNet\chaticons\marvel-hulk.blp
+d UI\Widgets\BattleNet\chaticons\marvel-hulkbuster.blp
+d UI\Widgets\BattleNet\chaticons\marvel-humantorch.blp
+d UI\Widgets\BattleNet\chaticons\marvel-hybrid.blp
+d UI\Widgets\BattleNet\chaticons\marvel-ironfist.blp
+d UI\Widgets\BattleNet\chaticons\marvel-ironfist2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-ironman.blp
+d UI\Widgets\BattleNet\chaticons\marvel-juggernaut.blp
+d UI\Widgets\BattleNet\chaticons\marvel-kang.blp
+d UI\Widgets\BattleNet\chaticons\marvel-kurse.blp
+d UI\Widgets\BattleNet\chaticons\marvel-lizard.blp
+d UI\Widgets\BattleNet\chaticons\marvel-magneto.blp
+d UI\Widgets\BattleNet\chaticons\marvel-monolith.blp
+d UI\Widgets\BattleNet\chaticons\marvel-nova.blp
+d UI\Widgets\BattleNet\chaticons\marvel-redhulk.blp
+d UI\Widgets\BattleNet\chaticons\marvel-rhino.blp
+d UI\Widgets\BattleNet\chaticons\marvel-rocket.blp
+d UI\Widgets\BattleNet\chaticons\marvel-ronan.blp
+d UI\Widgets\BattleNet\chaticons\marvel-scarletwitch.blp
+d UI\Widgets\BattleNet\chaticons\marvel-sizehela.blp
+d UI\Widgets\BattleNet\chaticons\marvel-sizehulkbuster.blp
+d UI\Widgets\BattleNet\chaticons\marvel-sizejugger.blp
+d UI\Widgets\BattleNet\chaticons\marvel-sizeronan.blp
+d UI\Widgets\BattleNet\chaticons\marvel-sizevenom.blp
+d UI\Widgets\BattleNet\chaticons\marvel-spider.blp
+d UI\Widgets\BattleNet\chaticons\marvel-starlord.blp
+d UI\Widgets\BattleNet\chaticons\marvel-storm.blp
+d UI\Widgets\BattleNet\chaticons\marvel-superthanos.blp
+d UI\Widgets\BattleNet\chaticons\marvel-taskmaster.blp
+d UI\Widgets\BattleNet\chaticons\marvel-thanos.blp
+d UI\Widgets\BattleNet\chaticons\marvel-thing.blp
+d UI\Widgets\BattleNet\chaticons\marvel-thor.blp
+d UI\Widgets\BattleNet\chaticons\marvel-thor2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-ultron.blp
+d UI\Widgets\BattleNet\chaticons\marvel-venom.blp
+d UI\Widgets\BattleNet\chaticons\marvel-vision.blp
+d UI\Widgets\BattleNet\chaticons\marvel-wolverine1.blp
+d UI\Widgets\BattleNet\chaticons\marvel-wolverine2.blp
+d UI\Widgets\BattleNet\chaticons\marvel-wolverinespecial.blp
+d UI\Widgets\BattleNet\chaticons\special-akuma.blp
+d UI\Widgets\BattleNet\chaticons\special-bart.blp
+d UI\Widgets\BattleNet\chaticons\special-bigu.blp
+d UI\Widgets\BattleNet\chaticons\special-bowser.blp
+d UI\Widgets\BattleNet\chaticons\special-cen.blp
+d UI\Widgets\BattleNet\chaticons\special-dedede.blp
+d UI\Widgets\BattleNet\chaticons\special-eufrazino.blp
+d UI\Widgets\BattleNet\chaticons\special-heman.blp
+d UI\Widgets\BattleNet\chaticons\special-homer.blp
+d UI\Widgets\BattleNet\chaticons\special-iori.blp
+d UI\Widgets\BattleNet\chaticons\special-kakuzu.blp
+d UI\Widgets\BattleNet\chaticons\special-link.blp
+d UI\Widgets\BattleNet\chaticons\special-megaman.blp
+d UI\Widgets\BattleNet\chaticons\special-papermario.blp
+d UI\Widgets\BattleNet\chaticons\special-patrick.blp
+d UI\Widgets\BattleNet\chaticons\special-pikachu.blp
+d UI\Widgets\BattleNet\chaticons\special-raiden.blp
+d UI\Widgets\BattleNet\chaticons\special-ryu.blp
+d UI\Widgets\BattleNet\chaticons\special-scorpion.blp
+d UI\Widgets\BattleNet\chaticons\special-seiya.blp
+d UI\Widgets\BattleNet\chaticons\special-spongebob.blp
+d UI\Widgets\BattleNet\chaticons\special-subzero.blp
+d UI\Widgets\BattleNet\chaticons\special-subzeromkx.blp
+d UI\Widgets\BattleNet\chaticons\special-taz.blp
+d UI\Widgets\BattleNet\chaticons\special-vader1.blp
+d UI\Widgets\BattleNet\chaticons\special-vader2.blp
+d UI\Widgets\BattleNet\chaticons\special-yoshi.blp
+d UI\Widgets\BattleNet\chaticons\special-zero.blp
 f
 a UI\Glues\BattleNet\PlaceholderAd\bnet-logo-placeholder.blp UI\Glues\BattleNet\PlaceholderAd\bnet-logo-placeholder.blp
 a UI\Glues\Loading\Multiplayer\Loading-BotLeft.blp UI\Glues\Loading\Multiplayer\Loading-BotLeft.blp
@@ -274,5 +413,145 @@ a UI\Widgets\BattleNet\chaticons\wand-fire.blp UI\Widgets\BattleNet\chaticons\wa
 a UI\Widgets\BattleNet\chaticons\wand-ice.blp UI\Widgets\BattleNet\chaticons\wand-ice.blp
 a UI\Widgets\BattleNet\chaticons\wand-lightning.blp UI\Widgets\BattleNet\chaticons\wand-lightning.blp
 a UI\Widgets\BattleNet\chaticons\wand-moonlight.blp UI\Widgets\BattleNet\chaticons\wand-moonlight.blp
+a UI\Widgets\BattleNet\chaticons\avengers-ironman.blp UI\Widgets\BattleNet\chaticons\avengers-ironman.blp
+a UI\Widgets\BattleNet\chaticons\anime-akatsuki.blp UI\Widgets\BattleNet\chaticons\anime-akatsuki.blp
+a UI\Widgets\BattleNet\chaticons\anime-anbu.blp UI\Widgets\BattleNet\chaticons\anime-anbu.blp
+a UI\Widgets\BattleNet\chaticons\anime-anbuyamato.blp UI\Widgets\BattleNet\chaticons\anime-anbuyamato.blp
+a UI\Widgets\BattleNet\chaticons\anime-bee.blp UI\Widgets\BattleNet\chaticons\anime-bee.blp
+a UI\Widgets\BattleNet\chaticons\anime-beerus.blp UI\Widgets\BattleNet\chaticons\anime-beerus.blp
+a UI\Widgets\BattleNet\chaticons\anime-boo1.blp UI\Widgets\BattleNet\chaticons\anime-boo1.blp
+a UI\Widgets\BattleNet\chaticons\anime-boo2.blp UI\Widgets\BattleNet\chaticons\anime-boo2.blp
+a UI\Widgets\BattleNet\chaticons\anime-cell.blp UI\Widgets\BattleNet\chaticons\anime-cell.blp
+a UI\Widgets\BattleNet\chaticons\anime-deidara.blp UI\Widgets\BattleNet\chaticons\anime-deidara.blp
+a UI\Widgets\BattleNet\chaticons\anime-evilmadara.blp UI\Widgets\BattleNet\chaticons\anime-evilmadara.blp
+a UI\Widgets\BattleNet\chaticons\anime-gaara.blp UI\Widgets\BattleNet\chaticons\anime-gaara.blp
+a UI\Widgets\BattleNet\chaticons\anime-goku1.blp UI\Widgets\BattleNet\chaticons\anime-goku1.blp
+a UI\Widgets\BattleNet\chaticons\anime-goku2.blp UI\Widgets\BattleNet\chaticons\anime-goku2.blp
+a UI\Widgets\BattleNet\chaticons\anime-gokuss3.blp UI\Widgets\BattleNet\chaticons\anime-gokuss3.blp
+a UI\Widgets\BattleNet\chaticons\anime-gokuss4.blp UI\Widgets\BattleNet\chaticons\anime-gokuss4.blp
+a UI\Widgets\BattleNet\chaticons\anime-itachi.blp UI\Widgets\BattleNet\chaticons\anime-itachi.blp
+a UI\Widgets\BattleNet\chaticons\anime-jiraya.blp UI\Widgets\BattleNet\chaticons\anime-jiraya.blp
+a UI\Widgets\BattleNet\chaticons\anime-kakashi1.blp UI\Widgets\BattleNet\chaticons\anime-kakashi1.blp
+a UI\Widgets\BattleNet\chaticons\anime-kakashi2.blp UI\Widgets\BattleNet\chaticons\anime-kakashi2.blp
+a UI\Widgets\BattleNet\chaticons\anime-kakashi3.blp UI\Widgets\BattleNet\chaticons\anime-kakashi3.blp
+a UI\Widgets\BattleNet\chaticons\anime-kakashianbu.blp UI\Widgets\BattleNet\chaticons\anime-kakashianbu.blp
+a UI\Widgets\BattleNet\chaticons\anime-kankuro.blp UI\Widgets\BattleNet\chaticons\anime-kankuro.blp
+a UI\Widgets\BattleNet\chaticons\anime-kisame.blp UI\Widgets\BattleNet\chaticons\anime-kisame.blp
+a UI\Widgets\BattleNet\chaticons\anime-konan.blp UI\Widgets\BattleNet\chaticons\anime-konan.blp
+a UI\Widgets\BattleNet\chaticons\anime-kyuubi.blp UI\Widgets\BattleNet\chaticons\anime-kyuubi.blp
+a UI\Widgets\BattleNet\chaticons\anime-lee.blp UI\Widgets\BattleNet\chaticons\anime-lee.blp
+a UI\Widgets\BattleNet\chaticons\anime-madara.blp UI\Widgets\BattleNet\chaticons\anime-madara.blp
+a UI\Widgets\BattleNet\chaticons\anime-mizukage.blp UI\Widgets\BattleNet\chaticons\anime-mizukage.blp
+a UI\Widgets\BattleNet\chaticons\anime-naruto.blp UI\Widgets\BattleNet\chaticons\anime-naruto.blp
+a UI\Widgets\BattleNet\chaticons\anime-narutosennin.blp UI\Widgets\BattleNet\chaticons\anime-narutosennin.blp
+a UI\Widgets\BattleNet\chaticons\anime-nidaime.blp UI\Widgets\BattleNet\chaticons\anime-nidaime.blp
+a UI\Widgets\BattleNet\chaticons\anime-onoki.blp UI\Widgets\BattleNet\chaticons\anime-onoki.blp
+a UI\Widgets\BattleNet\chaticons\anime-orochimaru2.blp UI\Widgets\BattleNet\chaticons\anime-orochimaru2.blp
+a UI\Widgets\BattleNet\chaticons\anime-pain.blp UI\Widgets\BattleNet\chaticons\anime-pain.blp
+a UI\Widgets\BattleNet\chaticons\anime-piccolo.blp UI\Widgets\BattleNet\chaticons\anime-piccolo.blp
+a UI\Widgets\BattleNet\chaticons\anime-raikage.blp UI\Widgets\BattleNet\chaticons\anime-raikage.blp
+a UI\Widgets\BattleNet\chaticons\anime-rikudousennin.blp UI\Widgets\BattleNet\chaticons\anime-rikudousennin.blp
+a UI\Widgets\BattleNet\chaticons\anime-sasori.blp UI\Widgets\BattleNet\chaticons\anime-sasori.blp
+a UI\Widgets\BattleNet\chaticons\anime-sasuke.blp UI\Widgets\BattleNet\chaticons\anime-sasuke.blp
+a UI\Widgets\BattleNet\chaticons\anime-shikamaru.blp UI\Widgets\BattleNet\chaticons\anime-shikamaru.blp
+a UI\Widgets\BattleNet\chaticons\anime-tobi.blp UI\Widgets\BattleNet\chaticons\anime-tobi.blp
+a UI\Widgets\BattleNet\chaticons\anime-zetsu.blp UI\Widgets\BattleNet\chaticons\anime-zetsu.blp
+a UI\Widgets\BattleNet\chaticons\marvel-abomination.blp UI\Widgets\BattleNet\chaticons\marvel-abomination.blp
+a UI\Widgets\BattleNet\chaticons\marvel-apocalypse.blp UI\Widgets\BattleNet\chaticons\marvel-apocalypse.blp
+a UI\Widgets\BattleNet\chaticons\marvel-blackknight.blp UI\Widgets\BattleNet\chaticons\marvel-blackknight.blp
+a UI\Widgets\BattleNet\chaticons\marvel-blackpanther.blp UI\Widgets\BattleNet\chaticons\marvel-blackpanther.blp
+a UI\Widgets\BattleNet\chaticons\marvel-blackwidow.blp UI\Widgets\BattleNet\chaticons\marvel-blackwidow.blp
+a UI\Widgets\BattleNet\chaticons\marvel-capamerica.blp UI\Widgets\BattleNet\chaticons\marvel-capamerica.blp
+a UI\Widgets\BattleNet\chaticons\marvel-captainmarvel.blp UI\Widgets\BattleNet\chaticons\marvel-captainmarvel.blp
+a UI\Widgets\BattleNet\chaticons\marvel-ciclops.blp UI\Widgets\BattleNet\chaticons\marvel-ciclops.blp
+a UI\Widgets\BattleNet\chaticons\marvel-colossus.blp UI\Widgets\BattleNet\chaticons\marvel-colossus.blp
+a UI\Widgets\BattleNet\chaticons\marvel-corvus.blp UI\Widgets\BattleNet\chaticons\marvel-corvus.blp
+a UI\Widgets\BattleNet\chaticons\marvel-daredevil2.blp UI\Widgets\BattleNet\chaticons\marvel-daredevil2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-deadpool1.blp UI\Widgets\BattleNet\chaticons\marvel-deadpool1.blp
+a UI\Widgets\BattleNet\chaticons\marvel-deadpool2.blp UI\Widgets\BattleNet\chaticons\marvel-deadpool2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-deadpool3.blp UI\Widgets\BattleNet\chaticons\marvel-deadpool3.blp
+a UI\Widgets\BattleNet\chaticons\marvel-dormamu.blp UI\Widgets\BattleNet\chaticons\marvel-dormamu.blp
+a UI\Widgets\BattleNet\chaticons\marvel-drax.blp UI\Widgets\BattleNet\chaticons\marvel-drax.blp
+a UI\Widgets\BattleNet\chaticons\marvel-drdoom.blp UI\Widgets\BattleNet\chaticons\marvel-drdoom.blp
+a UI\Widgets\BattleNet\chaticons\marvel-drdoom2.blp UI\Widgets\BattleNet\chaticons\marvel-drdoom2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-drstrange.blp UI\Widgets\BattleNet\chaticons\marvel-drstrange.blp
+a UI\Widgets\BattleNet\chaticons\marvel-electra.blp UI\Widgets\BattleNet\chaticons\marvel-electra.blp
+a UI\Widgets\BattleNet\chaticons\marvel-galactus.blp UI\Widgets\BattleNet\chaticons\marvel-galactus.blp
+a UI\Widgets\BattleNet\chaticons\marvel-gambit.blp UI\Widgets\BattleNet\chaticons\marvel-gambit.blp
+a UI\Widgets\BattleNet\chaticons\marvel-gamora1.blp UI\Widgets\BattleNet\chaticons\marvel-gamora1.blp
+a UI\Widgets\BattleNet\chaticons\marvel-gamora2.blp UI\Widgets\BattleNet\chaticons\marvel-gamora2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-ghostrider.blp UI\Widgets\BattleNet\chaticons\marvel-ghostrider.blp
+a UI\Widgets\BattleNet\chaticons\marvel-greengoblin.blp UI\Widgets\BattleNet\chaticons\marvel-greengoblin.blp
+a UI\Widgets\BattleNet\chaticons\marvel-groot.blp UI\Widgets\BattleNet\chaticons\marvel-groot.blp
+a UI\Widgets\BattleNet\chaticons\marvel-hawkeye.blp UI\Widgets\BattleNet\chaticons\marvel-hawkeye.blp
+a UI\Widgets\BattleNet\chaticons\marvel-hawkeye2.blp UI\Widgets\BattleNet\chaticons\marvel-hawkeye2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-heimdall.blp UI\Widgets\BattleNet\chaticons\marvel-heimdall.blp
+a UI\Widgets\BattleNet\chaticons\marvel-hulk.blp UI\Widgets\BattleNet\chaticons\marvel-hulk.blp
+a UI\Widgets\BattleNet\chaticons\marvel-hulkbuster.blp UI\Widgets\BattleNet\chaticons\marvel-hulkbuster.blp
+a UI\Widgets\BattleNet\chaticons\marvel-humantorch.blp UI\Widgets\BattleNet\chaticons\marvel-humantorch.blp
+a UI\Widgets\BattleNet\chaticons\marvel-hybrid.blp UI\Widgets\BattleNet\chaticons\marvel-hybrid.blp
+a UI\Widgets\BattleNet\chaticons\marvel-ironfist.blp UI\Widgets\BattleNet\chaticons\marvel-ironfist.blp
+a UI\Widgets\BattleNet\chaticons\marvel-ironfist2.blp UI\Widgets\BattleNet\chaticons\marvel-ironfist2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-ironman.blp UI\Widgets\BattleNet\chaticons\marvel-ironman.blp
+a UI\Widgets\BattleNet\chaticons\marvel-juggernaut.blp UI\Widgets\BattleNet\chaticons\marvel-juggernaut.blp
+a UI\Widgets\BattleNet\chaticons\marvel-kang.blp UI\Widgets\BattleNet\chaticons\marvel-kang.blp
+a UI\Widgets\BattleNet\chaticons\marvel-kurse.blp UI\Widgets\BattleNet\chaticons\marvel-kurse.blp
+a UI\Widgets\BattleNet\chaticons\marvel-lizard.blp UI\Widgets\BattleNet\chaticons\marvel-lizard.blp
+a UI\Widgets\BattleNet\chaticons\marvel-magneto.blp UI\Widgets\BattleNet\chaticons\marvel-magneto.blp
+a UI\Widgets\BattleNet\chaticons\marvel-monolith.blp UI\Widgets\BattleNet\chaticons\marvel-monolith.blp
+a UI\Widgets\BattleNet\chaticons\marvel-nova.blp UI\Widgets\BattleNet\chaticons\marvel-nova.blp
+a UI\Widgets\BattleNet\chaticons\marvel-redhulk.blp UI\Widgets\BattleNet\chaticons\marvel-redhulk.blp
+a UI\Widgets\BattleNet\chaticons\marvel-rhino.blp UI\Widgets\BattleNet\chaticons\marvel-rhino.blp
+a UI\Widgets\BattleNet\chaticons\marvel-rocket.blp UI\Widgets\BattleNet\chaticons\marvel-rocket.blp
+a UI\Widgets\BattleNet\chaticons\marvel-ronan.blp UI\Widgets\BattleNet\chaticons\marvel-ronan.blp
+a UI\Widgets\BattleNet\chaticons\marvel-scarletwitch.blp UI\Widgets\BattleNet\chaticons\marvel-scarletwitch.blp
+a UI\Widgets\BattleNet\chaticons\marvel-sizehela.blp UI\Widgets\BattleNet\chaticons\marvel-sizehela.blp
+a UI\Widgets\BattleNet\chaticons\marvel-sizehulkbuster.blp UI\Widgets\BattleNet\chaticons\marvel-sizehulkbuster.blp
+a UI\Widgets\BattleNet\chaticons\marvel-sizejugger.blp UI\Widgets\BattleNet\chaticons\marvel-sizejugger.blp
+a UI\Widgets\BattleNet\chaticons\marvel-sizeronan.blp UI\Widgets\BattleNet\chaticons\marvel-sizeronan.blp
+a UI\Widgets\BattleNet\chaticons\marvel-sizevenom.blp UI\Widgets\BattleNet\chaticons\marvel-sizevenom.blp
+a UI\Widgets\BattleNet\chaticons\marvel-spider.blp UI\Widgets\BattleNet\chaticons\marvel-spider.blp
+a UI\Widgets\BattleNet\chaticons\marvel-starlord.blp UI\Widgets\BattleNet\chaticons\marvel-starlord.blp
+a UI\Widgets\BattleNet\chaticons\marvel-storm.blp UI\Widgets\BattleNet\chaticons\marvel-storm.blp
+a UI\Widgets\BattleNet\chaticons\marvel-superthanos.blp UI\Widgets\BattleNet\chaticons\marvel-superthanos.blp
+a UI\Widgets\BattleNet\chaticons\marvel-taskmaster.blp UI\Widgets\BattleNet\chaticons\marvel-taskmaster.blp
+a UI\Widgets\BattleNet\chaticons\marvel-thanos.blp UI\Widgets\BattleNet\chaticons\marvel-thanos.blp
+a UI\Widgets\BattleNet\chaticons\marvel-thing.blp UI\Widgets\BattleNet\chaticons\marvel-thing.blp
+a UI\Widgets\BattleNet\chaticons\marvel-thor.blp UI\Widgets\BattleNet\chaticons\marvel-thor.blp
+a UI\Widgets\BattleNet\chaticons\marvel-thor2.blp UI\Widgets\BattleNet\chaticons\marvel-thor2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-ultron.blp UI\Widgets\BattleNet\chaticons\marvel-ultron.blp
+a UI\Widgets\BattleNet\chaticons\marvel-venom.blp UI\Widgets\BattleNet\chaticons\marvel-venom.blp
+a UI\Widgets\BattleNet\chaticons\marvel-vision.blp UI\Widgets\BattleNet\chaticons\marvel-vision.blp
+a UI\Widgets\BattleNet\chaticons\marvel-wolverine1.blp UI\Widgets\BattleNet\chaticons\marvel-wolverine1.blp
+a UI\Widgets\BattleNet\chaticons\marvel-wolverine2.blp UI\Widgets\BattleNet\chaticons\marvel-wolverine2.blp
+a UI\Widgets\BattleNet\chaticons\marvel-wolverinespecial.blp UI\Widgets\BattleNet\chaticons\marvel-wolverinespecial.blp
+a UI\Widgets\BattleNet\chaticons\special-akuma.blp UI\Widgets\BattleNet\chaticons\special-akuma.blp
+a UI\Widgets\BattleNet\chaticons\special-bart.blp UI\Widgets\BattleNet\chaticons\special-bart.blp
+a UI\Widgets\BattleNet\chaticons\special-bigu.blp UI\Widgets\BattleNet\chaticons\special-bigu.blp
+a UI\Widgets\BattleNet\chaticons\special-bowser.blp UI\Widgets\BattleNet\chaticons\special-bowser.blp
+a UI\Widgets\BattleNet\chaticons\special-cen.blp UI\Widgets\BattleNet\chaticons\special-cen.blp
+a UI\Widgets\BattleNet\chaticons\special-dedede.blp UI\Widgets\BattleNet\chaticons\special-dedede.blp
+a UI\Widgets\BattleNet\chaticons\special-eufrazino.blp UI\Widgets\BattleNet\chaticons\special-eufrazino.blp
+a UI\Widgets\BattleNet\chaticons\special-heman.blp UI\Widgets\BattleNet\chaticons\special-heman.blp
+a UI\Widgets\BattleNet\chaticons\special-homer.blp UI\Widgets\BattleNet\chaticons\special-homer.blp
+a UI\Widgets\BattleNet\chaticons\special-iori.blp UI\Widgets\BattleNet\chaticons\special-iori.blp
+a UI\Widgets\BattleNet\chaticons\special-kakuzu.blp UI\Widgets\BattleNet\chaticons\special-kakuzu.blp
+a UI\Widgets\BattleNet\chaticons\special-link.blp UI\Widgets\BattleNet\chaticons\special-link.blp
+a UI\Widgets\BattleNet\chaticons\special-megaman.blp UI\Widgets\BattleNet\chaticons\special-megaman.blp
+a UI\Widgets\BattleNet\chaticons\special-papermario.blp UI\Widgets\BattleNet\chaticons\special-papermario.blp
+a UI\Widgets\BattleNet\chaticons\special-patrick.blp UI\Widgets\BattleNet\chaticons\special-patrick.blp
+a UI\Widgets\BattleNet\chaticons\special-pikachu.blp UI\Widgets\BattleNet\chaticons\special-pikachu.blp
+a UI\Widgets\BattleNet\chaticons\special-raiden.blp UI\Widgets\BattleNet\chaticons\special-raiden.blp
+a UI\Widgets\BattleNet\chaticons\special-ryu.blp UI\Widgets\BattleNet\chaticons\special-ryu.blp
+a UI\Widgets\BattleNet\chaticons\special-scorpion.blp UI\Widgets\BattleNet\chaticons\special-scorpion.blp
+a UI\Widgets\BattleNet\chaticons\special-seiya.blp UI\Widgets\BattleNet\chaticons\special-seiya.blp
+a UI\Widgets\BattleNet\chaticons\special-spongebob.blp UI\Widgets\BattleNet\chaticons\special-spongebob.blp
+a UI\Widgets\BattleNet\chaticons\special-subzero.blp UI\Widgets\BattleNet\chaticons\special-subzero.blp
+a UI\Widgets\BattleNet\chaticons\special-subzeromkx.blp UI\Widgets\BattleNet\chaticons\special-subzeromkx.blp
+a UI\Widgets\BattleNet\chaticons\special-taz.blp UI\Widgets\BattleNet\chaticons\special-taz.blp
+a UI\Widgets\BattleNet\chaticons\special-vader1.blp UI\Widgets\BattleNet\chaticons\special-vader1.blp
+a UI\Widgets\BattleNet\chaticons\special-vader2.blp UI\Widgets\BattleNet\chaticons\special-vader2.blp
+a UI\Widgets\BattleNet\chaticons\special-yoshi.blp UI\Widgets\BattleNet\chaticons\special-yoshi.blp
+a UI\Widgets\BattleNet\chaticons\special-zero.blp UI\Widgets\BattleNet\chaticons\special-zero.blp
 c War3Patch.mpq
 exit 

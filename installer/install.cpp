@@ -178,6 +178,16 @@ bool Install::extractFiles()
     progFilesExisted=false;
     if (e.exists()) progFilesExisted=true;
 
+    QDir dl(config->W3PATH+"\\Maps\\Download");
+    if (!dl.exists()) {
+        emit sendInfo("Creating Maps/Downloads folder since it does not exist");
+        if (!QDir().mkpath(config->W3PATH+"\\Maps\\Download")) {
+            emit sendInfo("Could not create Maps/Downloads folder");
+            isAbort=true;
+            return false;
+        }
+    }
+
     if (!QDir().mkpath(config->APPDATA)) {
         emit sendInfo("Could not create AppData/Eurobattle.net folder");
         isAbort=true;
@@ -197,6 +207,11 @@ bool Install::extractFiles()
     }
     if (!QDir().mkpath(config->EUROPATH+"\\sounds")) {
         emit sendInfo("Could not create Eurobattle.net sounds folder");
+        isAbort=true;
+        return false;
+    }
+    if (!QDir().mkpath(config->EUROPATH+"\\platforms")) {
+        emit sendInfo("Could not create Qt platforms folder");
         isAbort=true;
         return false;
     }
@@ -247,6 +262,12 @@ bool Install::extractFiles()
                 }
                 else if(l[2]=="W3PATH") {
                     QFile p(config->W3PATH+"\\"+l[1]);
+
+                    if (p.exists() && l[3]=="ignore") {
+                        p.close();
+                        continue;
+                    }
+
                     if (p.exists()) {
                         if (!p.setPermissions(QFile::ReadOther | QFile::WriteOther)) emit sendInfo("HOLY FUCKING FAIL");
 
@@ -315,8 +336,8 @@ bool Install::updateW3()
         return true;
     }
     if (version != config->W3VERSION) {
-        emit sendInfo("W3 needs to be updated... downloading the patch");
-        emit sendInfo("WARNING: downloading the patch can take a few minutes!");
+        emit sendInfo("W3 needs to be updated to latest patch!");
+        /*emit sendInfo("WARNING: downloading the patch can take a few minutes!");
 
         //get w3 language
         Mpq mpq;
@@ -387,14 +408,16 @@ bool Install::updateW3()
 
         file.close();
 
-        /*if (!this->bnupdate()) {
+        if (!this->bnupdate()) {
             emit sendInfo("Could not patch the MPQ");
             emit sendInfo("Skipping W3 update");
             w3wasupdated=false;
             return true;
-        }*/
+        }
         w3wasupdated=true;
-        return true;
+        */
+        isAbort=true;
+        return false;
     }
     else {
         emit sendInfo("Version is up to date");
@@ -437,6 +460,9 @@ bool Install::updateMPQ()
 
             if (l[0]=="O") {
                 //copy war3patch.mpq to uninstall/
+                QFile tmp(config->EUROPATH+"\\uninstall\\"+l[1]);
+                if (tmp.exists()) tmp.remove();
+
                 QFile::copy(config->W3PATH+"\\"+l[1], config->EUROPATH+"\\uninstall\\"+l[1]);
 
                 if (mpq.open(config->W3PATH+"\\"+l[1])==false) {
@@ -533,13 +559,30 @@ bool Install::updateGateways()
     DWORD d = r.setGateways();
     if (d==ERROR_SUCCESS) {
         emit sendInfo("Successfully modified Battle.net Gateways");
-        return true;
+
+        //backup installpath
+        Registry b;
+        old_installpath = b.getInstallPath(); //we dont really care if this is empty because it might not exist
+
+        //update InstallPath
+        Registry p;
+        if(p.setInstallPath(config->W3PATH)) {
+            emit sendInfo("Successfully modified InstallPath");
+            return true;
+        }
+        else {
+            emit sendInfo("Could not modify InstallPath");
+            isAbort=true;
+            return false;
+        }
+
     }
     else {
         emit sendInfo("Could not modify Battle.net Gateways: "+QString::number(d));
         isAbort=true;
         return false;
     }
+
     return false;
 }
 
@@ -693,14 +736,12 @@ bool Install::rupdateGateways()
         DWORD d = r.setOriginalGateways(gateBuffer, gateSize);
         if (d==ERROR_SUCCESS) {
             emit sendInfo("Successfully reverted Battle.net Gateways");
-            return true;
         }
         else {
             emit sendInfo("Could not revert Battle.net Gateways: "+QString::number(d));
             isAbort=true;
             return false;
         }
-        return false;
     }
     else {
         emit sendInfo("Gateway backup failed. Restoring to original Battle.net instead");
@@ -708,15 +749,26 @@ bool Install::rupdateGateways()
         DWORD d = r.setBnetGateways();
         if (d==ERROR_SUCCESS) {
             emit sendInfo("Successfully reverted Battle.net Gateways to Battle.net originals");
-            return true;
         }
         else {
             emit sendInfo("Could not revert Battle.net Gateways: "+QString::number(d));
             isAbort=true;
             return false;
         }
+    }
+
+    //revert InstallPath
+    Registry r;
+    if (r.setInstallPath(old_installpath)) {
+        emit sendInfo("Successfully reverted InstallPath");
+        return true;
+    }
+    else {
+        emit sendInfo("Could not revert InstallPath");
+        isAbort=true;
         return false;
     }
+    return false;
 }
 
 /*
@@ -950,6 +1002,7 @@ bool Install::bextractFiles() {
 
     QDir().mkpath(config->APPDATA+"\\EUROPATH");
     QDir().mkpath(config->APPDATA+"\\EUROPATH\\sounds");
+    QDir().mkpath(config->APPDATA+"\\EUROPATH\\platforms");
     QDir().mkpath(config->APPDATA+"\\W3PATH");
 
     QFile inputFile(":\\data\\move.txt");
@@ -1022,10 +1075,7 @@ bool Install::bupdateMPQ(){
     emit sendInfo("Backing up MPQ");
 
     QDir().mkpath(config->APPDATA+"\\MPQ");
-    QFile f(config->APPDATA+"\\MPQ\\War3Patch.mpq");
 
-    if (f.exists()) f.remove();
-    f.close();
     QFile p(config->W3PATH+"\\War3Patch.mpq");
 
     if (!p.exists()) {
@@ -1033,8 +1083,13 @@ bool Install::bupdateMPQ(){
         isAbort=true;
         return false;
     }
+
+    QFile f(config->APPDATA+"\\MPQ\\War3Patch.mpq");
+    if (f.exists()) f.remove();
+
     if (!p.copy(config->APPDATA+"\\MPQ\\War3Patch.mpq")){
         emit sendInfo("Could not copy the file: "+p.errorString());
+        emit sendInfo("TRY TO MOVE YOUR W3 FOLDER OUTSIDE PROGRAM FILES (DOCUMENTS, DESKTOP OR SIMILAR)");
         isAbort=true;
         return false;
     }

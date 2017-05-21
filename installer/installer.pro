@@ -13,6 +13,9 @@ TEMPLATE = app
 
 RC_FILE = installer.rc
 
+QMAKE_LFLAGS_WINDOWS = /SUBSYSTEM:WINDOWS,5.01
+DEFINES += _ATL_XP_TARGETING
+
 SOURCES += main.cpp\
         window0.cpp \
     registry.cpp \
@@ -29,7 +32,6 @@ HEADERS  += window0.h \
     config.h \
     mpq.h \
     util.h \
-    storm.h \
     winutils.h \
     bnftp.h
 
@@ -37,33 +39,29 @@ FORMS    += window0.ui
 
 RESOURCES += \
     installer.qrc \
-    installer2.qrc
+    installer2.qrc \
+    installer3.qrc
 
 CONFIG += static
-
-CONFIG(debug, debug|release){
-    DESTDIR = $$PWD/../Debug
-    OBJECTS_DIR = $$PWD/../Debug
-    MOC_DIR = $$PWD/../Debug
-}
-
-CONFIG(release, debug|release){
-    DESTDIR = $$PWD/../Release
-    OBJECTS_DIR = $$PWD/../Release
-    MOC_DIR = $$PWD/../Release
-}
+CONFIG += resources_big
 
 DEFINES += _CRT_SECURE_NO_WARNINGS
+DEFINES += _UNICODE
+DEFINES += UNICODE
 
 LIBS += version.lib
 
-win32: LIBS += -L$$PWD/ -lStormLib
+## STORMLIB
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/stormlib/ -lStormLib
 
-INCLUDEPATH += $$PWD/
-DEPENDPATH += $$PWD/
+INCLUDEPATH += $$PWD/stormlib
+DEPENDPATH += $$PWD/stormlib
 
-win32: PRE_TARGETDEPS += $$PWD/StormLib.lib
+# Fix for UI changes not taking effect
+UI_DIR = $$PWD
 
-#CONFIG -= embed_manifest_exe
-
-#QMAKE_POST_LINK += upx.exe ../Release-static/release/installer.exe
+## Manifest
+win32 {
+    CONFIG += embed_manifest_exe
+    QMAKE_LFLAGS_WINDOWS += /MANIFESTUAC:level=\'requireAdministrator\'
+}

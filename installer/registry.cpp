@@ -101,7 +101,7 @@ bool Registry :: setRegDWORD(CRegKey reg, QString name, DWORD value) {
 DWORD Registry :: setGateways() {
     CRegKey reg;
     if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS){
-        wchar_t *lines[21]= {
+        wchar_t lines[21][255]= {
             _T("1008"),
             _T("05"),
             _T("uswest.battle.net"),
@@ -155,7 +155,7 @@ DWORD Registry :: setGateways() {
 DWORD Registry :: setBnetGateways() {
     CRegKey reg;
     if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS){
-        wchar_t *lines[15]= {
+        wchar_t lines[15][255]= {
             _T("1008"),
             _T("05"),
             _T("uswest.battle.net"),
@@ -257,6 +257,16 @@ bool Registry::setW3dir(QString w3dir) {
     CRegKey reg;
     if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Eurobattle.net"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
         bool r = this->setRegString(reg, "w3dir", w3dir);
+        reg.Close();
+        return r;
+    }
+    return false;
+}
+
+bool Registry::setInstallPath(QString w3dir) {
+    CRegKey reg;
+    if (reg.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_WOW64_64KEY)==ERROR_SUCCESS) {
+        bool r = this->setRegString(reg, "InstallPath", w3dir);
         reg.Close();
         return r;
     }

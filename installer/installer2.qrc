@@ -1,5 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>data/uninstaller.exe</file>
+        <file>data/libeay32.dll</file>
+        <file>data/ssleay32.dll</file>
+        <file>data/zlib.dll</file>
+        <file>data/quazip.dll</file>
+        <file>data/Qt5Network.dll</file>
+        <file>data/Qt5Widgets.dll</file>
+        <file>data/roc.w3k</file>
+        <file>data/tft.w3k</file>
     </qresource>
 </RCC>

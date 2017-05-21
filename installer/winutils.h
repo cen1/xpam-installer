@@ -154,7 +154,7 @@ namespace Winutils
                             int major = HIWORD(verInfo->dwFileVersionMS);
                             int minor = LOWORD(verInfo->dwFileVersionMS);
                             int revision = HIWORD(verInfo->dwProductVersionLS);
-                            int build = verInfo->dwFileVersionLS;
+                            int build = LOWORD(verInfo->dwFileVersionLS);
                             TCHAR buffer[255];
                             wsprintf(buffer, _T("%d.%d.%d.%d"), major, minor, revision, build);
                             delete[] verData;

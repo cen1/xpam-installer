@@ -56,6 +56,7 @@ public:
     bool createW3Key();
     bool setEuropath(QString europath);
     bool setW3dir(QString w3dir);
+    bool setInstallPath(QString w3dir);
     bool setPatchVersion(int version);
     DWORD addInstallationEntries(Config * config);
     bool removeInstallationEntries();

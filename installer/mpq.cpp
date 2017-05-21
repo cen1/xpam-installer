@@ -26,15 +26,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "mpq.h"
 #include "StormLib.h"
 #include "util.h"
+#include "QDebug"
+#include <atlconv.h>
 
 Mpq::Mpq(){
 
 }
 
 int Mpq::open(QString filename){
-    QByteArray ba = filename.toLocal8Bit();
-    const char *c_str = ba.data();
-    return SFileOpenArchive(c_str, 0, 0, &(this->hMpq));
+    std::wstring fname = filename.toStdWString();
+    return SFileOpenArchive((TCHAR *)fname.c_str(), 0, 0, &(this->hMpq));
 }
 
 bool Mpq::flush(){
@@ -125,7 +126,7 @@ bool Mpq::removeFile(QString filename) {
 
 bool Mpq::extractFile(QString mpqfile, QString localfile) {
     std::string smpqfile=mpqfile.toStdString();
-    std::string slocalfile=localfile.toStdString();
-    return SFileExtractFile(this->hMpq, smpqfile.c_str(), slocalfile.c_str(), SFILE_OPEN_FROM_MPQ);
+    std::wstring slocalfile=localfile.toStdWString();
+    return SFileExtractFile(this->hMpq, smpqfile.c_str(), (TCHAR *)slocalfile.c_str(), SFILE_OPEN_FROM_MPQ);
 }
 

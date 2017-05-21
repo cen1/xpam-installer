@@ -1,2 +1,8 @@
-<RCC/>
-
+<RCC>
+    <qresource prefix="/">
+        <file>data/Qt5Core.dll</file>
+        <file>data/Qt5Gui.dll</file>
+        <file>data/platforms/qwindows.dll</file>
+        <file>data/wl27.dll</file>
+    </qresource>
+</RCC>

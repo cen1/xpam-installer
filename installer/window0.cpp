@@ -32,6 +32,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "install.h"
 #include "config.h"
 
+#define EURO_VERSION 18
+
 QThread *ithread = new QThread();
 Install *install = new Install();
 Config *config = new Config();
@@ -204,7 +206,7 @@ void Window0::on_nextButton_3_clicked()
         else if (!reg.setW3dir(config->W3PATH)) {
             ui->errlabel_1->setText("W3dir registry error: "+Util::getLastErrorMsg());
         }
-        else if (!reg.setPatchVersion(0)) {
+        else if (!reg.setPatchVersion(EURO_VERSION)) {
             ui->errlabel_1->setText("Patch version registry error: "+Util::getLastErrorMsg());
         }
         else {
