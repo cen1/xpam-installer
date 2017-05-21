@@ -1,8 +1,5 @@
-# no .a files and .exe files
 *.a
-*.exe
 *.obj
-*.zip
 *.user.*
 Release/
 build-installer-qt_dynamic_openssl_xp_build-Release/
