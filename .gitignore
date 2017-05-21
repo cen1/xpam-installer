@@ -4,3 +4,6 @@
 Release/
 build-installer-qt_dynamic_openssl_xp_build-Release/
 build-installer-qt_static-Release/
+Makefile
+Makefile.Debug
+Makefile.Release
