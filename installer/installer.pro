@@ -50,6 +50,7 @@ DEFINES += _UNICODE
 DEFINES += UNICODE
 
 LIBS += version.lib
+LIBS += msvcrt.lib
 
 ## STORMLIB
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/stormlib/ -lStormLib
@@ -65,3 +66,7 @@ win32 {
     CONFIG += embed_manifest_exe
     QMAKE_LFLAGS_WINDOWS += /MANIFESTUAC:level=\'requireAdministrator\'
 }
+
+Release:QMAKE_CXXFLAGS += /MT
+Debug:QMAKE_CXXFLAGS += /MTd
+Release: QMAKE_LIBFLAGS += /NODEFAULTLIB:LIBCMT

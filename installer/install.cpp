@@ -325,7 +325,7 @@ bool Install::updateW3()
 
     emit sendInfo("Checking for Warcraft III updates");
 
-    QString version = Winutils::getFileVersion(config->W3PATH+"\\war3.exe");
+    QString version = Winutils::getFileVersion(config->W3PATH+"\\Warcraft III.exe");
     emit sendInfo("Detected W3 version: "+version);
 
     if (version.startsWith("ERROR")) {
@@ -335,6 +335,7 @@ bool Install::updateW3()
         w3wasupdated=false;
         return true;
     }
+    /*
     if (version != config->W3VERSION) {
         emit sendInfo("W3 needs to be updated to latest patch!");
         /*emit sendInfo("WARNING: downloading the patch can take a few minutes!");
@@ -416,12 +417,12 @@ bool Install::updateW3()
         }
         w3wasupdated=true;
         */
-        isAbort=true;
+        /*isAbort=true;
         return false;
     }
     else {
         emit sendInfo("Version is up to date");
-    }
+    }*/
     w3wasupdated=false;
     return true;
 }

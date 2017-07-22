@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "install.h"
 #include "config.h"
 
-#define EURO_VERSION 19
+#define EURO_VERSION 23
 
 QThread *ithread = new QThread();
 Install *install = new Install();
@@ -150,7 +150,7 @@ void Window0::on_nextButton_3_clicked()
         if (config->EUROPATH.endsWith('\\') || config->EUROPATH.endsWith('/')) config->EUROPATH.remove(config->EUROPATH.length()-1, 1);
 
         //one final check that W3 dir is real
-        QFile war3(config->W3PATH+"\\war3.exe");
+        QFile war3(config->W3PATH+"\\Warcraft III.exe");
         if (!war3.exists()) {
             ui->errlabel_1->setText("Warcraft III directory is invalid");
             return;

@@ -1,7 +1,7 @@
 m w3l.exe W3PATH replace
 m w3lh.dll W3PATH replace
 m wl27.dll W3PATH replace
-m bnftp.exe EUROPATH replace
+m xdelta3.exe EUROPATH replace
 m xpam.exe EUROPATH replace
 m xpam.cfg EUROPATH replace
 m gproxy.exe EUROPATH replace
@@ -32,3 +32,4 @@ m sounds\kicked.wav EUROPATH replace
 m platforms\qwindows.dll EUROPATH replace
 m tft.w3k W3PATH ignore
 m roc.w3k W3PATH ignore
+m msvcp140.dll EUROPATH replace

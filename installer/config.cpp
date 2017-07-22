@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Config::Config()
 {
-    W3VERSION   =   "1.28.2.7395";
+    W3VERSION   =   "1.28.5.7680";
     BNET_EUROPE =   "europe.battle.net";
     BNET_ASIA   =   "asia.battle.net";
     BNET_USEAST =   "useast.battle.net";
