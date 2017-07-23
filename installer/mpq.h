@@ -35,6 +35,7 @@ public:
     QString archive;
     HANDLE hMpq;
     HANDLE hOpenFile;
+    HANDLE hNewArchive;
 
     int open(QString filename);
     bool flush();

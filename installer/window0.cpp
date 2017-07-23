@@ -81,7 +81,7 @@ void Window0::on_nextButton_2_clicked()
         }
     }
     //client path
-    if (ui->lineEdit_2->text() == ""){
+    if (ui->lineEdit_2->text() == "") {
         QString pf = Winutils::getProgramFiles();
         if (pf != "")
         {
@@ -94,11 +94,13 @@ void Window0::on_nextButton_2_clicked()
 
 //Folder browser dialog for W3 path
 void Window0::on_pushButton_clicked()
-{
+{    
     const QString path = QFileDialog::getExistingDirectory(this);
     QString p = path;
-    p=p.replace(QChar('/'), QChar('\\'));
-    ui->lineEdit->setText(p);
+    if (p!="") { //On Cancel it returns empty
+        p=p.replace(QChar('/'), QChar('\\'));
+        ui->lineEdit->setText(p);
+    }
 }
 
 //Folder browser dialog for Eurobattle path
@@ -106,8 +108,10 @@ void Window0::on_pushButton_2_clicked()
 {
     const QString path = QFileDialog::getExistingDirectory(this);
     QString p = path;
-    p=p.replace(QChar('/'), QChar('\\'));
-    ui->lineEdit_2->setText(p+"\\Eurobattle.net");
+    if (p!="") {
+        p=p.replace(QChar('/'), QChar('\\'));
+        ui->lineEdit_2->setText(p+"\\Eurobattle.net");
+    }
 }
 
 //First back button
