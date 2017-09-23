@@ -5,6 +5,5 @@
         <file>data/platforms/qwindows.dll</file>
         <file>data/wl27.dll</file>
         <file>data/xdelta3.exe</file>
-        <file>data/msvcp140.dll</file>
     </qresource>
 </RCC>

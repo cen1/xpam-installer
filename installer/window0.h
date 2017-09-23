@@ -73,6 +73,7 @@ public slots:
 private:
     Ui::Window0 *ui;
     void fail(QString msg);
+    bool checkW3PathUnicode();
 
 signals:
     void startInstall();

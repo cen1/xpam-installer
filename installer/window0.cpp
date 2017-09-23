@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "install.h"
 #include "config.h"
 
-#define EURO_VERSION 23
+#define EURO_VERSION 24
 
 QThread *ithread = new QThread();
 Install *install = new Install();
@@ -154,8 +154,7 @@ void Window0::on_nextButton_3_clicked()
         if (config->EUROPATH.endsWith('\\') || config->EUROPATH.endsWith('/')) config->EUROPATH.remove(config->EUROPATH.length()-1, 1);
 
         //one final check that W3 dir is real
-        QFile war3(config->W3PATH+"\\Warcraft III.exe");
-        if (!war3.exists()) {
+        if (!checkW3PathUnicode()) {
             ui->errlabel_1->setText("Warcraft III directory is invalid");
             return;
         }
@@ -259,4 +258,36 @@ void Window0::on_pushButton_5_clicked()
 void Window0::disableAbort(bool b)
 {
     ui->pushButton_4->setEnabled(false);
+}
+
+bool Window0::checkW3PathUnicode() {
+    bool isUnicode = false;
+    QString w3path = config->W3PATH;
+
+    for(int i = 0; i < w3path.size(); i++) {
+        if(w3path.at(i).unicode() > 127) {
+            isUnicode = true;
+            break;
+        }
+    }
+
+    //Check if w3 path contains .exe
+    QFile f(config->W3PATH+"/Warcraft III.exe");
+    if (!f.exists()) {
+        QMessageBox mb(QMessageBox::Critical, "W3 path alert",
+           "Your W3 path is missing 'Warcraft III.exe' which probably means the path is incorrect.",
+           QMessageBox::Ok);
+         mb.exec();
+         return false;
+    }
+
+    if (isUnicode) {
+        QMessageBox mb(QMessageBox::Critical, "Unicode alert",
+           "It appears your W3 is installed in  path that contains non-ASCII characters. Please move it to path that conains only ASCII characters or you will have a lot of problems.",
+           QMessageBox::Ok);
+         mb.exec();
+         return false;
+    }
+
+    return true;
 }

@@ -33,3 +33,4 @@ m platforms\qwindows.dll EUROPATH replace
 m tft.w3k W3PATH ignore
 m roc.w3k W3PATH ignore
 m msvcp140.dll EUROPATH replace
+m vcruntime140.dll EUROPATH replace

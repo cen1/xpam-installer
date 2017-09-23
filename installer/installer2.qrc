@@ -9,5 +9,7 @@
         <file>data/Qt5Widgets.dll</file>
         <file>data/roc.w3k</file>
         <file>data/tft.w3k</file>
+        <file>data/msvcp140.dll</file>
+        <file>data/vcruntime140.dll</file>
     </qresource>
 </RCC>
