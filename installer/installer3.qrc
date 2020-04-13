@@ -5,5 +5,18 @@
         <file>data/platforms/qwindows.dll</file>
         <file>data/wl27.dll</file>
         <file>data/xdelta3.exe</file>
+        <file>data/w3l.exe.126</file>
+        <file>data/w3lh.dll.126</file>
+        <file>data/wl27.dll.126</file>
+        <file>data/xpam.ini</file>
+        <file>data/vc_redist.x86.exe</file>
+        <file>data/vcredist_x86.exe</file>
+        <file>data/bncache.dat</file>
+        <file>data/botan.dll</file>
+        <file>data/plink.exe</file>
+        <file>data/proxychains.conf</file>
+        <file>data/proxychains_hook_x86.dll</file>
+        <file>data/proxychains_win32_x86.exe</file>
+        <file>data/euro3icons.bni</file>
     </qresource>
 </RCC>

@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "registry.h"
 #include "QDir"
 #include "QProcess"
+#include "QSettings"
 #include "QCryptographicHash"
 
 Install::Install()
@@ -59,7 +60,12 @@ void Install::startInstall()
     emit sendInfo("===== Starting installation process =====");
     emit sendInfo("===== Starting installation process =====");
     emit sendInfo("===== Starting installation process =====");
-    emit sendInfo("Received w3 path: "+config->W3PATH);
+    if (config->W3PATH_LATEST!=NULL) {
+        emit sendInfo("Received w3 path latest: "+config->W3PATH_LATEST);
+    }
+    if (config->W3PATH_126!=NULL) {
+        emit sendInfo("Received w3 path 1.26a: "+config->W3PATH_126);
+    }
     emit sendInfo("Received euro path: "+config->EUROPATH);
     emit sendInfo(".........................................");
     emit sendInfo(".........................................");
@@ -82,7 +88,12 @@ void Install::startInstall()
         }
         else {
             emit setValue(40);
-            updateMPQ();
+            if (config->W3PATH_LATEST!=NULL) {
+                updateMPQ(config->W3PATH_LATEST);
+            }
+            if (config->W3PATH_126!=NULL) {
+                updateMPQ(config->W3PATH_126);
+            }
             if (isAbort)
             {
                 rupdateMPQ();
@@ -178,13 +189,15 @@ bool Install::extractFiles()
     progFilesExisted=false;
     if (e.exists()) progFilesExisted=true;
 
-    QDir dl(config->W3PATH+"\\Maps\\Download");
-    if (!dl.exists()) {
-        emit sendInfo("Creating Maps/Downloads folder since it does not exist");
-        if (!QDir().mkpath(config->W3PATH+"\\Maps\\Download")) {
-            emit sendInfo("Could not create Maps/Downloads folder");
-            isAbort=true;
-            return false;
+    if (config->W3PATH_126!=NULL) {
+        QDir dl(config->W3PATH_LATEST+"\\Maps\\Download");
+        if (!dl.exists()) {
+            emit sendInfo("Creating Maps/Download folder since it does not exist");
+            if (!QDir().mkpath(config->W3PATH_LATEST+"\\Maps\\Download")) {
+                emit sendInfo("Could not create Maps/Downloads folder");
+                isAbort=true;
+                return false;
+            }
         }
     }
 
@@ -260,8 +273,15 @@ bool Install::extractFiles()
                     c.close();
                     f.close();
                 }
-                else if(l[2]=="W3PATH") {
-                    QFile p(config->W3PATH+"\\"+l[1]);
+                else if(l[2]=="W3PATH_LATEST" || l[2]=="W3PATH_126") {
+
+                    QString targetFile = l[1];
+                    if (targetFile.endsWith(".126")) {
+                        targetFile = targetFile.left(targetFile.length()-4);
+                    }
+
+                    QString filePath = (l[2]=="W3PATH_LATEST") ? config->W3PATH_LATEST+"\\"+targetFile : config->W3PATH_126+"\\"+targetFile;
+                    QFile p(filePath);
 
                     if (p.exists() && l[3]=="ignore") {
                         p.close();
@@ -271,7 +291,7 @@ bool Install::extractFiles()
                     if (p.exists()) {
                         if (!p.setPermissions(QFile::ReadOther | QFile::WriteOther)) emit sendInfo("HOLY FUCKING FAIL");
 
-                        emit sendInfo("Deleting "+config->EUROPATH+"\\"+l[1]);
+                        emit sendInfo("Deleting "+filePath);
                         if (!p.remove()) {
                             emit sendInfo("Could not delete file. "+p.errorString());
                             isAbort=true;
@@ -280,13 +300,13 @@ bool Install::extractFiles()
                     }
 
                     QFile c(":\\data\\"+l[1]);
-                    emit sendInfo("Copying :\\data\\"+l[1]+" to "+config->W3PATH+"\\"+l[1]);
-                    if (!c.copy(config->W3PATH+"\\"+l[1])) {
+                    emit sendInfo("Copying :\\data\\"+l[1]+" to "+filePath);
+                    if (!c.copy(filePath)) {
                         emit sendInfo("Could not copy file. "+c.errorString());
                         isAbort=true;
                         return false;
                     }
-                    QFile f(config->W3PATH+"\\"+l[1]);
+                    QFile f(filePath);
                     f.setPermissions(QFile::ReadOther | QFile::WriteOther);
                     p.close();
                     c.close();
@@ -295,7 +315,8 @@ bool Install::extractFiles()
             }
             else if (l[0]=="r") {
                 if  (l[2]=="EUROPATH") QFile::remove(config->EUROPATH+"\\"+l[1]);
-                else if(l[2]=="W3PATH") QFile::remove(config->W3PATH+"\\"+l[1]);
+                else if(l[2]=="W3PATH_LATEST") QFile::remove(config->W3PATH_LATEST+"\\"+l[1]);
+                else if(l[2]=="W3PATH_126") QFile::remove(config->W3PATH_LATEST+"\\"+l[1]);
             }
         }
     }
@@ -318,14 +339,19 @@ bool Install::extractFiles()
  * We call bnftp and then bnupdate
  */
 bool Install::updateW3()
-{
+{   
     emit sendInfo("=================================");
     emit sendInfo("=============STEP 2==============");
     emit sendInfo("=================================");
 
+    if (config->W3PATH_LATEST==NULL) {
+        emit sendInfo("Skipping W3 update check, latest W3 not selected");
+        return true;
+    }
+
     emit sendInfo("Checking for Warcraft III updates");
 
-    QString version = Winutils::getFileVersion(config->W3PATH+"\\Warcraft III.exe");
+    QString version = Winutils::getFileVersion(config->W3PATH_LATEST+"\\Warcraft III.exe");
     emit sendInfo("Detected W3 version: "+version);
 
     if (version.startsWith("ERROR")) {
@@ -431,7 +457,7 @@ bool Install::updateW3()
  * Insert custom channel icons to War3Patch.mpq
  * No extraction to disk, direct insertion from .qrc
  */
-bool Install::updateMPQ()
+bool Install::updateMPQ(QString w3path)
 {
     emit sendInfo("=================================");
     emit sendInfo("=============STEP 3==============");
@@ -445,6 +471,7 @@ bool Install::updateMPQ()
     }
 
     emit sendInfo("Updating MPQ with custom icons");
+    emit sendInfo(w3path);
     //O = open
     //d = delete file
     //f = flush
@@ -464,10 +491,10 @@ bool Install::updateMPQ()
                 QFile tmp(config->EUROPATH+"\\uninstall\\"+l[1]);
                 if (tmp.exists()) tmp.remove();
 
-                QFile::copy(config->W3PATH+"\\"+l[1], config->EUROPATH+"\\uninstall\\"+l[1]);
+                QFile::copy(w3path+"\\"+l[1], config->EUROPATH+"\\uninstall\\"+l[1]);
 
-                if (mpq.open(config->W3PATH+"\\"+l[1])==false) {
-                    emit sendInfo(Util::getLastErrorMsg()+config->W3PATH+"\\"+l[1]);
+                if (mpq.open(w3path+"\\"+l[1])==false) {
+                    emit sendInfo(Util::getLastErrorMsg()+w3path+"\\"+l[1]);
                     isAbort=true;
                     return false;
                 }
@@ -567,7 +594,16 @@ bool Install::updateGateways()
 
         //update InstallPath
         Registry p;
-        if(p.setInstallPath(config->W3PATH)) {
+
+        bool bl = false;
+        if (config->W3PATH_LATEST!=NULL) {
+            bl = p.setInstallPath(config->W3PATH_LATEST);
+        }
+        else if (config->W3PATH_126!=NULL) {
+            bl = p.setInstallPath(config->W3PATH_126);
+        }
+
+        if(bl) {
             emit sendInfo("Successfully modified InstallPath");
             return true;
         }
@@ -609,6 +645,15 @@ bool Install::finish()
         emit sendInfo("Could not create desktop shortcut. It already exists?");
     }
 
+    //set paths in ini
+    QSettings settings(config->EUROPATH+"\\xpam.ini", QSettings::IniFormat);
+    if (config->W3PATH_LATEST!=NULL) {
+        settings.setValue("WAR3_LATEST/path", config->W3PATH_LATEST.replace(QChar('\\'), QChar('/')));
+    }
+    if (config->W3PATH_126!=NULL) {
+        settings.setValue("WAR3_126/path", config->W3PATH_126.replace(QChar('\\'), QChar('/')));
+    }
+
     //create registry entries for Add/Remove programs and other info
     Registry reg;
     if (reg.addInstallationEntries(config) == 1) {
@@ -646,21 +691,40 @@ bool Install::rupdateW3()
 bool Install::rupdateMPQ() {
     emit sendInfo("Rolling back icons");
 
-    QFile f(config->W3PATH+"\\War3Patch.mpq");
-    if (f.exists()) f.remove();
-    f.close();
+    if (config->W3PATH_LATEST!=NULL) {
+        QFile f(config->W3PATH_LATEST+"\\War3Patch.mpq");
+        if (f.exists()) f.remove();
+        f.close();
 
-    QFile p(config->APPDATA+"\\MPQ\\War3Patch.mpq");
+        QFile p(config->APPDATA+"\\MPQ\\War3Patch.mpq");
 
-    if (!p.copy(config->W3PATH+"\\War3Patch.mpq")) {
-        emit sendInfo("Could not revert the file: "+p.errorString());
-        isAbort=true;
-        return false;
+        if (!p.copy(config->W3PATH_LATEST+"\\War3Patch.mpq")) {
+            emit sendInfo("Could not revert the file: "+p.errorString());
+            isAbort=true;
+            return false;
+        }
+        p.close();
+
+        QDir d(config->APPDATA+"\\MPQ_LATEST");
+        d.removeRecursively();
     }
-    p.close();
+    if (config->W3PATH_126!=NULL) {
+        QFile f(config->W3PATH_126+"\\War3Patch.mpq");
+        if (f.exists()) f.remove();
+        f.close();
 
-    QDir d(config->APPDATA+"\\MPQ");
-    d.removeRecursively();
+        QFile p(config->APPDATA+"\\MPQ\\War3Patch.mpq");
+
+        if (!p.copy(config->W3PATH_126+"\\War3Patch.mpq")) {
+            emit sendInfo("Could not revert the file: "+p.errorString());
+            isAbort=true;
+            return false;
+        }
+        p.close();
+
+        QDir d(config->APPDATA+"\\MPQ_126");
+        d.removeRecursively();
+    }
 
     return true;
 }
@@ -708,7 +772,9 @@ bool Install::rextractFiles()
 
     QDir d1(config->APPDATA+"\\EUROPATH");
     d1.removeRecursively();
-    QDir d2(config->APPDATA+"\\W3PATH");
+    QDir d2(config->APPDATA+"\\W3PATH_LATEST");
+    d2.removeRecursively();
+    QDir d3(config->APPDATA+"\\W3PATH_126");
     d2.removeRecursively();
 
     if (!roamingExisted){
@@ -870,7 +936,7 @@ bool Install::bnupdate() {
         if (l[0]=="extract") {
             emit sendInfo("Extracting from prepatch: "+l[1]);
 
-            if (!dlpatchmpq.extractFile(l[1], config->W3PATH+"\\"+l[1])){
+            if (!dlpatchmpq.extractFile(l[1], config->W3PATH_LATEST+"\\"+l[1])){
                 emit sendInfo("Could not extract "+l[1]);
                 emit sendInfo(Util::getLastErrorMsg());
                 return false;
@@ -912,7 +978,7 @@ bool Install::bnupdate() {
     //revert.lst
     //hdfiles.lst
     Mpq war3patch;
-    if (!war3patch.open(config->W3PATH+"\\War3Patch.mpq")){
+    if (!war3patch.open(config->W3PATH_LATEST+"\\War3Patch.mpq")){
         emit sendInfo("Could not open War3Patch.mpq");
         emit sendInfo(Util::getLastErrorMsg());
         return false;
@@ -972,7 +1038,7 @@ bool Install::bnupdate() {
             }
             else if (l.size()==2) {
                 emit sendInfo("Extracting to directory "+l[1]);
-                if (!partialmpq.extractFile(l[1], config->W3PATH+"\\"+l[0])) {
+                if (!partialmpq.extractFile(l[1], config->W3PATH_LATEST+"\\"+l[0])) {
                     emit sendInfo("Could not extract "+l[1]);
                     emit sendInfo(Util::getLastErrorMsg());
                     return false;
@@ -1004,7 +1070,8 @@ bool Install::bextractFiles() {
     QDir().mkpath(config->APPDATA+"\\EUROPATH");
     QDir().mkpath(config->APPDATA+"\\EUROPATH\\sounds");
     QDir().mkpath(config->APPDATA+"\\EUROPATH\\platforms");
-    QDir().mkpath(config->APPDATA+"\\W3PATH");
+    QDir().mkpath(config->APPDATA+"\\W3PATH_LATEST");
+    QDir().mkpath(config->APPDATA+"\\W3PATH_126");
 
     QFile inputFile(":\\data\\move.txt");
     if (inputFile.open(QIODevice::ReadOnly)) {
@@ -1036,23 +1103,32 @@ bool Install::bextractFiles() {
                     }
                     p.close();
                 }
-                else if(l[2]=="W3PATH") {
-                    QFile p(config->W3PATH+"\\"+l[1]);
+                else if(l[2]=="W3PATH_LATEST" || l[2]=="W3PATH_126") {
+
+                    QString targetFile = l[1];
+                    if (targetFile.endsWith(".126")) {
+                        targetFile = targetFile.left(targetFile.length()-4);
+                    }
+
+                    QString filePath = (l[2]=="W3PATH_LATEST") ? config->W3PATH_LATEST+"\\"+targetFile : config->W3PATH_126+"\\"+targetFile;
+                    QFile p(filePath);
+                    emit sendInfo("Dbg: "+filePath);
+
                     if (p.exists()) {
-                        emit sendInfo("Backing up "+config->W3PATH+"\\"+l[1]);
-                        QFile b(config->APPDATA+"\\W3PATH\\"+l[1]);
+                        emit sendInfo("Backing up "+filePath);
+                        QFile b(config->APPDATA+"\\"+l[2]+"\\"+l[1]);
                         if (b.exists()) b.remove();
                         b.close();
-                        if (!p.copy(config->APPDATA+"\\W3PATH\\"+l[1])) {
+                        if (!p.copy(config->APPDATA+"\\"+l[2]+"\\"+l[1])) {
                             emit sendInfo("Could not backup file. "+p.errorString());
                             isAbort=true;
                             return false;
                         }
-                        backedW3FilesFROM << config->W3PATH+"\\"+l[1];
-                        backedW3FilesTO << config->APPDATA+"\\W3PATH\\"+l[1];
+                        backedW3FilesFROM << filePath;
+                        backedW3FilesTO << config->APPDATA+"\\"+l[2]+"\\"+l[1];
                     }
                     else {
-                        newFiles << config->W3PATH+"\\"+l[1];
+                        newFiles << filePath;
                     }
                     p.close();
                 }
@@ -1075,26 +1151,48 @@ bool Install::bextractFiles() {
 bool Install::bupdateMPQ(){
     emit sendInfo("Backing up MPQ");
 
-    QDir().mkpath(config->APPDATA+"\\MPQ");
+    if (config->W3PATH_LATEST!=NULL) {
+        QDir().mkpath(config->APPDATA+"\\MPQ_LATEST");
+        QFile p(config->W3PATH_LATEST+"\\War3Patch.mpq");
 
-    QFile p(config->W3PATH+"\\War3Patch.mpq");
+        if (!p.exists()) {
+            emit sendInfo("War3Patch.mpq does not exist");
+            isAbort=true;
+            return false;
+        }
 
-    if (!p.exists()) {
-        emit sendInfo("War3Patch.mpq does not exist");
-        isAbort=true;
-        return false;
+        QFile f(config->APPDATA+"\\MPQ_LATEST\\War3Patch.mpq");
+        if (f.exists()) f.remove();
+
+        if (!p.copy(config->APPDATA+"\\MPQ_LATEST\\War3Patch.mpq")){
+            emit sendInfo("Could not copy the file: "+p.errorString());
+            emit sendInfo("TRY TO MOVE YOUR W3 FOLDER OUTSIDE PROGRAM FILES (DOCUMENTS, DESKTOP OR SIMILAR)");
+            isAbort=true;
+            return false;
+        }
+        p.close();
     }
+    if (config->W3PATH_126!=NULL) {
+        QDir().mkpath(config->APPDATA+"\\MPQ_126");
+        QFile p(config->W3PATH_126+"\\War3Patch.mpq");
 
-    QFile f(config->APPDATA+"\\MPQ\\War3Patch.mpq");
-    if (f.exists()) f.remove();
+        if (!p.exists()) {
+            emit sendInfo("War3Patch.mpq does not exist");
+            isAbort=true;
+            return false;
+        }
 
-    if (!p.copy(config->APPDATA+"\\MPQ\\War3Patch.mpq")){
-        emit sendInfo("Could not copy the file: "+p.errorString());
-        emit sendInfo("TRY TO MOVE YOUR W3 FOLDER OUTSIDE PROGRAM FILES (DOCUMENTS, DESKTOP OR SIMILAR)");
-        isAbort=true;
-        return false;
+        QFile f(config->APPDATA+"\\MPQ_126\\War3Patch.mpq");
+        if (f.exists()) f.remove();
+
+        if (!p.copy(config->APPDATA+"\\MPQ_126\\War3Patch.mpq")){
+            emit sendInfo("Could not copy the file: "+p.errorString());
+            emit sendInfo("TRY TO MOVE YOUR W3 FOLDER OUTSIDE PROGRAM FILES (DOCUMENTS, DESKTOP OR SIMILAR)");
+            isAbort=true;
+            return false;
+        }
+        p.close();
     }
-    p.close();
 
     return true;
 }

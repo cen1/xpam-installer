@@ -26,13 +26,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "winutils.h"
 #include <QFileDialog>
 #include <QThread>
+#include <QSettings>
 #include "window0.h"
 #include "ui_window0.h"
+#include <QTemporaryFile>
+#include <QDebug>
 
 #include "install.h"
 #include "config.h"
 
-#define EURO_VERSION 24
+#define EURO_VERSION 33
 
 QThread *ithread = new QThread();
 Install *install = new Install();
@@ -53,6 +56,49 @@ Window0::~Window0()
 //First next button, welcome screen
 void Window0::on_nextButton_1_clicked()
 {
+    if (!ui->checkBox_vcredist->isChecked() && !vcredistRun) {
+        //2015
+        QFile vcredistResource2015(":\\data\\vc_redist.x86.exe");
+        QString dst2015 = QDir::temp().absolutePath()+"/vc_redist.x86.exe";
+        vcredistResource2015.copy(dst2015);
+        QProcess p2015;
+        p2015.start(dst2015);
+        p2015.waitForFinished(-1);
+
+        //TODO: for seam reason it seems the file is still busy after exit here and cant me removed
+        QThread::sleep(1);
+
+        QFile rm15(dst2015);
+        rm15.setPermissions(QFile::ReadOther|QFile::WriteOther);
+        if (rm15.exists() && rm15.remove()) {
+            qDebug() << "removed 2015";
+        }
+        else {
+            qDebug() << rm15.errorString();
+        }
+
+        //2013
+        QFile vcredistResource2013(":\\data\\vcredist_x86.exe");
+        QString dst2013 = QDir::temp().absolutePath()+"/vcredist_x86.exe";
+        vcredistResource2013.copy(dst2013);
+        QProcess p2013;
+        p2013.start(dst2013);
+        p2013.waitForFinished(-1);
+
+        QThread::sleep(1);
+
+        QFile rm13(dst2013);
+        rm13.setPermissions(QFile::ReadOther|QFile::WriteOther);
+        if (rm13.exists() && rm13.remove()) {
+            qDebug() << "removed 2013";
+        }
+        else {
+            qDebug() << rm13.errorString();
+        }
+
+        vcredistRun = true;
+    }
+
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
 }
 
@@ -61,26 +107,7 @@ void Window0::on_nextButton_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
 
-    //w3 path
-    if (ui->lineEdit->text() == "")
-    {
-        Registry reg;
-        QString w3dir = reg.getInstallPath();
-        if (w3dir != "")
-        {
-            ui->lineEdit->setText(w3dir);
-        }
-        else
-        {
-            ui->errlabel_2->setText("Info: "+Util::getLastErrorMsg());
-            w3dir=Winutils::getProgramFiles();
-            if (w3dir!="") {
-                ui->lineEdit->setText(w3dir+"\\Warcraft III");
-            }
-            else ui->errlabel_1->setText("Info: "+Util::getLastErrorMsg());
-        }
-    }
-    //client path
+    //Client path program files
     if (ui->lineEdit_2->text() == "") {
         QString pf = Winutils::getProgramFiles();
         if (pf != "")
@@ -89,17 +116,27 @@ void Window0::on_nextButton_2_clicked()
         }
         else ui->errlabel_3->setText("Info: "+Util::getLastErrorMsg());
     }
-
 }
 
-//Folder browser dialog for W3 path
-void Window0::on_pushButton_clicked()
+//Folder browser dialog for W3 path latest
+void Window0::on_pushButton_latest_clicked()
 {    
     const QString path = QFileDialog::getExistingDirectory(this);
     QString p = path;
     if (p!="") { //On Cancel it returns empty
         p=p.replace(QChar('/'), QChar('\\'));
-        ui->lineEdit->setText(p);
+        ui->lineEdit_latest->setText(p);
+    }
+}
+
+//Folder browser dialog for W3 path 126
+void Window0::on_pushButton_126_clicked()
+{
+    const QString path = QFileDialog::getExistingDirectory(this);
+    QString p = path;
+    if (p!="") { //On Cancel it returns empty
+        p=p.replace(QChar('/'), QChar('\\'));
+        ui->lineEdit_126->setText(p);
     }
 }
 
@@ -137,9 +174,9 @@ void Window0::on_nextButton_3_clicked()
 {
     QString basepath = ui->lineEdit_2->text().replace(QString("\\Eurobattle.net"), QString(""));
     //1. Check if paths exist
-    if (!QDir(ui->lineEdit->text()).exists())
+    if (ui->lineEdit_latest->text().isEmpty() && ui->lineEdit_126->text().isEmpty())
     {
-        ui->errlabel_1->setText("Error: Warcraft III directory does not exist");
+        ui->errlabel_1->setText("Error: at least one Warcraft III directory must exist");
     }
     else if (!QDir(basepath).exists())
     {
@@ -147,16 +184,30 @@ void Window0::on_nextButton_3_clicked()
     }
     else
     {
+        if (!ui->lineEdit_latest->text().isEmpty()) {
+            config->W3PATH_LATEST = ui->lineEdit_latest->text();
+            if (config->W3PATH_LATEST.endsWith('\\') || config->W3PATH_LATEST.endsWith('/')) {
+                config->W3PATH_LATEST.remove(config->W3PATH_LATEST.length()-1, 1);
+            }
+            if (!checkW3PathUnicode(config->W3PATH_LATEST, "Warcraft III.exe")) {
+                ui->errlabel_1->setText("Warcraft III 1.28.5 directory is invalid");
+                return;
+            }
+        }
+        if (!ui->lineEdit_126->text().isEmpty()) {
+            config->W3PATH_126 = ui->lineEdit_126->text();
+            if (config->W3PATH_126.endsWith('\\') || config->W3PATH_126.endsWith('/')) {
+                config->W3PATH_126.remove(config->W3PATH_126.length()-1, 1);
+            }
+            if (!checkW3PathUnicode(config->W3PATH_126, "war3.exe")) {
+                ui->errlabel_1->setText("Warcraft III 1.26a directory is invalid");
+                return;
+            }
+        }
 
-        config->W3PATH = ui->lineEdit->text();
         config->EUROPATH = ui->lineEdit_2->text();
-        if (config->W3PATH.endsWith('\\') || config->W3PATH.endsWith('/')) config->W3PATH.remove(config->W3PATH.length()-1, 1);
-        if (config->EUROPATH.endsWith('\\') || config->EUROPATH.endsWith('/')) config->EUROPATH.remove(config->EUROPATH.length()-1, 1);
-
-        //one final check that W3 dir is real
-        if (!checkW3PathUnicode()) {
-            ui->errlabel_1->setText("Warcraft III directory is invalid");
-            return;
+        if (config->EUROPATH.endsWith('\\') || config->EUROPATH.endsWith('/')) {
+            config->EUROPATH.remove(config->EUROPATH.length()-1, 1);
         }
 
         install->config = config;
@@ -177,7 +228,7 @@ void Window0::on_nextButton_3_clicked()
                 rkey.Close();
                 CRegKey rkey2;
                 if (rkey2.Open(HKEY_CURRENT_USER, _T("Software\\Blizzard Entertainment\\Warcraft III"), KEY_WRITE | KEY_READ | KEY_WOW64_64KEY)==ERROR_SUCCESS){
-                    if (!reg.setRegString(rkey2, "InstallPath", config->W3PATH)){
+                    if (!reg.setRegString(rkey2, "InstallPath", config->W3PATH_LATEST)){
                         ui->errlabel_1->setText("Could not create installpath "+Util::getLastErrorMsg());
                         return;
                     }
@@ -193,7 +244,7 @@ void Window0::on_nextButton_3_clicked()
             }
         }
         else {
-            if (reg.getInstallPath()=="") reg.setRegString(rkey, "InstallPath", config->W3PATH);
+            if (reg.getInstallPath()=="") reg.setRegString(rkey, "InstallPath", config->W3PATH_LATEST);
 
             wchar_t * buffer=(wchar_t *)malloc(1024);
             ULONG bufsize=1024;
@@ -205,9 +256,6 @@ void Window0::on_nextButton_3_clicked()
 
         if (!reg.setEuropath(config->EUROPATH)) {
             ui->errlabel_1->setText("Eurobattle path registry error: "+Util::getLastErrorMsg());
-        }
-        else if (!reg.setW3dir(config->W3PATH)) {
-            ui->errlabel_1->setText("W3dir registry error: "+Util::getLastErrorMsg());
         }
         else if (!reg.setPatchVersion(EURO_VERSION)) {
             ui->errlabel_1->setText("Patch version registry error: "+Util::getLastErrorMsg());
@@ -260,9 +308,8 @@ void Window0::disableAbort(bool b)
     ui->pushButton_4->setEnabled(false);
 }
 
-bool Window0::checkW3PathUnicode() {
+bool Window0::checkW3PathUnicode(QString w3path, QString exeName) {
     bool isUnicode = false;
-    QString w3path = config->W3PATH;
 
     for(int i = 0; i < w3path.size(); i++) {
         if(w3path.at(i).unicode() > 127) {
@@ -271,11 +318,11 @@ bool Window0::checkW3PathUnicode() {
         }
     }
 
-    //Check if w3 path contains .exe
-    QFile f(config->W3PATH+"/Warcraft III.exe");
+    //Check if W3 path contains .exe
+    QFile f(w3path+"/"+exeName);
     if (!f.exists()) {
         QMessageBox mb(QMessageBox::Critical, "W3 path alert",
-           "Your W3 path is missing 'Warcraft III.exe' which probably means the path is incorrect.",
+           "Your W3 path is missing '"+exeName+"' which probably means the path is incorrect.",
            QMessageBox::Ok);
          mb.exec();
          return false;

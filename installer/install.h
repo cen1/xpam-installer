@@ -45,7 +45,7 @@ public slots:
     void abortInstall();
 private:
     bool updateW3();
-    bool updateMPQ();
+    bool updateMPQ(QString w3path);
     bool extractFiles();
     bool updateGateways();
     bool finish();

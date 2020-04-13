@@ -45,8 +45,6 @@ public:
     
 private slots:
 
-    void on_pushButton_clicked();
-
     void on_backButton_1_clicked();
 
     void on_backButton_2_clicked();
@@ -67,13 +65,18 @@ private slots:
 
     void on_pushButton_5_clicked();
 
+    void on_pushButton_126_clicked();
+
+    void on_pushButton_latest_clicked();
+
 public slots:
     void disableAbort(bool b);
 
 private:
     Ui::Window0 *ui;
     void fail(QString msg);
-    bool checkW3PathUnicode();
+    bool checkW3PathUnicode(QString w3path, QString exeName);
+    bool vcredistRun = false;
 
 signals:
     void startInstall();

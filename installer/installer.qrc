@@ -7,7 +7,6 @@
         <file>data/w3l.exe</file>
         <file>data/w3lh.dll</file>
         <file>data/gproxy.exe</file>
-        <file>data/gproxy.cfg</file>
         <file>data/gproxy.log</file>
         <file>data/xpam_pub.pem</file>
         <file>data/xpam.exe</file>
@@ -302,5 +301,8 @@
         <file>data/UI/Widgets/BattleNet/chaticons/anime-gokuss4.blp</file>
         <file>data/UI/Widgets/BattleNet/chaticons/anime-gokuss3.blp</file>
         <file>data/xpam.cfg</file>
+        <file>data/sounds/announcement.wav</file>
+        <file>data/sounds/autojoin.wav</file>
+        <file>data/gproxy.ini</file>
     </qresource>
 </RCC>

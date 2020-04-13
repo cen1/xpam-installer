@@ -31,7 +31,7 @@ QString Registry :: getEuroPath() {
         reg.Close();
         return s;
     }
-    else return Util::getLastErrorMsg();
+    else return "";
 }
 
 QString Registry :: getRegString(CRegKey * reg, QString name) {
