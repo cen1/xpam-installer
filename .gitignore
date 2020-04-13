@@ -9,3 +9,4 @@ Makefile.Debug
 Makefile.Release
 build-installer-qt5_static-Debug/
 build-installer-qt5_static-Release/
+build-installer-qt5_6_2_static-Release/
