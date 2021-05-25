@@ -2,11 +2,9 @@
 *.obj
 *.user.*
 Release/
-build-installer-qt_dynamic_openssl_xp_build-Release/
-build-installer-qt_static-Release/
+Debug/
 Makefile
 Makefile.Debug
 Makefile.Release
-build-installer-qt5_static-Debug/
-build-installer-qt5_static-Release/
-build-installer-qt5_6_2_static-Release/
+build-installer-5_15_2_static_32-Release/
+build-installer-5_15_2_static_32-Debug/
