@@ -1,15 +1,21 @@
 <RCC>
     <qresource prefix="/">
         <file>data/uninstaller.exe</file>
-        <file>data/libeay32.dll</file>
-        <file>data/ssleay32.dll</file>
-        <file>data/zlib.dll</file>
-        <file>data/quazip.dll</file>
         <file>data/Qt5Network.dll</file>
         <file>data/Qt5Widgets.dll</file>
         <file>data/roc.w3k</file>
         <file>data/tft.w3k</file>
-        <file>data/msvcp140.dll</file>
-        <file>data/vcruntime140.dll</file>
+        <file>data/libcrypto-1_1.dll</file>
+        <file>data/libssl-1_1.dll</file>
+        <file>data/quazip1-qt5.dll</file>
+        <file>data/zlib1.dll</file>
+        <file>data/Qt5Positioning.dll</file>
+        <file>data/Qt5Qml.dll</file>
+        <file>data/Qt5QmlModels.dll</file>
+        <file>data/Qt5Quick.dll</file>
+        <file>data/Qt5QuickWidgets.dll</file>
+        <file>data/Qt5WebChannel.dll</file>
+        <file>data/Qt5WebEngineCore.dll</file>
+        <file>data/Qt5WebEngineWidgets.dll</file>
     </qresource>
 </RCC>

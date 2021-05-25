@@ -304,5 +304,6 @@
         <file>data/sounds/announcement.wav</file>
         <file>data/sounds/autojoin.wav</file>
         <file>data/gproxy.ini</file>
+        <file>data/latency.txt</file>
     </qresource>
 </RCC>

@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui widgets
 
 TARGET = installer
 TEMPLATE = app
@@ -14,7 +12,7 @@ TEMPLATE = app
 RC_FILE = installer.rc
 
 QMAKE_LFLAGS_WINDOWS = /SUBSYSTEM:WINDOWS,5.01
-DEFINES += _ATL_XP_TARGETING
+#DEFINES += _ATL_XP_TARGETING
 
 SOURCES += main.cpp\
         window0.cpp \
@@ -35,7 +33,7 @@ HEADERS  += window0.h \
     winutils.h \
     bnftp.h
 
-FORMS    += window0.ui
+FORMS += window0.ui
 
 RESOURCES += \
     installer.qrc \
@@ -53,7 +51,7 @@ LIBS += version.lib
 LIBS += msvcrt.lib
 
 ## STORMLIB
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/stormlib/ -lStormLib
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/stormlib/ -lstorm
 
 INCLUDEPATH += $$PWD/stormlib
 DEPENDPATH += $$PWD/stormlib

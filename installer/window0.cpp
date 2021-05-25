@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "install.h"
 #include "config.h"
 
-#define EURO_VERSION 35
+#define EURO_VERSION 38
 
 QThread *ithread = new QThread();
 Install *install = new Install();
@@ -57,9 +57,9 @@ Window0::~Window0()
 void Window0::on_nextButton_1_clicked()
 {
     if (!ui->checkBox_vcredist->isChecked() && !vcredistRun) {
-        //2015
-        QFile vcredistResource2015(":\\data\\vc_redist.x86.exe");
-        QString dst2015 = QDir::temp().absolutePath()+"/vc_redist.x86.exe";
+        //2015-2019
+        QFile vcredistResource2015(":\\data\\VC_redist.x86.exe");
+        QString dst2015 = QDir::temp().absolutePath()+"/VC_redist.x86.exe";
         vcredistResource2015.copy(dst2015);
         QProcess p2015;
         p2015.start(dst2015);

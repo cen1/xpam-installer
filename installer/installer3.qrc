@@ -9,7 +9,6 @@
         <file>data/w3lh.dll.126</file>
         <file>data/wl27.dll.126</file>
         <file>data/xpam.ini</file>
-        <file>data/vc_redist.x86.exe</file>
         <file>data/vcredist_x86.exe</file>
         <file>data/bncache.dat</file>
         <file>data/botan.dll</file>
@@ -18,5 +17,18 @@
         <file>data/proxychains_hook_x86.dll</file>
         <file>data/proxychains_win32_x86.exe</file>
         <file>data/euro3icons.bni</file>
+        <file>data/VC_redist.x86.exe</file>
+        <file>data/w3l.ini</file>
+        <file>data/qtwebengine_devtools_resources.pak</file>
+        <file>data/qtwebengine_resources.pak</file>
+        <file>data/qtwebengine_resources_100p.pak</file>
+        <file>data/qtwebengine_resources_200p.pak</file>
+        <file>data/QtWebEngineProcess.exe</file>
+        <file>data/icudtl.dat</file>
+        <file>data/latency.txt</file>
+        <file>data/Qt5PrintSupport.dll</file>
+        <file>data/Qt5SerialPort.dll</file>
+        <file>data/Qt5Svg.dll</file>
+        <file>data/msvcr100.dll</file>
     </qresource>
 </RCC>

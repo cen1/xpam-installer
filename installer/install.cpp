@@ -60,10 +60,10 @@ void Install::startInstall()
     emit sendInfo("===== Starting installation process =====");
     emit sendInfo("===== Starting installation process =====");
     emit sendInfo("===== Starting installation process =====");
-    if (config->W3PATH_LATEST!=NULL) {
+    if (!config->W3PATH_LATEST.isNull()) {
         emit sendInfo("Received w3 path latest: "+config->W3PATH_LATEST);
     }
-    if (config->W3PATH_126!=NULL) {
+    if (!config->W3PATH_126.isNull()) {
         emit sendInfo("Received w3 path 1.26a: "+config->W3PATH_126);
     }
     emit sendInfo("Received euro path: "+config->EUROPATH);
@@ -88,10 +88,10 @@ void Install::startInstall()
         }
         else {
             emit setValue(40);
-            if (config->W3PATH_LATEST!=NULL) {
+            if (!config->W3PATH_LATEST.isNull()) {
                 updateMPQ(config->W3PATH_LATEST);
             }
-            if (config->W3PATH_126!=NULL) {
+            if (!config->W3PATH_126.isNull()) {
                 updateMPQ(config->W3PATH_126);
             }
             if (isAbort)
@@ -189,7 +189,7 @@ bool Install::extractFiles()
     progFilesExisted=false;
     if (e.exists()) progFilesExisted=true;
 
-    if (config->W3PATH_126!=NULL) {
+    if (!config->W3PATH_126.isNull()) {
         QDir dl(config->W3PATH_LATEST+"\\Maps\\Download");
         if (!dl.exists()) {
             emit sendInfo("Creating Maps/Download folder since it does not exist");
@@ -280,7 +280,16 @@ bool Install::extractFiles()
                         targetFile = targetFile.left(targetFile.length()-4);
                     }
 
-                    QString filePath = (l[2]=="W3PATH_LATEST") ? config->W3PATH_LATEST+"\\"+targetFile : config->W3PATH_126+"\\"+targetFile;
+                    QString filePath;
+                    if (l[2]=="W3PATH_LATEST" && !config->W3PATH_LATEST.isNull()) {
+                        filePath = config->W3PATH_LATEST+"\\"+targetFile;
+                    }
+                    else if (l[2]=="W3PATH_126" && !config->W3PATH_126.isNull()) {
+                        filePath = config->W3PATH_126+"\\"+targetFile;
+                    }
+                    else {
+                        continue;
+                    }
                     QFile p(filePath);
 
                     if (p.exists() && l[3]=="ignore") {
@@ -314,9 +323,15 @@ bool Install::extractFiles()
                 }
             }
             else if (l[0]=="r") {
-                if  (l[2]=="EUROPATH") QFile::remove(config->EUROPATH+"\\"+l[1]);
-                else if(l[2]=="W3PATH_LATEST") QFile::remove(config->W3PATH_LATEST+"\\"+l[1]);
-                else if(l[2]=="W3PATH_126") QFile::remove(config->W3PATH_LATEST+"\\"+l[1]);
+                if  (l[2]=="EUROPATH") {
+                    QFile::remove(config->EUROPATH+"\\"+l[1]);
+                }
+                else if(l[2]=="W3PATH_LATEST" && !config->W3PATH_LATEST.isNull()) {
+                    QFile::remove(config->W3PATH_LATEST+"\\"+l[1]);
+                }
+                else if(l[2]=="W3PATH_126" && !config->W3PATH_126.isNull()) {
+                    QFile::remove(config->W3PATH_126+"\\"+l[1]);
+                }
             }
         }
     }
@@ -344,7 +359,7 @@ bool Install::updateW3()
     emit sendInfo("=============STEP 2==============");
     emit sendInfo("=================================");
 
-    if (config->W3PATH_LATEST==NULL) {
+    if (config->W3PATH_LATEST.isNull()) {
         emit sendInfo("Skipping W3 update check, latest W3 not selected");
         return true;
     }
@@ -596,10 +611,10 @@ bool Install::updateGateways()
         Registry p;
 
         bool bl = false;
-        if (config->W3PATH_LATEST!=NULL) {
+        if (!config->W3PATH_LATEST.isNull()) {
             bl = p.setInstallPath(config->W3PATH_LATEST);
         }
-        else if (config->W3PATH_126!=NULL) {
+        else if (!config->W3PATH_126.isNull()) {
             bl = p.setInstallPath(config->W3PATH_126);
         }
 
@@ -647,10 +662,10 @@ bool Install::finish()
 
     //set paths in ini
     QSettings settings(config->EUROPATH+"\\xpam.ini", QSettings::IniFormat);
-    if (config->W3PATH_LATEST!=NULL) {
+    if (!config->W3PATH_LATEST.isNull()) {
         settings.setValue("WAR3_LATEST/path", config->W3PATH_LATEST.replace(QChar('\\'), QChar('/')));
     }
-    if (config->W3PATH_126!=NULL) {
+    if (!config->W3PATH_126.isNull()) {
         settings.setValue("WAR3_126/path", config->W3PATH_126.replace(QChar('\\'), QChar('/')));
     }
 
@@ -691,7 +706,7 @@ bool Install::rupdateW3()
 bool Install::rupdateMPQ() {
     emit sendInfo("Rolling back icons");
 
-    if (config->W3PATH_LATEST!=NULL) {
+    if (!config->W3PATH_LATEST.isNull()) {
         QFile f(config->W3PATH_LATEST+"\\War3Patch.mpq");
         if (f.exists()) f.remove();
         f.close();
@@ -912,6 +927,9 @@ bool Install::bnftp() {
  * 7. Files in the patch mpq are binary. We use binary patch tool bspatch against the existing file
  */
 bool Install::bnupdate() {
+
+    if (config->W3PATH_LATEST.isNull()) return true;
+
     Mpq dlpatchmpq; //the patch mpq we just downloaded
     if (!dlpatchmpq.open(config->ARCHIVE_FULL)) {
         emit sendInfo("Could not open the patch archive: "+config->ARCHIVE_FULL);
@@ -1110,7 +1128,16 @@ bool Install::bextractFiles() {
                         targetFile = targetFile.left(targetFile.length()-4);
                     }
 
-                    QString filePath = (l[2]=="W3PATH_LATEST") ? config->W3PATH_LATEST+"\\"+targetFile : config->W3PATH_126+"\\"+targetFile;
+                    QString filePath;
+                    if (l[2]=="W3PATH_LATEST" && !config->W3PATH_LATEST.isNull()) {
+                        filePath = config->W3PATH_LATEST+"\\"+targetFile;
+                    }
+                    else if (l[2]=="W3PATH_126" && !config->W3PATH_126.isNull()) {
+                        filePath = config->W3PATH_126+"\\"+targetFile;
+                    }
+                    else {
+                        continue;
+                    }
                     QFile p(filePath);
                     emit sendInfo("Dbg: "+filePath);
 
@@ -1151,7 +1178,7 @@ bool Install::bextractFiles() {
 bool Install::bupdateMPQ(){
     emit sendInfo("Backing up MPQ");
 
-    if (config->W3PATH_LATEST!=NULL) {
+    if (!config->W3PATH_LATEST.isNull()) {
         QDir().mkpath(config->APPDATA+"\\MPQ_LATEST");
         QFile p(config->W3PATH_LATEST+"\\War3Patch.mpq");
 
@@ -1172,7 +1199,7 @@ bool Install::bupdateMPQ(){
         }
         p.close();
     }
-    if (config->W3PATH_126!=NULL) {
+    if (!config->W3PATH_126.isNull()) {
         QDir().mkpath(config->APPDATA+"\\MPQ_126");
         QFile p(config->W3PATH_126+"\\War3Patch.mpq");
 
