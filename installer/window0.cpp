@@ -58,20 +58,20 @@ void Window0::on_nextButton_1_clicked()
 {
     if (!ui->checkBox_vcredist->isChecked() && !vcredistRun) {
         //2015-2019
-        QFile vcredistResource2015(":\\data\\VC_redist.x86.exe");
-        QString dst2015 = QDir::temp().absolutePath()+"/VC_redist.x86.exe";
-        vcredistResource2015.copy(dst2015);
+        QFile vcredistResource2022(":\\data\\vc_redist.x64.exe");
+        QString dst2022 = QDir::temp().absolutePath()+"/vc_redist.x64.exe";
+        vcredistResource2022.copy(dst2022);
         QProcess p2015;
-        p2015.start(dst2015);
+        p2015.start(dst2022);
         p2015.waitForFinished(-1);
 
         //TODO: for seam reason it seems the file is still busy after exit here and cant me removed
         QThread::sleep(1);
 
-        QFile rm15(dst2015);
+        QFile rm15(dst2022);
         rm15.setPermissions(QFile::ReadOther|QFile::WriteOther);
         if (rm15.exists() && rm15.remove()) {
-            qDebug() << "removed 2015";
+            qDebug() << "removed 2022";
         }
         else {
             qDebug() << rm15.errorString();
@@ -173,12 +173,7 @@ void Window0::on_pushButton_3_clicked()
 void Window0::on_nextButton_3_clicked()
 {
     QString basepath = ui->lineEdit_2->text().replace(QString("\\Eurobattle.net"), QString(""));
-    //1. Check if paths exist
-    if (ui->lineEdit_latest->text().isEmpty() && ui->lineEdit_126->text().isEmpty())
-    {
-        ui->errlabel_1->setText("Error: at least one Warcraft III directory must exist");
-    }
-    else if (!QDir(basepath).exists())
+    if (!QDir(basepath).exists())
     {
         ui->errlabel_1->setText("Error: Client directory does not exist");
     }

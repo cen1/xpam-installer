@@ -49,6 +49,6 @@ Config::Config()
     hashmap["zhCN"] = "971e67de0cfda3968a967c5368a4f7cbc93606be";
     hashmap["zhTW"] = "4dd99909c8d2a8bcc3614873e84fcecd93e45c16";
 
-    W3PATH_LATEST = QString::null;
-    W3PATH_126 = QString::null;
+    W3PATH_LATEST = QString();
+    W3PATH_126 = QString();
 }

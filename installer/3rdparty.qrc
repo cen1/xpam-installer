@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/quazip1-qt6.dll</file>
+        <file>data/StormLib.dll</file>
+        <file>data/torrent-rasterbar.dll</file>
+        <file>data/zlib1.dll</file>
+        <file>data/vc_redist.x64.exe</file>
+        <file>data/vcredist_x86.exe</file>
+        <file>data/zlib.dll</file>
+    </qresource>
+</RCC>

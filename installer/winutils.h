@@ -52,13 +52,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace Winutils
 {
-    inline bool IsWinXP32() {
-        DWORD version = GetVersion();
-        DWORD major = (DWORD) (LOBYTE(LOWORD(version)));
-        DWORD minor = (DWORD) (HIBYTE(LOWORD(version)));
-        return ((major == 5) && (minor == 1));
-    }
-
     inline BOOL IsWow64()
     {
         typedef BOOL (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
@@ -86,21 +79,11 @@ namespace Winutils
     inline QString getProgramFiles()
     {
         TCHAR szPath[MAX_PATH];
-        if (Winutils::IsWinXP32()) {
-            if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_DEFAULT, szPath))) {
-                return QString::fromWCharArray(szPath);
-            }
-            else {
-                return "";
-            }
+        if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_DEFAULT, szPath))) {
+            return QString::fromWCharArray(szPath);
         }
         else {
-            if(SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILESX86, NULL, SHGFP_TYPE_DEFAULT, szPath))) {
-                return QString::fromWCharArray(szPath);
-            }
-            else {
-                return "";
-            }
+            return "";
         }
     }
 

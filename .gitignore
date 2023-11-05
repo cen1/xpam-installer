@@ -8,3 +8,5 @@ Makefile.Debug
 Makefile.Release
 build-installer-5_15_2_static_32-Release/
 build-installer-5_15_2_static_32-Debug/
+build-installer-qt6_static-Debug/
+build-installer-qt6_static-Release/

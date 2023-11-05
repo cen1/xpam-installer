@@ -25,7 +25,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "mpq.h"
 #include "StormLib.h"
-#include "util.h"
 #include "QDebug"
 #include <atlconv.h>
 
@@ -42,6 +41,7 @@ bool Mpq::flush(){
     return SFileFlushArchive(this->hMpq);
 }
 
+// calls flush internally
 bool Mpq::close() {
     return SFileCloseArchive(this->hMpq);
 }

@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/uninstaller.exe</file>
+        <file>data/update.bat</file>
+        <file>data/xdelta3.exe</file>
+        <file>data/xpam.cfg</file>
+        <file>data/xpam.exe</file>
+        <file>data/xpam.ini</file>
+    </qresource>
+</RCC>

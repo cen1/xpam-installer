@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/botan.dll</file>
+        <file>data/gproxy.exe</file>
+        <file>data/gproxy.ini</file>
+        <file>data/gproxy.log</file>
+        <file>data/plink.exe</file>
+        <file>data/proxychains.conf</file>
+        <file>data/proxychains_hook_x86.dll</file>
+        <file>data/proxychains_win32_x86.exe</file>
+        <file>data/sounds/announcement.wav</file>
+        <file>data/sounds/autojoin.wav</file>
+        <file>data/sounds/challenge-completed.wav</file>
+        <file>data/sounds/challenge-started.wav</file>
+        <file>data/sounds/friend-join-game.wav</file>
+        <file>data/sounds/hosted.wav</file>
+        <file>data/sounds/kicked.wav</file>
+        <file>data/sounds/lobbyfull.wav</file>
+        <file>data/sounds/moderate.wav</file>
+        <file>data/sounds/slap.wav</file>
+        <file>data/sounds/started.wav</file>
+        <file>data/sounds/unmoderate.wav</file>
+        <file>data/sounds/whisper.wav</file>
+        <file>data/xpam_pub.pem</file>
+    </qresource>
+</RCC>

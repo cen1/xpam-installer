@@ -29,7 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #include "QFile"
 #include "mpq.h"
-#include "QRegExp"
 #include "iostream"
 #include "fstream"
 #include <QThread>
@@ -262,6 +261,12 @@ bool Install::extractFiles()
 
                     QFile c(":\\data\\"+l[1]);
                     emit sendInfo("Copying :\\data\\"+l[1]+" to "+config->EUROPATH+"\\"+l[1]);
+
+                    QFileInfo targetInfo(config->EUROPATH+"\\"+l[1]);
+                    if (!QDir(targetInfo.absolutePath()).exists()) {
+                        QDir().mkdir(targetInfo.absolutePath());
+                    }
+
                     if (!c.copy(config->EUROPATH+"\\"+l[1])) {
                         emit sendInfo("Could not copy file. "+c.errorString());
                         isAbort=true;
@@ -548,7 +553,14 @@ bool Install::updateMPQ(QString w3path)
             }
             else if(l[0]=="c") {
                 emit sendInfo("Closing mpq");
-                mpq.close();
+                if (mpq.close()) {
+                    emit sendInfo("Mpq flushed and closed successfully");
+                }
+                else {
+                    emit sendInfo(Util::getLastErrorMsg());
+                    isAbort=true;
+                    return false;
+                }
             }
             else if(l[0]=="exit") {
                 emit sendInfo("End of eurobattle.txt instruction file");
@@ -616,6 +628,9 @@ bool Install::updateGateways()
         }
         else if (!config->W3PATH_126.isNull()) {
             bl = p.setInstallPath(config->W3PATH_126);
+        }
+        else {
+            bl = true;
         }
 
         if(bl) {
@@ -723,12 +738,12 @@ bool Install::rupdateMPQ() {
         QDir d(config->APPDATA+"\\MPQ_LATEST");
         d.removeRecursively();
     }
-    if (config->W3PATH_126!=NULL) {
+    if (!config->W3PATH_126.isNull()) {
         QFile f(config->W3PATH_126+"\\War3Patch.mpq");
         if (f.exists()) f.remove();
         f.close();
 
-        QFile p(config->APPDATA+"\\MPQ\\War3Patch.mpq");
+        QFile p(config->APPDATA+"\\MPQ_126\\War3Patch.mpq");
 
         if (!p.copy(config->W3PATH_126+"\\War3Patch.mpq")) {
             emit sendInfo("Could not revert the file: "+p.errorString());
@@ -1086,8 +1101,6 @@ bool Install::bextractFiles() {
     emit sendInfo("Backing up files before extraction");
 
     QDir().mkpath(config->APPDATA+"\\EUROPATH");
-    QDir().mkpath(config->APPDATA+"\\EUROPATH\\sounds");
-    QDir().mkpath(config->APPDATA+"\\EUROPATH\\platforms");
     QDir().mkpath(config->APPDATA+"\\W3PATH_LATEST");
     QDir().mkpath(config->APPDATA+"\\W3PATH_126");
 
@@ -1104,6 +1117,12 @@ bool Install::bextractFiles() {
                     QFile p(config->EUROPATH+"\\"+l[1]);
                     if (p.exists()) {
                         emit sendInfo("Backing up "+config->EUROPATH+"\\"+l[1]);
+
+                        QFileInfo targetInfo(config->APPDATA+"\\EUROPATH\\"+l[1]);
+                        if (!QDir(targetInfo.absolutePath()).exists()) {
+                            QDir().mkdir(targetInfo.absolutePath());
+                        }
+
                         QFile b(config->APPDATA+"\\EUROPATH\\"+l[1]);
                         if (b.exists()) b.remove();
                         b.close();

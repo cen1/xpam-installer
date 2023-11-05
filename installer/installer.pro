@@ -11,17 +11,16 @@ TEMPLATE = app
 
 RC_FILE = installer.rc
 
-QMAKE_LFLAGS_WINDOWS = /SUBSYSTEM:WINDOWS,5.01
+#QMAKE_LFLAGS_WINDOWS = /SUBSYSTEM:WINDOWS,5.01
 #DEFINES += _ATL_XP_TARGETING
 
 SOURCES += main.cpp\
-        window0.cpp \
+    window0.cpp \
     registry.cpp \
     install.cpp \
     mpq.cpp \
     config.cpp \
     bnftp.cpp
-
 
 HEADERS  += window0.h \
     registry.h \
@@ -36,9 +35,12 @@ HEADERS  += window0.h \
 FORMS += window0.ui
 
 RESOURCES += \
+    3rdparty.qrc \
+    client.qrc \
+    gproxy.qrc \
     installer.qrc \
-    installer2.qrc \
-    installer3.qrc
+    qt.qrc \
+    w3l.qrc
 
 CONFIG += static
 CONFIG += resources_big
@@ -48,13 +50,22 @@ DEFINES += _UNICODE
 DEFINES += UNICODE
 
 LIBS += version.lib
-LIBS += msvcrt.lib
+Debug:LIBS += msvcrtd.lib
+Release:LIBS += msvcrt.lib
 
 ## STORMLIB
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/stormlib/ -lstorm
+DEFINES += STORMLIB_NO_AUTO_LINK
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/stormlib -lStormLib
+win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/stormlib -lStormLibd
 
 INCLUDEPATH += $$PWD/stormlib
 DEPENDPATH += $$PWD/stormlib
+
+## ZLIB
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/zlib -lzlibstatic
+win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/zlib -lzlibstaticd
+
+DEPENDPATH += $$PWD/zlib
 
 # Fix for UI changes not taking effect
 UI_DIR = $$PWD
@@ -67,4 +78,3 @@ win32 {
 
 Release:QMAKE_CXXFLAGS += /MT
 Debug:QMAKE_CXXFLAGS += /MTd
-Release: QMAKE_LIBFLAGS += /NODEFAULTLIB:LIBCMT
