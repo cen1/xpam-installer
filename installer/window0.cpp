@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "install.h"
 #include "config.h"
 
-#define EURO_VERSION 38
+#define EURO_VERSION 0
 
 QThread *ithread = new QThread();
 Install *install = new Install();
